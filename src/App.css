@@ -317,10 +317,10 @@
 /* Floating company logo — 50% above card, 50% inside; shifted left of center */
 .hero__brand-logo {
   position: absolute;
-  top: 85px;
-  left: calc(47% - 52px);
+  top: 100px;
+  left: calc(50% - 52px);
   transform: translateX(-50%);
-  width: 140px;
+  width: 90px;
   height: auto;
   object-fit: contain;
   border-radius: 18px;
