@@ -75,7 +75,7 @@ function App() {
 
               {/* Floating Company Logo – straddles top border of card */}
               <img
-                src="/IIESlogo.png"
+                src="/IIES.png"
                 alt="Innovative Interior & Exterior Solutions"
                 className="hero__brand-logo"
               />
