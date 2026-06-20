@@ -1,7 +1,16 @@
+// =================================================
+// VITE CONFIGURATION
+// =================================================
+// Purpose: Configure Vite with React and Tailwind CSS plugins
+// =================================================
+
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
 
-// https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    tailwindcss(),
+  ],
 })
