@@ -94,24 +94,26 @@ export default function FeaturedServices() {
           if (isPinnedSlide) {
             // ── PINNED SLIDE TRANSITION ──
             // Incoming image slides up from bottom, outgoing stays pinned
-            tl.set(imagesRef.current[i], { opacity: 1, y: '100%' }, label)
-            tl.to(imagesRef.current[i], { y: '0%', duration: 1, ease: 'power3.inOut' }, label)
+            tl.set(imagesRef.current[i], { opacity: 1, y: '100vh', x: scene.type === 'full' ? '0vw' : (scene.side === 'right' ? '20vw' : '-20vw') }, label)
+            tl.to(imagesRef.current[i], { y: '0vh', duration: 1, ease: 'power3.inOut' }, label)
             
             // Fade out previous text to avoid overlap
             if (prevScene.type === 'full') {
-              tl.to(fullTextsRef.current[i - 1], { opacity: 0, duration: 0.4 }, label)
+              tl.to(fullTextsRef.current[i - 1], { opacity: 0, y: '-100vh', duration: 1, ease: 'power3.inOut' }, label)
             } else if (prevScene.side === 'right') {
-              tl.to(splitLeftTextsRef.current[i - 1], { opacity: 0, duration: 0.4 }, label)
+              tl.to(splitLeftTextsRef.current[i - 1], { opacity: 0, y: '-100vh', duration: 1, ease: 'power3.inOut' }, label)
             } else {
-              tl.to(splitRightTextsRef.current[i - 1], { opacity: 0, duration: 0.4 }, label)
+              tl.to(splitRightTextsRef.current[i - 1], { opacity: 0, y: '-100vh', duration: 1, ease: 'power3.inOut' }, label)
             }
 
             // Slide incoming text up from bottom while container transitions
             if (scene.side === 'right') {
-              tl.to(imageContainerRef.current, { width: '60vw', left: '40vw', height: '100vh', top: '0', duration: 1, ease: 'power3.inOut' }, label)
+              tl.to(imageContainerRef.current, { clipPath: 'inset(0% 0% 0% 40%)', duration: 1, ease: 'power3.inOut' }, label)
+                tl.to(imagesRef.current[i], { x: '20vw', y: '0vh', duration: 1, ease: 'power3.inOut' }, label)
               tl.fromTo(splitLeftTextsRef.current[i], { opacity: 1, y: '100vh' }, { opacity: 1, y: 0, duration: 1, ease: 'power3.inOut' }, label)
             } else {
-              tl.to(imageContainerRef.current, { width: '60vw', left: '0vw', height: '100vh', top: '0', duration: 1, ease: 'power3.inOut' }, label)
+              tl.to(imageContainerRef.current, { clipPath: 'inset(0% 40% 0% 0%)', duration: 1, ease: 'power3.inOut' }, label)
+                tl.to(imagesRef.current[i], { x: '-20vw', y: '0vh', duration: 1, ease: 'power3.inOut' }, label)
               tl.fromTo(splitRightTextsRef.current[i], { opacity: 1, y: '100vh' }, { opacity: 1, y: 0, duration: 1, ease: 'power3.inOut' }, label)
             }
           } else {
@@ -136,15 +138,18 @@ export default function FeaturedServices() {
             const showLabel = `${label}+=0.4`
             if (scene.type === 'full') {
               tl.fromTo(fullTextsRef.current[i], { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6 }, showLabel)
-              tl.to(imageContainerRef.current, { width: '100vw', left: '0vw', height: '100vh', top: '0', duration: 1, ease: 'power3.inOut' }, label)
+              tl.to(imageContainerRef.current, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1, ease: 'power3.inOut' }, label)
+              tl.to(imagesRef.current[i], { x: '0vw', y: '0vh', duration: 1, ease: 'power3.inOut' }, label)
               tl.to(imagesRef.current[i], { scale: 1.05, duration: 1, ease: 'power3.inOut' }, label)
             } else {
               if (scene.side === 'right') {
                 tl.fromTo(splitLeftTextsRef.current[i], { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6 }, showLabel)
-                tl.to(imageContainerRef.current, { width: '60vw', left: '40vw', height: '100vh', top: '0', duration: 1, ease: 'power3.inOut' }, label)
+                tl.to(imageContainerRef.current, { clipPath: 'inset(0% 0% 0% 40%)', duration: 1, ease: 'power3.inOut' }, label)
+                tl.to(imagesRef.current[i], { x: '20vw', y: '0vh', duration: 1, ease: 'power3.inOut' }, label)
               } else {
                 tl.fromTo(splitRightTextsRef.current[i], { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6 }, showLabel)
-                tl.to(imageContainerRef.current, { width: '60vw', left: '0vw', height: '100vh', top: '0', duration: 1, ease: 'power3.inOut' }, label)
+                tl.to(imageContainerRef.current, { clipPath: 'inset(0% 40% 0% 0%)', duration: 1, ease: 'power3.inOut' }, label)
+                tl.to(imagesRef.current[i], { x: '-20vw', y: '0vh', duration: 1, ease: 'power3.inOut' }, label)
               }
               tl.to(imagesRef.current[i], { scale: 1, duration: 1, ease: 'power3.inOut' }, label)
             }
@@ -161,11 +166,11 @@ export default function FeaturedServices() {
         // Hide the last active content dynamically based on scene type/side
         const lastScene = scenes[scenes.length - 1]
         if (lastScene.type === 'full') {
-          tl.to(fullTextsRef.current[scenes.length - 1], { opacity: 0, duration: 0.4 }, cardsLabel)
+          tl.to(fullTextsRef.current[scenes.length - 1], { opacity: 0, y: '-100vh', duration: 1, ease: 'power3.inOut' }, cardsLabel)
         } else if (lastScene.side === 'right') {
-          tl.to(splitLeftTextsRef.current[scenes.length - 1], { opacity: 0, duration: 0.4 }, cardsLabel)
+          tl.to(splitLeftTextsRef.current[scenes.length - 1], { opacity: 0, y: '-100vh', duration: 1, ease: 'power3.inOut' }, cardsLabel)
         } else {
-          tl.to(splitRightTextsRef.current[scenes.length - 1], { opacity: 0, duration: 0.4 }, cardsLabel)
+          tl.to(splitRightTextsRef.current[scenes.length - 1], { opacity: 0, y: '-100vh', duration: 1, ease: 'power3.inOut' }, cardsLabel)
         }
         
         // ── PINNED SLIDE TRANSITION (Cards slide up from bottom) ──
@@ -206,22 +211,24 @@ export default function FeaturedServices() {
             transitionKey === 'false-ceiling->flooring'
 
           if (isPinnedSlide) {
-            tl.set(imagesRef.current[i], { opacity: 1, y: '100%' }, label)
-            tl.to(imagesRef.current[i], { y: '0%', duration: 1, ease: 'power3.inOut' }, label)
+            tl.set(imagesRef.current[i], { opacity: 1, y: '100vh', x: '0vw' }, label)
+            tl.to(imagesRef.current[i], { y: scene.type === 'full' ? '0vh' : '-27.5vh', duration: 1, ease: 'power3.inOut' }, label)
             
             if (prevScene.type === 'full') {
-              tl.to(fullTextsRef.current[i - 1], { opacity: 0, duration: 0.4 }, label)
+              tl.to(fullTextsRef.current[i - 1], { opacity: 0, y: '-100vh', duration: 1, ease: 'power3.inOut' }, label)
             } else if (prevScene.side === 'right') {
-              tl.to(splitLeftTextsRef.current[i - 1], { opacity: 0, duration: 0.4 }, label)
+              tl.to(splitLeftTextsRef.current[i - 1], { opacity: 0, y: '-100vh', duration: 1, ease: 'power3.inOut' }, label)
             } else {
-              tl.to(splitRightTextsRef.current[i - 1], { opacity: 0, duration: 0.4 }, label)
+              tl.to(splitRightTextsRef.current[i - 1], { opacity: 0, y: '-100vh', duration: 1, ease: 'power3.inOut' }, label)
             }
             
             if (scene.type === 'full') {
-              tl.to(imageContainerRef.current, { width: '100vw', left: '0vw', height: '100vh', top: '0', duration: 1, ease: 'power3.inOut' }, label)
+              tl.to(imageContainerRef.current, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1, ease: 'power3.inOut' }, label)
+              tl.to(imagesRef.current[i], { x: '0vw', y: '0vh', duration: 1, ease: 'power3.inOut' }, label)
               tl.fromTo(fullTextsRef.current[i], { opacity: 1, y: '100vh' }, { opacity: 1, y: 0, duration: 1, ease: 'power3.inOut' }, label)
             } else {
-              tl.to(imageContainerRef.current, { width: '100vw', left: '0vw', height: '45vh', top: '0', duration: 1, ease: 'power3.inOut' }, label)
+              tl.to(imageContainerRef.current, { clipPath: 'inset(0% 0% 55vh 0%)', duration: 1, ease: 'power3.inOut' }, label)
+              tl.to(imagesRef.current[i], { x: '0vw', y: '-27.5vh', duration: 1, ease: 'power3.inOut' }, label)
               if (scene.side === 'right') {
                 tl.fromTo(splitLeftTextsRef.current[i], { opacity: 1, y: '100vh' }, { opacity: 1, y: 0, duration: 1, ease: 'power3.inOut' }, label)
               } else {
@@ -247,7 +254,8 @@ export default function FeaturedServices() {
             const showLabel = `${label}+=0.4`
             if (scene.type === 'full') {
               tl.fromTo(fullTextsRef.current[i], { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6 }, showLabel)
-              tl.to(imageContainerRef.current, { width: '100vw', left: '0vw', height: '100vh', top: '0', duration: 1, ease: 'power3.inOut' }, label)
+              tl.to(imageContainerRef.current, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1, ease: 'power3.inOut' }, label)
+              tl.to(imagesRef.current[i], { x: '0vw', y: '0vh', duration: 1, ease: 'power3.inOut' }, label)
               tl.to(imagesRef.current[i], { scale: 1.05, duration: 1, ease: 'power3.inOut' }, label)
             } else {
               if (scene.side === 'right') {
@@ -255,7 +263,8 @@ export default function FeaturedServices() {
               } else {
                 tl.fromTo(splitRightTextsRef.current[i], { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6 }, showLabel)
               }
-              tl.to(imageContainerRef.current, { width: '100vw', left: '0vw', height: '45vh', top: '0', duration: 1, ease: 'power3.inOut' }, label)
+              tl.to(imageContainerRef.current, { clipPath: 'inset(0% 0% 55vh 0%)', duration: 1, ease: 'power3.inOut' }, label)
+              tl.to(imagesRef.current[i], { x: '0vw', y: '-27.5vh', duration: 1, ease: 'power3.inOut' }, label)
               tl.to(imagesRef.current[i], { scale: 1, duration: 1, ease: 'power3.inOut' }, label)
             }
           }
@@ -269,11 +278,11 @@ export default function FeaturedServices() {
         
         const lastScene = scenes[scenes.length - 1]
         if (lastScene.type === 'full') {
-          tl.to(fullTextsRef.current[scenes.length - 1], { opacity: 0, duration: 0.4 }, cardsLabel)
+          tl.to(fullTextsRef.current[scenes.length - 1], { opacity: 0, y: '-100vh', duration: 1, ease: 'power3.inOut' }, cardsLabel)
         } else if (lastScene.side === 'right') {
-          tl.to(splitLeftTextsRef.current[scenes.length - 1], { opacity: 0, duration: 0.4 }, cardsLabel)
+          tl.to(splitLeftTextsRef.current[scenes.length - 1], { opacity: 0, y: '-100vh', duration: 1, ease: 'power3.inOut' }, cardsLabel)
         } else {
-          tl.to(splitRightTextsRef.current[scenes.length - 1], { opacity: 0, duration: 0.4 }, cardsLabel)
+          tl.to(splitRightTextsRef.current[scenes.length - 1], { opacity: 0, y: '-100vh', duration: 1, ease: 'power3.inOut' }, cardsLabel)
         }
         
         tl.fromTo(cardsContainerRef.current, { opacity: 1, y: '100vh' }, { opacity: 1, y: 0, duration: 1, ease: 'power3.inOut' }, cardsLabel)
@@ -296,7 +305,7 @@ export default function FeaturedServices() {
       {/* ── IMAGE CONTAINER (First 5 Scenes) ── */}
       <div 
         ref={imageContainerRef} 
-        className="absolute top-0 left-0 w-full h-screen will-change-transform z-10 shadow-[0_0_40px_rgba(0,0,0,0.15)] overflow-hidden bg-black"
+        className="absolute top-0 left-0 w-full h-screen will-change-[clip-path] z-10 shadow-[0_0_40px_rgba(0,0,0,0.15)] overflow-hidden bg-black" style={{ clipPath: 'inset(0% 0% 0% 0%)' }}
       >
         {scenes.map((scene, i) => {
           // Use lighting design image for false ceiling scene to prevent jump cuts during shrink
