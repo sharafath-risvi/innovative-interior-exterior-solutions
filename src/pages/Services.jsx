@@ -40,9 +40,7 @@ import upvcImg        from '../assets/images/upvc-windows.png'
 import falseCeilingImg from '../assets/images/false-ceiling.png'
 import exteriorAcpImg from '../assets/images/exterior-acp.png'
 
-// Import images for hero section
-import blueprintImg from '../assets/images/about/blueprint_hero.png'
-import completedImg from '../assets/images/about/completed_hero.png'
+// (Image imports removed as background is now video)
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -56,38 +54,61 @@ const MATERIALS = [
   { name: 'Gypsum Ceilings',      desc: 'Board, POP & ornamental plaster',    icon: '✨', image: falseCeilingImg },
 ]
 
+
 // ──────────────────────────────
 // 1. SERVICES HERO
 // ──────────────────────────────
 function ServicesHero() {
   const containerRef = useRef(null)
-  const blueprintRef = useRef(null)
-  const completedRef = useRef(null)
+  const videoContainerRef = useRef(null)
+  const videoRef = useRef(null)
   const textRef = useRef(null)
+  const scrollIndicatorRef = useRef(null)
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Pin the hero section and crossfade the images on scroll
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: 'top top',
-          end: '+=150%', // Scroll for 1.5x height
-          scrub: 1,
-          pin: true,
-          anticipatePin: 1,
-        }
-      })
+    let ctx;
+    const video = videoRef.current;
 
-      // Crossfade blueprint out, completed in
-      tl.to(blueprintRef.current, { opacity: 0, scale: 1.05, ease: 'none', duration: 1 }, 0)
-        .to(completedRef.current, { opacity: 1, scale: 1, ease: 'none', duration: 1 }, 0)
-        // Parallax the text down slightly as we scroll
-        .to(textRef.current, { y: 150, opacity: 0, ease: 'none', duration: 1 }, 0)
+    const initAnimation = () => {
+      if (!video || isNaN(video.duration)) return;
 
-    }, containerRef)
+      ctx = gsap.context(() => {
+        // Pin the hero section on scroll
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: 'top top',
+            end: '+=200%', // Extended scroll for smooth video scrubbing
+            scrub: 1,
+            pin: true,
+            anticipatePin: 1,
+          }
+        })
 
-    return () => ctx.revert()
+        // Fade out text and scroll indicator elegantly early in the scroll (first ~15%)
+        tl.to([textRef.current, scrollIndicatorRef.current], { y: -20, opacity: 0, ease: 'power2.out', duration: 0.15 }, 0)
+        
+        // Slight scale effect on video container to keep cinematic feel
+        tl.to(videoContainerRef.current, { scale: 1.05, ease: 'none', duration: 1 }, 0)
+
+        // Scrub video playback mapping scroll to currentTime
+        tl.to(video, { currentTime: video.duration, ease: 'none', duration: 1 }, 0)
+
+      }, containerRef)
+    }
+
+    if (video) {
+      if (video.readyState >= 1) {
+        initAnimation()
+      } else {
+        video.addEventListener('loadedmetadata', initAnimation)
+      }
+    }
+
+    return () => {
+      if (ctx) ctx.revert()
+      if (video) video.removeEventListener('loadedmetadata', initAnimation)
+    }
   }, [])
 
   // Split text animation for initial load
@@ -98,30 +119,21 @@ function ServicesHero() {
       ref={containerRef} 
       className="relative w-full h-screen overflow-hidden bg-black"
     >
-      {/* Background Images */}
+      {/* Background Video */}
       <div 
-        ref={completedRef}
-        className="absolute inset-0 opacity-0 scale-110"
-        style={{
-          backgroundImage: `url(${completedImg})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
-        }}
-      />
-      <div 
-        ref={blueprintRef}
-        className="absolute inset-0 z-10"
-        style={{
-          backgroundImage: `url(${blueprintImg})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
-        }}
-      />
+        ref={videoContainerRef}
+        className="absolute inset-0 z-0"
+      >
+        <video 
+          ref={videoRef}
+          src="/videos/unfurniture to furniture.mp4"
+          muted
+          playsInline
+          className="w-full h-full object-cover"
+        />
+      </div>
 
-      {/* Dark Gradient Overlay for readability */}
-      <div className="absolute inset-0 z-20 bg-gradient-to-b from-black/80 via-black/40 to-transparent" />
+      {/* The dark gradient overlay was removed to allow the video to display at original brightness */}
 
       {/* Content */}
       <div 
@@ -139,7 +151,10 @@ function ServicesHero() {
           </span>
         </motion.div>
 
-        <h1 className="font-display font-bold text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight mb-6 overflow-hidden flex flex-wrap justify-center gap-x-3 md:gap-x-4 px-2 max-w-[90vw] mx-auto">
+        <h1 
+          className="font-display font-bold text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight mb-6 overflow-hidden flex flex-wrap justify-center gap-x-3 md:gap-x-4 px-2 max-w-[90vw] mx-auto"
+          style={{ textShadow: '0 4px 16px rgba(0,0,0,0.6)' }}
+        >
           {headingText.split(' ').map((word, wordIndex) => (
             <span key={wordIndex} className="inline-flex overflow-hidden">
               {word.split('').map((char, charIndex) => (
@@ -165,7 +180,7 @@ function ServicesHero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1.5 }}
-          className="text-gray-100 text-lg md:text-xl font-serif italic max-w-2xl mx-auto drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] bg-black/10 backdrop-blur-[1px] px-6 py-2 rounded-lg border border-white/5"
+          className="text-white text-lg md:text-xl font-serif italic font-medium max-w-2xl mx-auto drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)] px-6 py-2"
         >
           Complete interior and exterior solutions with premium craftsmanship. End-to-end project delivery for residential and commercial spaces. <br className="hidden md:block"/>
           Scroll to explore our services.
@@ -174,10 +189,11 @@ function ServicesHero() {
 
       {/* Scroll indicator */}
       <motion.div 
+        ref={scrollIndicatorRef}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2, duration: 1 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-2"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-2 will-change-transform"
       >
         <span className="text-white/60 text-xs tracking-[0.2em] uppercase font-medium">Scroll</span>
         <div className="w-px h-12 bg-white/20 overflow-hidden">

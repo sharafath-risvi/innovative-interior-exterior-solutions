@@ -24,12 +24,18 @@
 //   - WhatsApp: CONTACT_INFO.whatsapp for the number
 // =================================================
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import SectionHeading from '../components/ui/SectionHeading'
 import { CONTACT_INFO } from '../lib/constants'
-import heroBg from '../assets/images/hero-bg.png'
+
+gsap.registerPlugin(ScrollTrigger)
+
+import blueprintImg from '../assets/images/about/blueprint_hero.png'
+import completedImg from '../assets/images/about/completed_hero.png'
 
 // ── Animation variants ──
 const containerVariants = {
@@ -46,162 +52,155 @@ const itemVariants = {
 // 1. CONTACT HERO
 // ──────────────────────────────
 function ContactHero() {
-  const { scrollY } = useScroll()
-  // ── Parallax: background moves at 35% of scroll speed ──
-  const bgY = useTransform(scrollY, [0, 600], [0, 200])
-  const overlayOpacity = useTransform(scrollY, [0, 400], [0.55, 0.85])
+  const containerRef = useRef(null)
+  const blueprintRef = useRef(null)
+  const completedRef = useRef(null)
+  const textRef = useRef(null)
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Pin the hero section and crossfade the images on scroll
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top top',
+          end: '+=150%', // Scroll for 1.5x height
+          scrub: 1,
+          pin: true,
+          anticipatePin: 1,
+        }
+      })
+
+      // Crossfade blueprint out, completed in
+      tl.to(blueprintRef.current, { opacity: 0, scale: 1.05, ease: 'none', duration: 1 }, 0)
+        .to(completedRef.current, { opacity: 1, scale: 1, ease: 'none', duration: 1 }, 0)
+        // Parallax the text down slightly as we scroll
+        .to(textRef.current, { y: 150, opacity: 0, ease: 'none', duration: 1 }, 0)
+
+    }, containerRef)
+
+    return () => ctx.revert()
+  }, [])
+
+  // Split text animation for initial load
+  const headingText = "LET'S CREATE SOMETHING EXCEPTIONAL TOGETHER"
 
   return (
-    <section
-      id="contact-hero"
-      className="relative w-full overflow-hidden flex items-center justify-center"
-      style={{ minHeight: '100svh' }}
-      aria-label="Contact page hero"
+    <section 
+      ref={containerRef} 
+      className="relative w-full h-screen overflow-hidden bg-black"
     >
-      {/* ── Parallax Background ── */}
-      <motion.div
-        className="absolute inset-0 w-full h-full"
-        style={{ y: bgY }}
-      >
-        <img
-          src={heroBg}
-          alt="Luxury interior design by IIES"
-          className="w-full h-full object-cover scale-110"
-          loading="eager"
-          fetchPriority="high"
-        />
-      </motion.div>
-
-      {/* ── Gradient Overlay ── */}
-      <motion.div
-        className="absolute inset-0 pointer-events-none"
+      {/* Background Images */}
+      <div 
+        ref={completedRef}
+        className="absolute inset-0 opacity-0 scale-110"
         style={{
-          background: 'linear-gradient(135deg, rgba(26,26,26,0.75) 0%, rgba(79,79,79,0.50) 50%, rgba(247,135,1,0.15) 100%)',
-          opacity: overlayOpacity,
+          backgroundImage: `url(${completedImg})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      />
+      <div 
+        ref={blueprintRef}
+        className="absolute inset-0 z-10"
+        style={{
+          backgroundImage: `url(${blueprintImg})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
         }}
       />
 
-      {/* ── Orange bottom vignette ── */}
-      <div
-        className="absolute bottom-0 left-0 right-0 h-40 pointer-events-none"
-        style={{
-          background: 'linear-gradient(to top, rgba(247,135,1,0.08) 0%, transparent 100%)',
-        }}
-      />
+      {/* Dark Gradient Overlay for readability */}
+      <div className="absolute inset-0 z-20 bg-gradient-to-b from-black/80 via-black/40 to-transparent" />
 
-      {/* ── Hero Content ── */}
-      <div
-        className="relative z-10 w-full px-6 md:px-12 flex flex-col items-center justify-center text-center"
-        style={{ maxWidth: 'var(--container-max)', margin: '0 auto', paddingTop: 'var(--nav-height)' }}
+      {/* Content */}
+      <div 
+        ref={textRef}
+        className="absolute inset-0 z-30 flex flex-col items-center justify-center text-center px-6"
       >
         <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="flex flex-col items-center gap-6 max-w-5xl mx-auto -mt-10 md:-mt-16"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-4"
         >
-          {/* ── Badge ── */}
-          <motion.div variants={itemVariants}>
-            <span
-              className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-xs font-semibold tracking-[0.2em] uppercase"
-              style={{
-                background: 'rgba(247,135,1,0.15)',
-                border: '1px solid rgba(247,135,1,0.4)',
-                color: '#FFA040',
-                backdropFilter: 'blur(10px)',
-              }}
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-orange-400 animate-pulse" />
-              Let's Connect
-            </span>
-          </motion.div>
-
-          {/* ── Main Headline ── */}
-          <motion.h1
-            variants={itemVariants}
-            className="font-display font-bold text-white leading-[1.1] tracking-tight"
-            style={{ fontSize: 'clamp(2.8rem, 7vw, 6rem)' }}
-          >
-            Start Your Design{' '}
-            <br className="hidden sm:block" />
-            Journey{' '}
-            <em
-              className="not-italic"
-              style={{
-                background: 'linear-gradient(135deg, #F78701 0%, #FC6B00 50%, #FFA040 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}
-            >
-              With Us.
-            </em>
-          </motion.h1>
-
-          {/* ── Sub-headline ── */}
-          <motion.p
-            variants={itemVariants}
-            className="text-white/75 max-w-2xl leading-relaxed"
-            style={{ fontSize: 'clamp(1rem, 2vw, 1.25rem)', fontFamily: 'var(--font-serif)' }}
-          >
-            Whether you're planning a residential transformation, a commercial project, or simply have a question, our team is here to guide you every step of the way.
-          </motion.p>
-
-          {/* ── CTA Buttons ── */}
-          <motion.div
-            variants={itemVariants}
-            className="flex flex-col sm:flex-row items-center gap-4 mt-2 mb-10"
-          >
-            <motion.div whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}>
-              <a
-                href="#contact-form"
-                className="btn-glow inline-flex items-center gap-3 px-8 py-4 rounded-full text-white font-semibold text-sm tracking-wide transition-all duration-300"
-                style={{
-                  background: 'linear-gradient(135deg, var(--color-orange) 0%, var(--color-orange-sec) 100%)',
-                  boxShadow: '0 8px 32px rgba(247,135,1,0.45), 0 2px 8px rgba(247,135,1,0.2)',
-                }}
-              >
-                Get in Touch
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
-              </a>
-            </motion.div>
-
-            <motion.div whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}>
-              <a
-                href={`tel:${CONTACT_INFO.phone1}`}
-                className="inline-flex items-center gap-3 px-8 py-4 rounded-full text-white font-semibold text-sm tracking-wide transition-all duration-300"
-                style={{
-                  background: 'rgba(255,255,255,0.1)',
-                  border: '1px solid rgba(255,255,255,0.3)',
-                  backdropFilter: 'blur(10px)',
-                }}
-              >
-                📞 Call Now
-              </a>
-            </motion.div>
-          </motion.div>
+          <span className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-orange-400 border border-orange-500/30 bg-orange-500/10 backdrop-blur-md">
+            Start Your Project
+          </span>
         </motion.div>
 
-        {/* ── Scroll Indicator ── */}
-        <motion.div
+        <h1 className="font-display font-bold text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight mb-6 overflow-hidden flex flex-wrap justify-center gap-x-3 md:gap-x-4 px-2 max-w-[90vw] mx-auto">
+          {headingText.split(' ').map((word, wordIndex) => (
+            <span key={wordIndex} className="inline-flex overflow-hidden">
+              {word.split('').map((char, charIndex) => (
+                <motion.span
+                  key={charIndex}
+                  initial={{ y: '100%', opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ 
+                    duration: 0.8, 
+                    ease: [0.22, 1, 0.36, 1],
+                    delay: 0.8 + (wordIndex * 0.1) + (charIndex * 0.02)
+                  }}
+                  className="inline-block"
+                >
+                  {char}
+                </motion.span>
+              ))}
+            </span>
+          ))}
+        </h1>
+
+        <motion.p 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 2, duration: 1 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-          aria-hidden="true"
+          transition={{ duration: 1, delay: 1.5 }}
+          className="text-gray-100 text-base md:text-lg font-serif italic max-w-3xl mx-auto drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] bg-black/10 backdrop-blur-[1px] px-6 py-2 rounded-lg border border-white/5 mb-8"
         >
-          <span className="text-white/40 text-xs tracking-[0.3em] uppercase font-medium">Scroll</span>
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ repeat: Infinity, duration: 1.8, ease: 'easeInOut' }}
-            className="w-5 h-8 rounded-full border border-white/30 flex items-start justify-center pt-1.5"
-          >
-            <div className="w-1 h-2 rounded-full bg-white/60" />
-          </motion.div>
+          Whether you're planning a new interior, an exterior transformation, or a complete architectural project, our team is ready to bring your vision to life with creativity, precision, and craftsmanship.
+        </motion.p>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 1.8 }}
+        >
+            <button 
+              onClick={() => {
+                document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="pointer-events-auto inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full text-white font-semibold text-[13px] tracking-wide transition-transform duration-300 hover:scale-105 active:scale-95"
+              style={{
+                background: 'linear-gradient(135deg, var(--color-orange, #f97316), var(--color-orange-sec, #ea580c))',
+                boxShadow: '0 8px 32px rgba(249,115,22,0.4)',
+              }}
+            >
+              Start Your Project
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
         </motion.div>
       </div>
+
+      {/* Scroll indicator */}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2, duration: 1 }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-2"
+      >
+        <span className="text-white/60 text-xs tracking-[0.2em] uppercase font-medium">Scroll</span>
+        <div className="w-px h-12 bg-white/20 overflow-hidden">
+          <motion.div 
+            animate={{ y: ['-100%', '100%'] }}
+            transition={{ repeat: Infinity, duration: 1.5, ease: 'linear' }}
+            className="w-full h-1/2 bg-orange-500"
+          />
+        </div>
+      </motion.div>
     </section>
   )
 }

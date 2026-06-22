@@ -1,207 +1,354 @@
-import { useEffect, useRef, useState } from 'react'
-import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion'
+import { useEffect, useRef } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-// ── Cinematic Story Chapters ──
-const contentChapters = [
-  {
-    id: 1, // Step 1 (5s)
-    title: 'Luxury Interior Design',
-    desc: 'Creating elegant living spaces that blend comfort, craftsmanship, and timeless design.',
-  },
-  {
-    id: 2, // Step 2 (8s)
-    title: 'Innovative Exterior Solutions',
-    desc: 'Modern architecture designed with precision, functionality, and exceptional quality.',
-  },
-  {
-    id: 3, // Step 3 (End)
-    title: 'Crafting Spaces That Inspire',
-    desc: 'Where visionary design meets masterful execution.',
-  }
-]
+gsap.registerPlugin(ScrollTrigger)
+
+const renderAnimatedWord = (word, wordIndex) => (
+  <span key={`w-${wordIndex}`} className="inline-block whitespace-nowrap">
+    {word.split('').map((char, i) => (
+      <span 
+        key={i} 
+        className="hero-title-char inline-block opacity-0 will-change-transform" 
+        style={{ transformOrigin: '50% 100%' }}
+      >
+        {char}
+      </span>
+    ))}
+  </span>
+);
 
 export default function Hero() {
-  const [uiStep, setUiStep] = useState(0)
-
   const containerRef = useRef(null)
-  const videoRef = useRef(null)
+  const canvasRef = useRef(null)
   
-  // Smooth scrubbing state
-  const targetTime = useRef(0)
-  const currentTimeRef = useRef(0)
-  const durationRef = useRef(10) // fallback
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"]
-  })
-
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    if (videoRef.current && videoRef.current.duration) {
-      durationRef.current = videoRef.current.duration
-    }
-    // The container is 500vh but has mb-[-100vh]. This creates a 100vh overlap at the end.
-    // latest goes from 0 to 1 over 400vh of scrolling.
-    // The overlap (the next section rising) happens during the last 25% of scroll (latest > 0.75).
-    // We want the video scrub to finish exactly at 0.75 so the end holds still during overlap.
-    const scrubProgress = Math.min(latest / 0.75, 1.0)
-    targetTime.current = scrubProgress * durationRef.current
-  })
+  // Animation Refs
+  const vignetteRef = useRef(null)
+  const text0Ref = useRef(null)
+  const text1Ref = useRef(null)
+  const text2Ref = useRef(null)
+  const scrollIndicatorRef = useRef(null)
+  const scrollBounceRef = useRef(null)
 
   useEffect(() => {
-    // Ensure video starts at 0s and is paused
-    if (videoRef.current) {
-      videoRef.current.pause()
-      videoRef.current.currentTime = 0
-    }
+    let ctx;
+    let rafId;
 
-    let rafId
-    const updateVideo = () => {
-      if (videoRef.current) {
-        // Lerp current time towards target time
-        // 0.08 is the easing factor for smooth Apple-like scrolling
-        currentTimeRef.current += (targetTime.current - currentTimeRef.current) * 0.08
+    const frameCount = 299;
+    const dur = 10; // Virtual timeline duration in seconds
 
-        // Prevent microscopic updates
-        if (Math.abs(targetTime.current - currentTimeRef.current) > 0.001) {
-          videoRef.current.currentTime = currentTimeRef.current
-        }
+    const initAnimation = (images) => {
+      ctx = gsap.context(() => {
+        // Continuous bounce for scroll indicator dot
+        gsap.to(scrollBounceRef.current, {
+          y: 8,
+          duration: 0.9,
+          yoyo: true,
+          repeat: -1,
+          ease: "sine.inOut"
+        });
 
-        const time = currentTimeRef.current
-        const dur = durationRef.current
+        // ── ON MOUNT CHARACTER ANIMATION ──
+        gsap.fromTo(".hero-title-char",
+          { opacity: 0, rotateX: -90, y: 20 },
+          { 
+            opacity: 1, 
+            rotateX: 0, 
+            y: 0, 
+            duration: 0.9, 
+            stagger: 0.05, 
+            ease: "back.out(1.7)",
+            delay: 0.2
+          }
+        );
 
-        let nextStep = 0
-        if (time < 3.5) {
-          nextStep = 0
-        } else if (time >= 3.5 && time < 6.5) {
-          nextStep = 1
-        } else if (time >= 6.5 && time < dur - 1.5) {
-          nextStep = 2
-        } else if (time >= dur - 1.5) {
-          nextStep = 3
-        }
-
-        setUiStep((prev) => {
-          if (prev !== nextStep) return nextStep
-          return prev
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top top",
+            end: "bottom bottom",
+            scrub: 0.5, // Buttery smooth interpolation lag
+          }
         })
-      }
-      rafId = requestAnimationFrame(updateVideo)
+
+        // ── ZERO-RENDER DOM ANIMATIONS ──
+        // VIGNETTE OVERLAY: Fades out by 1s
+        tl.to(vignetteRef.current, { opacity: 0, duration: 1, ease: "power3.out" }, 0)
+
+        // TEXT 0 (Initial Minimal Intro): Fades out by 1s
+        tl.to(text0Ref.current, { opacity: 0, duration: 1, ease: "power2.inOut" }, 0)
+        tl.to(".line1-exit", { x: -120, opacity: 0, duration: 0.8, ease: "power3.out" }, 0)
+        tl.to(".line2-exit", { x: 120, opacity: 0, duration: 0.8, ease: "power3.out" }, 0)
+        tl.to(".service-list-exit", { opacity: 0, duration: 0.8, ease: "power2.inOut" }, 0)
+
+        // SCROLL SECTION 1 (Left Aligned): Fades in at 2.7s, out at 4.2s
+        tl.fromTo(text1Ref.current, 
+          { opacity: 0, x: -40, filter: 'blur(8px)' }, 
+          { opacity: 1, x: 0, filter: 'blur(0px)', duration: 1, ease: "power2.out" }, 
+          2.7
+        )
+        tl.to(text1Ref.current, { opacity: 0, y: -25, filter: 'blur(0px)', duration: 0.4, ease: "power3.out" }, 4.2)
+
+        // SCROLL SECTION 2 (Right Aligned): Fades in at 7.5s
+        tl.fromTo(text2Ref.current,
+          { opacity: 0, x: 40, filter: 'blur(8px)' },
+          { opacity: 1, x: 0, filter: 'blur(0px)', duration: 1, ease: "power2.out" },
+          7.5
+        )
+
+        // SCROLL INDICATOR: Fades out immediately upon scrolling
+        tl.to(scrollIndicatorRef.current, { opacity: 0, y: 20, duration: 0.4, ease: "power3.out" }, 0)
+
+        // ── OPTIMIZED CANVAS FRAME SCRUBBING ──
+        const proxy = { frame: 0 };
+        tl.to(proxy, {
+          frame: frameCount - 1,
+          snap: "frame", // Lock to precise frame indices
+          ease: "none",
+          duration: dur
+        }, 0);
+
+        // Highly tuned hardware-accelerated rendering loop
+        let currentPaintedFrame = -1;
+        const renderCanvas = () => {
+          const targetFrame = Math.round(proxy.frame);
+          
+          if (canvasRef.current && targetFrame !== currentPaintedFrame) {
+            const context = canvasRef.current.getContext('2d');
+            const img = images[targetFrame];
+            
+            // Only draw if image is fully downloaded and decoded in memory
+            if (img && img.complete && img.naturalHeight !== 0) {
+              const canvas = canvasRef.current;
+              const canvasRatio = canvas.width / canvas.height;
+              const imgRatio = img.width / img.height;
+              
+              let sWidth = img.width;
+              let sHeight = img.height;
+              let sx = 0;
+              let sy = 0;
+
+              // Object-fit: cover equivalent math
+              if (imgRatio > canvasRatio) {
+                sWidth = img.height * canvasRatio;
+                sx = (img.width - sWidth) / 2;
+              } else {
+                sHeight = img.width / canvasRatio;
+                sy = (img.height - sHeight) / 2;
+              }
+              
+              // Clear previous frame to prevent ghosting on transparent edges
+              context.clearRect(0, 0, canvas.width, canvas.height);
+              context.drawImage(img, sx, sy, sWidth, sHeight, 0, 0, canvas.width, canvas.height);
+              
+              currentPaintedFrame = targetFrame;
+            }
+          }
+          rafId = requestAnimationFrame(renderCanvas);
+        };
+        rafId = requestAnimationFrame(renderCanvas);
+
+      }, containerRef)
     }
 
-    rafId = requestAnimationFrame(updateVideo)
-    return () => cancelAnimationFrame(rafId)
+    // ── ASYNC BACKGROUND PRELOADER (Ultra-fast initial load) ──
+    const images = new Array(frameCount).fill(null);
+    
+    // 1. Immediately load ONLY the first frame to guarantee an instant first-paint
+    const firstImg = new Image();
+    firstImg.src = `/frames/frame_0001.jpg`;
+    images[0] = firstImg;
+
+    // 2. Defer loading the remaining 298 frames so we don't block the main thread or network queue
+    setTimeout(() => {
+      let currentFrameIndex = 2;
+      
+      const loadNextChunk = () => {
+        // Load in tiny chunks of 10 to keep the CPU completely free for animations
+        const end = Math.min(currentFrameIndex + 10, frameCount + 1);
+        for (; currentFrameIndex < end; currentFrameIndex++) {
+          const img = new Image();
+          const frameStr = currentFrameIndex.toString().padStart(4, '0');
+          img.src = `/frames/frame_${frameStr}.jpg`;
+          images[currentFrameIndex - 1] = img; // Array is 0-indexed
+        }
+        
+        if (currentFrameIndex <= frameCount) {
+          // Schedule next chunk cleanly in the background
+          if ('requestIdleCallback' in window) {
+            requestIdleCallback(loadNextChunk);
+          } else {
+            setTimeout(loadNextChunk, 10);
+          }
+        }
+      };
+      
+      // Give the browser 100ms to finish rendering the first paint and the UI
+      loadNextChunk();
+    }, 100);
+    
+    // Auto-scale canvas natively for retina displays
+    const resizeCanvas = () => {
+      if (canvasRef.current) {
+        const dpr = window.devicePixelRatio || 1;
+        const parent = canvasRef.current.parentElement;
+        canvasRef.current.width = parent.clientWidth * dpr;
+        canvasRef.current.height = parent.clientHeight * dpr;
+        
+        // Force repaint on resize
+        if (ctx) {
+          ctx.revert();
+          initAnimation(images);
+        }
+      }
+    };
+    
+    window.addEventListener('resize', resizeCanvas);
+    
+    // Give DOM a microtick to establish parent height before sizing canvas
+    setTimeout(() => {
+      if (canvasRef.current && !ctx) {
+        const dpr = window.devicePixelRatio || 1;
+        const parent = canvasRef.current.parentElement;
+        canvasRef.current.width = parent.clientWidth * dpr;
+        canvasRef.current.height = parent.clientHeight * dpr;
+        initAnimation(images);
+      }
+    }, 50);
+
+    return () => {
+      if (rafId) cancelAnimationFrame(rafId)
+      if (ctx) ctx.revert()
+      window.removeEventListener('resize', resizeCanvas)
+    }
   }, [])
 
   return (
-    <section ref={containerRef} className="relative w-full h-[500vh] mb-[-100vh] bg-black text-white z-0" aria-label="Cinematic Hero Storytelling">
-      
+    <section ref={containerRef} className="relative w-full h-[500vh] bg-black text-white z-0" aria-label="Cinematic Hero Storytelling">
       {/* ── STICKY CONTAINER ── */}
-      <div className="sticky top-0 left-0 w-full h-screen overflow-hidden">
+      <div className="sticky top-0 left-0 w-full h-screen overflow-hidden bg-black">
         
-        {/* ── VIDEO BACKGROUND ── */}
-        <div className="absolute inset-0 w-full h-full z-0 bg-black">
-          <video
-            ref={videoRef}
-            src="/videos/entry1.mp4"
-            muted
-            playsInline
-            preload="auto"
-            onLoadedMetadata={(e) => {
-              durationRef.current = e.target.duration;
-            }}
-            className="w-full h-full object-cover pointer-events-none"
+        {/* ── CANVAS RENDERER ── */}
+        <div className="absolute inset-0 w-full h-full z-0 flex items-center justify-center">
+          <canvas
+            ref={canvasRef}
+            className="w-full h-full object-cover object-center pointer-events-none will-change-transform"
+            style={{ transform: 'translateZ(0)', backfaceVisibility: 'hidden' }}
           />
         </div>
 
-        {/* ── CONTENT OVERLAYS ── */}
-        <AnimatePresence mode="wait">
-          {uiStep === 1 && (
-            <HeroContentBlock key="block1" data={contentChapters[0]} />
-          )}
-          {uiStep === 2 && (
-            <HeroContentBlock key="block2" data={contentChapters[1]} />
-          )}
-          {uiStep === 3 && (
-            <HeroContentBlock key="block3" data={contentChapters[2]} isFinal />
-          )}
-        </AnimatePresence>
+        {/* ── STATIC DOM OVERLAYS (GPU Accelerated, No React Renders) ── */}
+        
+        {/* ── CINEMATIC VIGNETTE OVERLAY ── */}
+        <div 
+          ref={vignetteRef} 
+          className="absolute inset-0 z-10 pointer-events-none will-change-opacity"
+          style={{
+            background: 'radial-gradient(ellipse at center, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 20%, rgba(0,0,0,0.6) 80%, rgba(0,0,0,0.75) 100%)'
+          }}
+        />
+
+        {/* 0. INITIAL MINIMAL LUXURY INTRO */}
+        <div ref={text0Ref} className="absolute inset-0 z-20 pointer-events-none flex flex-col items-center justify-center text-center px-6 will-change-transform">
+          <div className="flex flex-col items-center justify-center gap-8 md:gap-12 mt-10">
+            <h1 
+              className="text-white font-display font-extrabold text-4xl md:text-6xl uppercase tracking-[-0.03em] leading-tight md:leading-snug max-w-5xl mx-auto"
+              style={{ textShadow: '0 4px 20px rgba(0,0,0,0.6)', perspective: '1000px' }}
+            >
+              <span className="inline-block line1-exit will-change-transform">
+                {"Innovative Interior".split(' ').map((word, i, arr) => (
+                  <span key={`l1-${i}`}>
+                    {renderAnimatedWord(word, i)}
+                    {i !== arr.length - 1 && <span className="inline-block w-[0.5em]">&nbsp;</span>}
+                  </span>
+                ))}
+              </span>
+              <br className="hidden md:block" />
+              <span className="inline-block w-[0.5em] md:hidden">&nbsp;</span>
+              <span className="inline-block line2-exit will-change-transform">
+                {"& Exterior Solutions".split(' ').map((word, i, arr) => (
+                  <span key={`l2-${i}`}>
+                    {renderAnimatedWord(word, i)}
+                    {i !== arr.length - 1 && <span className="inline-block w-[0.5em]">&nbsp;</span>}
+                  </span>
+                ))}
+              </span>
+            </h1>
+            
+            <p 
+              className="text-white/95 font-serif italic text-xl md:text-[22px] font-medium service-list-exit will-change-opacity mt-4 md:mt-6 max-w-2xl mx-auto"
+              style={{ textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}
+            >
+              Every extraordinary transformation begins with a single vision.
+            </p>
+          </div>
+        </div>
+
+        {/* 1. SCROLL SECTION 1 (LEFT) */}
+        <div ref={text1Ref} className="absolute inset-0 z-20 pointer-events-none flex flex-col items-start justify-center pl-8 md:pl-16 lg:pr-8 lg:pl-32 opacity-0 will-change-transform">
+          <div className="w-[320px] md:w-[480px] text-left">
+            <h2 
+              className="font-display font-extrabold text-2xl md:text-4xl leading-tight mb-5 text-white uppercase tracking-[-0.02em]"
+              style={{ textShadow: '0 4px 16px rgba(0,0,0,0.6)' }}
+            >
+              Innovative Interior<br />& Exterior Solutions
+            </h2>
+            <div className="w-12 h-1 bg-orange-500 rounded-full mb-5 drop-shadow-lg mr-auto ml-0" />
+            <p 
+              className="text-white text-base md:text-lg font-serif italic font-medium leading-relaxed"
+              style={{ textShadow: '0 2px 12px rgba(0,0,0,0.8)' }}
+            >
+              From concept to completion, we transform spaces into timeless interiors and exteriors defined by exceptional craftsmanship. Every project is thoughtfully designed to reflect elegance, functionality, and lasting value.
+            </p>
+          </div>
+        </div>
+
+        {/* 2. SCROLL SECTION 2 (RIGHT) */}
+        <div ref={text2Ref} className="absolute inset-0 z-20 pointer-events-none flex flex-col items-end justify-center pr-8 md:pr-16 lg:pr-32 opacity-0 will-change-transform">
+          <div className="w-[320px] md:w-[480px] text-left">
+            <h2 
+              className="font-display font-extrabold text-2xl md:text-4xl leading-tight mb-5 text-white uppercase tracking-[-0.02em]"
+              style={{ textShadow: '0 4px 16px rgba(0,0,0,0.6)' }}
+            >
+              Designed For Life<br />Built To Last
+            </h2>
+            <div className="w-12 h-1 bg-orange-500 rounded-full mb-5 drop-shadow-lg mr-auto ml-0" />
+            <p 
+              className="text-white text-base md:text-lg font-serif italic font-medium leading-relaxed mb-8"
+              style={{ textShadow: '0 2px 12px rgba(0,0,0,0.8)' }}
+            >
+              Every detail is thoughtfully crafted to create timeless interiors and exteriors that combine elegance, comfort, and lasting quality.
+            </p>
+            
+            <button 
+              onClick={() => {
+                const el = document.getElementById('services') || document.querySelector('[data-section="services"]');
+                if(el) el.scrollIntoView({ behavior: 'smooth' });
+                else window.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
+              }}
+              className="pointer-events-auto inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full text-white font-semibold text-[13px] tracking-wide transition-transform duration-300 hover:scale-105 active:scale-95"
+              style={{
+                background: 'linear-gradient(135deg, var(--color-orange, #f97316), var(--color-orange-sec, #ea580c))',
+                boxShadow: '0 8px 32px rgba(249,115,22,0.4)',
+              }}
+            >
+              Explore Our Services
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+          </div>
+        </div>
 
         {/* ── SCROLL INDICATOR ── */}
-        <AnimatePresence>
-          {(uiStep >= 0 && uiStep < 3) && (
-            <motion.div
-              key="scroll-indicator"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 1 }}
-              className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20 pointer-events-none"
-            >
-              <span className="text-white/40 text-xs tracking-[0.3em] uppercase font-medium">
-                {uiStep === 0 ? "Scroll to Begin" : "Scroll"}
-              </span>
-              <motion.div
-                animate={{ y: [0, 10, 0] }}
-                transition={{ repeat: Infinity, duration: 1.8, ease: 'easeInOut' }}
-                className="w-5 h-8 rounded-full border border-white/30 flex items-start justify-center pt-1.5"
-              >
-                <div className="w-1 h-2 rounded-full bg-white/60" />
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
+        <div ref={scrollIndicatorRef} className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20 pointer-events-none will-change-transform">
+          <span className="text-white/40 text-xs tracking-[0.3em] uppercase font-medium">Scroll to Explore</span>
+          <div className="w-5 h-8 rounded-full border border-white/30 flex items-start justify-center pt-1.5">
+            <div ref={scrollBounceRef} className="w-1 h-2 rounded-full bg-white/60 will-change-transform" />
+          </div>
+        </div>
       </div>
     </section>
-  )
-}
-
-function HeroContentBlock({ data, isFinal }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 30, scale: 0.98 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      exit={{ opacity: 0, y: -30, scale: 0.98 }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-      className="absolute inset-0 z-20 pointer-events-none flex flex-col items-center justify-center text-center px-6"
-    >
-      <h2
-        className="font-display font-bold text-4xl md:text-6xl lg:text-7xl leading-tight mb-6 max-w-4xl text-white"
-        style={{ textShadow: '0 4px 24px rgba(0,0,0,0.8)' }}
-      >
-        {data.title}
-      </h2>
-      <div className="w-12 h-1 bg-orange-500 rounded-full mx-auto mb-6 drop-shadow-lg" />
-      <p
-        className="text-gray-100 text-lg md:text-2xl font-serif italic max-w-2xl"
-        style={{ textShadow: '0 2px 16px rgba(0,0,0,0.8)' }}
-      >
-        {data.desc}
-      </p>
-
-      {isFinal && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.8 }}
-          className="mt-10 pointer-events-auto"
-        >
-          <span
-            className="inline-flex items-center gap-3 px-8 py-4 rounded-full text-white font-semibold text-sm tracking-wide"
-            style={{
-              background: 'linear-gradient(135deg, #F78701 0%, #FFA040 100%)',
-              boxShadow: '0 8px 32px rgba(247,135,1,0.45), 0 2px 8px rgba(247,135,1,0.2)',
-            }}
-          >
-            Scroll Down to Explore
-            <svg className="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-            </svg>
-          </span>
-        </motion.div>
-      )}
-    </motion.div>
   )
 }
 
