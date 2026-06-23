@@ -11,16 +11,16 @@
 // - All content changes should happen in this file, not in components
 // =================================================
 
-import residentialImg  from '../assets/images/residential.png'
-import commercialImg   from '../assets/images/commercial.png'
-import falseCeilingImg from '../assets/images/false-ceiling.png'
-import exteriorAcpImg  from '../assets/images/exterior-acp.png'
-import flooringImg     from '../assets/images/flooring.png'
-import glassImg        from '../assets/images/glass-partition.png'
-import wallpaperImg    from '../assets/images/wallpaper.png'
-import upvcImg         from '../assets/images/upvc-windows.png'
-import heroBgImg       from '../assets/images/hero-bg.png'
-import aboutTeamImg    from '../assets/images/about-team.png'
+import residentialImg  from '../assets/images/residential.webp'
+import commercialImg   from '../assets/images/commercial.webp'
+import falseCeilingImg from '../assets/images/false-ceiling.webp'
+import exteriorAcpImg  from '../assets/images/exterior-acp.webp'
+import flooringImg     from '../assets/images/flooring.webp'
+import glassImg        from '../assets/images/glass-partition.webp'
+import wallpaperImg    from '../assets/images/wallpaper.webp'
+import upvcImg         from '../assets/images/upvc-windows.webp'
+import heroBgImg       from '../assets/images/hero-bg.webp'
+import aboutTeamImg    from '../assets/images/about-team.webp'
 
 // ── Navigation Links ──────────────────────────────
 export const NAV_LINKS = [

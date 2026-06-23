@@ -4,11 +4,11 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 // Images
-import img2016 from '../../../assets/images/about/story_planning.png'
-import img2018 from '../../../assets/images/residential.png'
-import img2020 from '../../../assets/images/exterior-acp.png'
-import img2022 from '../../../assets/images/commercial.png'
-import img2025 from '../../../assets/images/about/completed_hero.png'
+import img2016 from '../../../assets/images/about/story_planning.webp'
+import img2018 from '../../../assets/images/residential.webp'
+import img2020 from '../../../assets/images/exterior-acp.webp'
+import img2022 from '../../../assets/images/commercial.webp'
+import img2025 from '../../../assets/images/about/completed_hero.webp'
 
 gsap.registerPlugin(ScrollTrigger)
 

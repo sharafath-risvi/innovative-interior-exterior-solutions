@@ -85,7 +85,7 @@ export default function Footer() {
               className="flex items-center gap-3 mb-5" 
               aria-label="IIES Home"
             >
-              <img loading="lazy" src="/IIES.png" alt="IIES" className="w-12 h-12 object-contain" />
+              <img loading="lazy" src="/IIES.webp" alt="IIES" className="w-12 h-12 object-contain" />
               <div>
                 <p className="font-display text-white text-sm font-semibold leading-tight">Innovative Interior</p>
                 <p className="text-[11px] tracking-widest leading-tight" style={{ color: 'var(--color-orange)' }}>

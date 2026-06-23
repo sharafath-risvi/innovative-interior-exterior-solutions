@@ -144,7 +144,7 @@ export default function Hero() {
     
     // 1. Immediately load ONLY the first frame to guarantee an instant first-paint
     const firstImg = new Image();
-    firstImg.src = `/frames/frame_0001.jpg`;
+    firstImg.src = `/frames/frame_0001.webp`;
     images[0] = firstImg;
 
     // 2. Defer loading the remaining 298 frames so we don't block the main thread or network queue
@@ -157,7 +157,7 @@ export default function Hero() {
         for (; currentFrameIndex < end; currentFrameIndex++) {
           const img = new Image();
           const frameStr = currentFrameIndex.toString().padStart(4, '0');
-          img.src = `/frames/frame_${frameStr}.jpg`;
+          img.src = `/frames/frame_${frameStr}.webp`;
           images[currentFrameIndex - 1] = img; // Array is 0-indexed
         }
         

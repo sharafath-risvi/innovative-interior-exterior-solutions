@@ -2,11 +2,11 @@ import { useEffect, useRef, forwardRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-import residentialImg from '../../../assets/images/residential.png'
-import flooringImg from '../../../assets/images/flooring.png'
-import falseCeilingImg from '../../../assets/images/false-ceiling.png'
-import blueprintDarkImg from '../../../assets/images/blueprint-dark.png'
-import exteriorAcpImg from '../../../assets/images/exterior-acp.png'
+import residentialImg from '../../../assets/images/residential.webp'
+import flooringImg from '../../../assets/images/flooring.webp'
+import falseCeilingImg from '../../../assets/images/false-ceiling.webp'
+import blueprintDarkImg from '../../../assets/images/blueprint-dark.webp'
+import exteriorAcpImg from '../../../assets/images/exterior-acp.webp'
 
 gsap.registerPlugin(ScrollTrigger)
 

@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-import founderImg from '../../../assets/images/about/founder_portrait.png'
+import founderImg from '../../../assets/images/about/founder_portrait.webp'
 
 gsap.registerPlugin(ScrollTrigger)
 

@@ -2,12 +2,12 @@ import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-import glassImg from '../../../assets/images/glass-partition.png'
-import flooringImg from '../../../assets/images/flooring.png'
-import ceilingImg from '../../../assets/images/false-ceiling.png'
-import acpImg from '../../../assets/images/exterior-acp.png'
-import wallpaperImg from '../../../assets/images/wallpaper.png'
-import upvcImg from '../../../assets/images/upvc-windows.png'
+import glassImg from '../../../assets/images/glass-partition.webp'
+import flooringImg from '../../../assets/images/flooring.webp'
+import ceilingImg from '../../../assets/images/false-ceiling.webp'
+import acpImg from '../../../assets/images/exterior-acp.webp'
+import wallpaperImg from '../../../assets/images/wallpaper.webp'
+import upvcImg from '../../../assets/images/upvc-windows.webp'
 
 gsap.registerPlugin(ScrollTrigger)
 

@@ -10,12 +10,12 @@ import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-import sketchImg from '../../../assets/images/about/story_sketch.png'
-import planningImg from '../../../assets/images/about/story_planning.png'
-import residentialImg from '../../../assets/images/residential.png'
-import flooringImg from '../../../assets/images/flooring.png'
-import luxuryRevealImg from '../../../assets/images/luxury-reveal.png'
-import completedImg from '../../../assets/images/about/completed_hero.png'
+import sketchImg from '../../../assets/images/about/story_sketch.webp'
+import planningImg from '../../../assets/images/about/story_planning.webp'
+import residentialImg from '../../../assets/images/residential.webp'
+import flooringImg from '../../../assets/images/flooring.webp'
+import luxuryRevealImg from '../../../assets/images/luxury-reveal.webp'
+import completedImg from '../../../assets/images/about/completed_hero.webp'
 
 gsap.registerPlugin(ScrollTrigger)
 

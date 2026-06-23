@@ -15,7 +15,7 @@
 //   - Mobile/Tablet: hamburger → full overlay menu
 // Future Developer Notes:
 //   - To add more nav links, update NAV_LINKS in src/lib/constants.js
-//   - Logo swap: change /IIESlogo.png to new asset
+//   - Logo swap: change /IIESlogo.webp to new asset
 // =================================================
 
 import { useState, useEffect } from 'react'
@@ -97,7 +97,7 @@ export default function Navbar() {
               whileTap={{ scale: 0.98 }}
             >
               <img
-                src="/IIES.png"
+                src="/IIES.webp"
                 alt="IIES Logo"
                 className="w-[55px] h-[55px] object-contain"
               />

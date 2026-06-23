@@ -2,12 +2,12 @@ import React, { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 
 // ── Premium Image Assets ──
-import heroBg from '../../../assets/images/hero-bg.png'
-import resImg from '../../../assets/images/residential.png'
-import extImg from '../../../assets/images/modern-villa-exterior.png' // New premium exterior
-import bpImg from '../../../assets/images/blueprint-dark.png'
-import ceilImg from '../../../assets/images/false-ceiling.png'
-import revImg from '../../../assets/images/luxury-reveal.png'
+import heroBg from '../../../assets/images/hero-bg.webp'
+import resImg from '../../../assets/images/residential.webp'
+import extImg from '../../../assets/images/modern-villa-exterior.webp' // New premium exterior
+import bpImg from '../../../assets/images/blueprint-dark.webp'
+import ceilImg from '../../../assets/images/false-ceiling.webp'
+import revImg from '../../../assets/images/luxury-reveal.webp'
 
 const details = [
   {

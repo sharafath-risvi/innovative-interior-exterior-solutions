@@ -3,8 +3,8 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 // Importing images
-import imgScene1 from '../../../assets/images/modern-villa-exterior.png'
-import imgScene2 from '../../../assets/images/premium-hero-interior.png'
+import imgScene1 from '../../../assets/images/modern-villa-exterior.webp'
+import imgScene2 from '../../../assets/images/premium-hero-interior.webp'
 
 gsap.registerPlugin(ScrollTrigger)
 

@@ -33,12 +33,12 @@ import SectionHeading from '../components/ui/SectionHeading'
 import { INTERIOR_SERVICES, EXTERIOR_SERVICES, PROCESS_STEPS, CONTACT_INFO } from '../lib/constants'
 
 // Import images for material solutions
-import flooringImg    from '../assets/images/flooring.png'
-import wallpaperImg   from '../assets/images/wallpaper.png'
-import glassImg       from '../assets/images/glass-partition.png'
-import upvcImg        from '../assets/images/upvc-windows.png'
-import falseCeilingImg from '../assets/images/false-ceiling.png'
-import exteriorAcpImg from '../assets/images/exterior-acp.png'
+import flooringImg    from '../assets/images/flooring.webp'
+import wallpaperImg   from '../assets/images/wallpaper.webp'
+import glassImg       from '../assets/images/glass-partition.webp'
+import upvcImg        from '../assets/images/upvc-windows.webp'
+import falseCeilingImg from '../assets/images/false-ceiling.webp'
+import exteriorAcpImg from '../assets/images/exterior-acp.webp'
 
 // (Image imports removed as background is now video)
 

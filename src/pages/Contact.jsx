@@ -34,8 +34,8 @@ import { CONTACT_INFO } from '../lib/constants'
 
 gsap.registerPlugin(ScrollTrigger)
 
-import blueprintImg from '../assets/images/about/blueprint_hero.png'
-import completedImg from '../assets/images/about/completed_hero.png'
+import blueprintImg from '../assets/images/about/blueprint_hero.webp'
+import completedImg from '../assets/images/about/completed_hero.webp'
 
 // ── Animation variants ──
 const containerVariants = {

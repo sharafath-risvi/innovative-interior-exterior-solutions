@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-import completedImg from '../../../assets/images/about/completed_hero.png'
+import completedImg from '../../../assets/images/about/completed_hero.webp'
 
 gsap.registerPlugin(ScrollTrigger)
 

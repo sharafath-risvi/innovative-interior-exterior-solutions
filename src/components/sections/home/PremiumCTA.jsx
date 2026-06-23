@@ -1,7 +1,7 @@
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { CONTACT_INFO } from '../../../lib/constants'
-import premiumHeroBg from '../../../assets/images/premium-hero-interior.png'
+import premiumHeroBg from '../../../assets/images/premium-hero-interior.webp'
 
 export default function PremiumCTA() {
   const mouseX = useMotionValue(0)

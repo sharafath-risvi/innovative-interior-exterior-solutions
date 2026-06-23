@@ -2,8 +2,8 @@ import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import SectionHeading from '../../ui/SectionHeading'
 
-import blueprintImg from '../../../assets/images/blueprint-dark.png'
-import studioImg from '../../../assets/images/about/story_sketch.png'
+import blueprintImg from '../../../assets/images/blueprint-dark.webp'
+import studioImg from '../../../assets/images/about/story_sketch.webp'
 
 export default function MissionVision() {
   const containerRef = useRef(null)

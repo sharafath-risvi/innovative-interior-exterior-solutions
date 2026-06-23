@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 import { motion, useScroll, useTransform, useMotionTemplate } from 'framer-motion'
 
-import blueprintImg from '../../../assets/images/blueprint-dark.png'
+import blueprintImg from '../../../assets/images/blueprint-dark.webp'
 
 const TESTIMONIALS = [
   { name: "Ahmed Khan", location: "Dubai", type: "Luxury Villa", review: "Exceptional craftsmanship and attention to detail. They transformed our dream home into reality.", rating: 5, avatar: "https://i.pravatar.cc/150?u=ahmed" },
