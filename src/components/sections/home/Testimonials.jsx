@@ -67,7 +67,7 @@ export default function Testimonials() {
         
         {/* Subtle Architectural Background */}
         <div className="absolute inset-0 z-0 pointer-events-none opacity-5">
-          <img src={blueprintImg} alt="Blueprint" className="w-full h-full object-cover mix-blend-screen" />
+          <img src={blueprintImg} loading="lazy" alt="Blueprint" className="w-full h-full object-cover mix-blend-screen" />
           <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-[#0a0a0a]/50 to-[#0a0a0a]" />
         </div>
 

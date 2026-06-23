@@ -211,28 +211,54 @@ function ContactHero() {
 function ContactDetails() {
   const details = [
     {
-      icon: '📞',
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" className="w-8 h-8 opacity-80">
+          <circle cx="12" cy="12" r="10" strokeDasharray="2 4" />
+          <path d="M12 6v6l4 2" strokeWidth="1.5" />
+          <circle cx="12" cy="12" r="2" fill="currentColor" stroke="none" />
+        </svg>
+      ),
       label: 'Phone',
       primary: CONTACT_INFO.phone1,
       secondary: CONTACT_INFO.phone2,
       href: `tel:${CONTACT_INFO.phone1}`,
     },
     {
-      icon: '✉️',
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" className="w-8 h-8 opacity-80">
+          <rect x="3" y="5" width="18" height="14" rx="2" />
+          <path d="M3 7l9 6 9-6" strokeWidth="1.5" />
+          <line x1="12" y1="13" x2="12" y2="21" strokeDasharray="1 3" />
+        </svg>
+      ),
       label: 'Email',
       primary: CONTACT_INFO.email,
       secondary: 'We reply within 24 hours',
       href: `mailto:${CONTACT_INFO.email}`,
     },
     {
-      icon: '📍',
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" className="w-8 h-8 opacity-80">
+          <path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z" />
+          <circle cx="12" cy="10" r="3" strokeWidth="1.5" />
+          <line x1="12" y1="2" x2="12" y2="4" />
+          <line x1="12" y1="20" x2="12" y2="22" />
+        </svg>
+      ),
       label: 'Office Address',
       primary: CONTACT_INFO.address,
       secondary: null,
       href: null,
     },
     {
-      icon: '🕐',
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" className="w-8 h-8 opacity-80">
+          <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2" />
+          <line x1="12" y1="22" x2="12" y2="12" strokeWidth="1.5" />
+          <line x1="22" y1="8.5" x2="12" y2="12" strokeWidth="1.5" />
+          <line x1="2" y1="8.5" x2="12" y2="12" strokeWidth="1.5" />
+        </svg>
+      ),
       label: 'Working Hours',
       primary: CONTACT_INFO.workingHours,
       secondary: 'Sunday: By appointment only',
@@ -259,7 +285,7 @@ function ContactDetails() {
           subtitle="Multiple ways to reach our friendly team. We're always here to help."
           centered
         />
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {details.map((detail, i) => (
             <motion.div
               key={i}
@@ -268,7 +294,7 @@ function ContactDetails() {
               viewport={{ once: true }}
               transition={{ delay: i * 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               whileHover={{ y: -6, transition: { duration: 0.3 } }}
-              className="group p-8 md:p-10 rounded-3xl text-center cursor-default transition-all duration-500 hover:-translate-y-2 relative overflow-hidden"
+              className="group min-h-[300px] p-10 md:p-12 rounded-3xl text-center cursor-default transition-all duration-500 hover:-translate-y-2 relative overflow-hidden flex flex-col justify-center"
               style={{ 
                 background: 'rgba(255, 255, 255, 0.6)',
                 backdropFilter: 'blur(20px)',
@@ -286,7 +312,9 @@ function ContactDetails() {
                 }}
                 aria-hidden="true"
               >
-                <span style={{ filter: 'drop-shadow(0 2px 4px rgba(247,135,1,0.2))', color: 'var(--color-orange)' }}>{detail.icon}</span>
+                <span style={{ filter: 'drop-shadow(0 2px 4px rgba(247,135,1,0.2))', color: 'var(--color-orange)' }}>
+                  {detail.icon}
+                </span>
               </div>
               <h3 className="font-semibold text-gray-700 text-sm tracking-wide uppercase mb-3 relative z-10">{detail.label}</h3>
               {detail.href ? (
@@ -335,7 +363,7 @@ function ContactForm() {
     setSubmitted(true)
   }
 
-  const inputClass = `w-full px-6 py-4 rounded-2xl border border-white bg-white/50 text-gray-900 text-sm outline-none transition-all duration-300 focus:bg-white focus:border-orange-300 focus:ring-4 focus:ring-orange-100/50 hover:bg-white/80 placeholder:text-gray-400 font-body-iies shadow-[0_2px_10px_rgba(0,0,0,0.02)]`
+  const inputClass = `w-full px-8 py-5 rounded-2xl border border-white bg-white/50 text-gray-900 text-[15px] outline-none transition-all duration-300 focus:bg-white focus:border-orange-300 focus:ring-4 focus:ring-orange-100/50 hover:bg-white/80 placeholder:text-gray-400 font-body-iies shadow-[0_2px_10px_rgba(0,0,0,0.02)]`
 
   return (
     <section
@@ -441,7 +469,7 @@ function ContactForm() {
             ) : (
               <form
                 onSubmit={handleSubmit}
-                className="relative p-8 md:p-12 rounded-[2.5rem] overflow-hidden"
+                className="relative p-10 md:p-14 rounded-[2.5rem] overflow-hidden"
                 style={{ 
                   background: 'rgba(255, 255, 255, 0.7)',
                   backdropFilter: 'blur(20px)',
@@ -559,7 +587,7 @@ function ContactForm() {
                   </div>
                 </div>
 
-                <div className="relative z-10 mb-8">
+                <div className="relative z-10 mb-6">
                   <label htmlFor="contact-message" className="block text-xs font-semibold text-gray-600 mb-2 uppercase tracking-wide">
                     Project Details
                   </label>
@@ -644,28 +672,14 @@ function MapSection() {
             boxShadow: '0 20px 40px -15px rgba(0,0,0,0.05)',
           }}
         >
-          {/* Placeholder map – Replace with real Google Maps embed */}
-          <div
-            className="absolute inset-0 flex flex-col items-center justify-center"
-            style={{ background: 'var(--color-grey-light)' }}
-          >
-            <div className="text-6xl mb-4" aria-hidden="true">📍</div>
-            <h3 className="font-display text-gray-700 text-xl font-semibold mb-2">IIES Design Studio</h3>
-            <p className="text-gray-500 text-center max-w-md px-6">{CONTACT_INFO.address}</p>
-            <a
-              href={`https://maps.google.com/?q=${encodeURIComponent(CONTACT_INFO.address)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              id="map-directions-btn"
-              className="mt-6 inline-flex items-center gap-2 px-6 py-3 rounded-full text-white text-sm font-semibold"
-              style={{ background: 'linear-gradient(135deg, var(--color-orange), var(--color-orange-sec))' }}
-            >
-              Get Directions
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-              </svg>
-            </a>
-          </div>
+          <iframe
+            src="https://maps.google.com/maps?q=Bandra%20Kurla%20Complex,%20Mumbai&t=&z=14&ie=UTF8&iwloc=&output=embed"
+            className="absolute inset-0 w-full h-full border-0"
+            allowFullScreen=""
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            title="IIES Office Location Map"
+          ></iframe>
         </motion.div>
       </div>
     </section>

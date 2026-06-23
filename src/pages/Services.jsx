@@ -250,7 +250,7 @@ function ServiceDetailCard({ service, index }) {
           className="text-xs font-semibold tracking-[0.2em] uppercase mb-3"
           style={{ color: 'var(--color-orange)' }}
         >
-          {service.icon} {service.subtitle}
+          {service.subtitle}
         </p>
         <h2
           className="font-display font-bold text-gray-900 leading-tight mb-4"
@@ -290,7 +290,7 @@ function ServiceDetailCard({ service, index }) {
 // ──────────────────────────────
 function InteriorServices() {
   return (
-    <section id="interior-services" className="section-pad bg-white" aria-label="Interior Services">
+    <section id="services-section" className="section-pad bg-white" aria-label="Interior Services">
       <div className="px-6 md:px-12 lg:px-20" style={{ maxWidth: 'var(--container-max)', margin: '0 auto' }}>
         <SectionHeading
           badge="Interior Solutions"
@@ -369,88 +369,11 @@ function MaterialSolutions() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
               <div className="absolute bottom-4 left-4 right-4">
-                <span className="text-2xl" aria-hidden="true">{mat.icon}</span>
                 <h3 className="font-display text-white font-bold text-base mt-1">{mat.name}</h3>
                 <p className="text-gray-300 text-xs mt-0.5">{mat.desc}</p>
               </div>
             </motion.div>
           ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-// ──────────────────────────────
-// 5. WORKING PROCESS
-// ──────────────────────────────
-function WorkingProcess() {
-  return (
-    <section
-      id="working-process"
-      className="section-pad"
-      style={{ background: 'var(--color-grey-light)' }}
-      aria-label="Our Working Process"
-    >
-      <div className="px-6 md:px-12 lg:px-20" style={{ maxWidth: 'var(--container-max)', margin: '0 auto' }}>
-        <SectionHeading
-          badge="How We Work"
-          title="Our Working"
-          titleAccent="Process"
-          subtitle="A transparent, collaborative process that keeps you informed and confident at every stage."
-          centered
-        />
-
-        <div className="relative">
-          {/* Connecting line */}
-          <div
-            className="hidden lg:block absolute top-10 left-1/2 right-16 h-0.5 -translate-x-1/2"
-            style={{
-              background: 'linear-gradient(90deg, var(--color-orange), transparent)',
-              width: 'calc(100% - 4rem)',
-              left: '2rem',
-            }}
-            aria-hidden="true"
-          />
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8" role="list">
-            {PROCESS_STEPS.map((step, i) => (
-              <motion.div
-                key={i}
-                role="listitem"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.15, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="relative flex flex-col items-center text-center"
-              >
-                {/* Step circle */}
-                <div
-                  className="relative z-10 w-20 h-20 rounded-full flex items-center justify-center text-3xl mb-5 shrink-0"
-                  style={{
-                    background: 'white',
-                    border: '3px solid var(--color-orange)',
-                    boxShadow: '0 8px 24px rgba(247,135,1,0.2)',
-                  }}
-                  aria-hidden="true"
-                >
-                  {step.icon}
-                </div>
-
-                {/* Step number */}
-                <span
-                  className="font-display font-bold text-4xl leading-none mb-2 opacity-15"
-                  style={{ color: 'var(--color-orange)' }}
-                  aria-hidden="true"
-                >
-                  {step.step}
-                </span>
-
-                <h3 className="font-display text-gray-900 font-semibold text-base mb-2">{step.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{step.description}</p>
-              </motion.div>
-            ))}
-          </div>
         </div>
       </div>
     </section>
@@ -551,7 +474,6 @@ export default function Services() {
       <InteriorServices />
       <ExteriorServices />
       <MaterialSolutions />
-      <WorkingProcess />
       <ConsultationCTA />
     </main>
   )

@@ -117,8 +117,7 @@ export default function CompanyTimeline() {
           >
             {/* Background Image Container */}
             <div className="absolute inset-0 overflow-hidden opacity-40">
-              <img 
-                src={milestone.img} 
+              <img loading="lazy" src={milestone.img} 
                 alt={milestone.title} 
                 className="timeline-img w-full h-[120%] object-cover object-center -top-[10%] relative"
               />
@@ -164,7 +163,7 @@ export default function CompanyTimeline() {
                   className="w-full lg:w-72 aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl shrink-0 hidden md:block"
                   style={{ transformStyle: 'preserve-3d', perspective: '1000px' }}
                 >
-                  <img src={milestone.img} className="w-full h-full object-cover" />
+                  <img loading="lazy" src={milestone.img} className="w-full h-full object-cover" />
                   <div className="absolute inset-0 border border-white/20 rounded-2xl" />
                 </motion.div>
               </div>

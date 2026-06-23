@@ -34,6 +34,7 @@ export default function PremiumCTA() {
       >
         <img 
           src={premiumHeroBg} 
+          loading="lazy"
           alt="Luxury Architecture Background" 
           className="w-full h-full object-cover"
         />

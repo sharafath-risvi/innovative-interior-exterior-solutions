@@ -64,7 +64,7 @@
     --shadow-card-hover: 0 16px 48px rgba(0,0,0,0.14), 0 4px 16px rgba(247,135,1,0.12);
 
     /* Layout */
-    --nav-height:      80px;
+    --nav-height:      90px;
     --section-pad:     clamp(4rem, 8vw, 8rem);
     --container-max:   1360px;
   }

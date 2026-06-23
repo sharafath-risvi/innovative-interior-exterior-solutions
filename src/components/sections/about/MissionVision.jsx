@@ -30,7 +30,7 @@ export default function MissionVision() {
         className="absolute inset-0 z-0 opacity-10 pointer-events-none"
         style={{ y: bgY }}
       >
-        <img src={blueprintImg} alt="Blueprint Grid" className="w-full h-[150%] object-cover invert" />
+        <img loading="lazy" src={blueprintImg} alt="Blueprint Grid" className="w-full h-[150%] object-cover invert" />
         <div className="absolute inset-0 bg-gradient-to-b from-[#FAFAF8] via-transparent to-[#FAFAF8]" />
       </motion.div>
       

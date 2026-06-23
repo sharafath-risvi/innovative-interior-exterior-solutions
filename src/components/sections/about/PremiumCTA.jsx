@@ -23,8 +23,7 @@ export default function PremiumCTA() {
         transition={{ duration: 10, ease: "easeOut" }}
         className="absolute inset-0 z-0"
       >
-        <img 
-          src={ctaBg} 
+        <img loading="lazy" src={ctaBg} 
           alt="Luxury Architecture" 
           className="w-full h-full object-cover opacity-70"
         />

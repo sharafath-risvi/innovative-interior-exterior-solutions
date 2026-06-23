@@ -27,8 +27,6 @@ export default function Hero() {
   const text0Ref = useRef(null)
   const text1Ref = useRef(null)
   const text2Ref = useRef(null)
-  const scrollIndicatorRef = useRef(null)
-  const scrollBounceRef = useRef(null)
 
   useEffect(() => {
     let ctx;
@@ -39,15 +37,6 @@ export default function Hero() {
 
     const initAnimation = (images) => {
       ctx = gsap.context(() => {
-        // Continuous bounce for scroll indicator dot
-        gsap.to(scrollBounceRef.current, {
-          y: 8,
-          duration: 0.9,
-          yoyo: true,
-          repeat: -1,
-          ease: "sine.inOut"
-        });
-
         // ── ON MOUNT CHARACTER ANIMATION ──
         gsap.fromTo(".hero-title-char",
           { opacity: 0, rotateX: -90, y: 20 },
@@ -96,8 +85,7 @@ export default function Hero() {
           7.5
         )
 
-        // SCROLL INDICATOR: Fades out immediately upon scrolling
-        tl.to(scrollIndicatorRef.current, { opacity: 0, y: 20, duration: 0.4, ease: "power3.out" }, 0)
+
 
         // ── OPTIMIZED CANVAS FRAME SCRUBBING ──
         const proxy = { frame: 0 };
@@ -160,12 +148,12 @@ export default function Hero() {
     images[0] = firstImg;
 
     // 2. Defer loading the remaining 298 frames so we don't block the main thread or network queue
-    setTimeout(() => {
+    const startPreloading = () => {
       let currentFrameIndex = 2;
       
       const loadNextChunk = () => {
-        // Load in tiny chunks of 10 to keep the CPU completely free for animations
-        const end = Math.min(currentFrameIndex + 10, frameCount + 1);
+        // Load in tiny chunks of 3 to keep the HTTP connection pool and CPU completely free
+        const end = Math.min(currentFrameIndex + 3, frameCount + 1);
         for (; currentFrameIndex < end; currentFrameIndex++) {
           const img = new Image();
           const frameStr = currentFrameIndex.toString().padStart(4, '0');
@@ -176,16 +164,22 @@ export default function Hero() {
         if (currentFrameIndex <= frameCount) {
           // Schedule next chunk cleanly in the background
           if ('requestIdleCallback' in window) {
-            requestIdleCallback(loadNextChunk);
+            requestIdleCallback(loadNextChunk, { timeout: 1000 });
           } else {
-            setTimeout(loadNextChunk, 10);
+            setTimeout(loadNextChunk, 50);
           }
         }
       };
       
-      // Give the browser 100ms to finish rendering the first paint and the UI
       loadNextChunk();
-    }, 100);
+    };
+
+    // Wait until the window is fully loaded before preloading heavy frames
+    if (document.readyState === 'complete') {
+      setTimeout(startPreloading, 1000);
+    } else {
+      window.addEventListener('load', () => setTimeout(startPreloading, 1000));
+    }
     
     // Auto-scale canvas natively for retina displays
     const resizeCanvas = () => {
@@ -340,13 +334,6 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* ── SCROLL INDICATOR ── */}
-        <div ref={scrollIndicatorRef} className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20 pointer-events-none will-change-transform">
-          <span className="text-white/40 text-xs tracking-[0.3em] uppercase font-medium">Scroll to Explore</span>
-          <div className="w-5 h-8 rounded-full border border-white/30 flex items-start justify-center pt-1.5">
-            <div ref={scrollBounceRef} className="w-1 h-2 rounded-full bg-white/60 will-change-transform" />
-          </div>
-        </div>
       </div>
     </section>
   )

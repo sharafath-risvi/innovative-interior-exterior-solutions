@@ -156,7 +156,7 @@ export default function WhyChooseUs() {
               transformStyle: 'preserve-3d'
             }}
           >
-            <img src={layer.img} alt={layer.name} className="w-full h-full object-cover opacity-60 mix-blend-screen" />
+            <img loading="lazy" src={layer.img} alt={layer.name} className="w-full h-full object-cover opacity-60 mix-blend-screen" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
             
             {/* Label attached to floating layer */}
@@ -198,7 +198,7 @@ export default function WhyChooseUs() {
               className="relative aspect-[16/9] md:aspect-[16/10] rounded-2xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.6)] border border-white/10 group opacity-0"
               style={{ transformStyle: 'preserve-3d' }}
             >
-              <img src={feature.img} alt={feature.title} className="w-full h-full object-cover opacity-80 transition-all duration-1000 group-hover:scale-110 group-hover:opacity-100" />
+              <img loading="lazy" src={feature.img} alt={feature.title} className="w-full h-full object-cover opacity-80 transition-all duration-1000 group-hover:scale-110 group-hover:opacity-100" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent transition-opacity duration-500 group-hover:opacity-60" />
               
               <div className="absolute bottom-8 left-8 right-8 transform-gpu transition-transform duration-500 group-hover:-translate-y-2">

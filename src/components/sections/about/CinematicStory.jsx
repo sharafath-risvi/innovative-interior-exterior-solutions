@@ -170,8 +170,7 @@ export default function CinematicStory() {
             ref={el => imagesRef.current[i] = el}
             className="absolute inset-0 w-full h-full opacity-0 overflow-hidden"
           >
-            <img 
-              src={scene.img} 
+            <img loading="lazy" src={scene.img} 
               alt={scene.title} 
               className="w-full h-full object-cover origin-center" 
             />

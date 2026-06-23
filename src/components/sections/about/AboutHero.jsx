@@ -109,7 +109,7 @@ export default function AboutHero() {
           playsInline 
           className="w-full h-full object-cover"
         >
-          <source src="/videos/videoforiies.mp4" type="video/mp4" />
+          <source src="/videos/videoforiiescropped.mp4" type="video/mp4" />
         </video>
       </div>
 

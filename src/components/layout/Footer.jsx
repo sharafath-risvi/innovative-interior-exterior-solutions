@@ -76,8 +76,16 @@ export default function Footer() {
             viewport={{ once: true }}
             className="lg:col-span-1"
           >
-            <Link to="/" className="flex items-center gap-3 mb-5" aria-label="IIES Home">
-              <img src="/IIES.png" alt="IIES" className="w-12 h-12 object-contain" />
+            <Link 
+              to="/" 
+              onClick={() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+                if (window.lenis) window.lenis.scrollTo(0, { immediate: true })
+              }}
+              className="flex items-center gap-3 mb-5" 
+              aria-label="IIES Home"
+            >
+              <img loading="lazy" src="/IIES.png" alt="IIES" className="w-12 h-12 object-contain" />
               <div>
                 <p className="font-display text-white text-sm font-semibold leading-tight">Innovative Interior</p>
                 <p className="text-[11px] tracking-widest leading-tight" style={{ color: 'var(--color-orange)' }}>
@@ -129,6 +137,12 @@ export default function Footer() {
                 <li key={link.label}>
                   <Link
                     to={link.href}
+                    onClick={() => {
+                      if (link.href === '/') {
+                        window.scrollTo({ top: 0, behavior: 'smooth' })
+                        if (window.lenis) window.lenis.scrollTo(0, { immediate: true })
+                      }
+                    }}
                     className="text-gray-400 text-sm hover:text-orange-400 transition-colors duration-300 flex items-center gap-2 group"
                   >
                     <span
@@ -152,7 +166,19 @@ export default function Footer() {
               ].map((service) => (
                 <li key={service}>
                   <Link
-                    to="/services"
+                    to="/services#services-section"
+                    onClick={() => {
+                      if (window.location.pathname === '/services') {
+                        const el = document.getElementById('services-section');
+                        if (el) {
+                          if (window.lenis) {
+                            window.lenis.scrollTo(el, { duration: 1.2, offset: -80 });
+                          } else {
+                            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                          }
+                        }
+                      }
+                    }}
                     className="text-gray-400 text-sm hover:text-orange-400 transition-colors duration-300 flex items-center gap-2 group"
                   >
                     <span

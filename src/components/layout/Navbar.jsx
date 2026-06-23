@@ -83,32 +83,45 @@ export default function Navbar() {
           style={{ maxWidth: 'var(--container-max)', margin: '0 auto' }}
         >
           {/* ── Logo ── */}
-          <Link to="/" aria-label="IIES Home">
+          <Link 
+            to="/" 
+            onClick={() => {
+              window.scrollTo({ top: 0, behavior: 'smooth' })
+              if (window.lenis) window.lenis.scrollTo(0, { immediate: true })
+            }}
+            aria-label="IIES Home"
+          >
             <motion.div
-              className="flex items-center gap-3"
+              className="flex items-center gap-4"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
               <img
                 src="/IIES.png"
                 alt="IIES Logo"
-                className="w-10 h-10 object-contain"
+                className="w-[55px] h-[55px] object-contain"
               />
               <div className={`hidden sm:block transition-colors duration-300 ${scrolled ? 'text-gray-800' : 'text-white'}`}>
-                <p className="font-display text-sm font-semibold leading-tight">Innovative Interior</p>
-                <p className="font-display text-[11px] font-normal leading-tight tracking-widest"
+                <p className="font-display text-[18px] font-bold leading-tight">Innovative Interior</p>
+                <p className="font-display text-[12.5px] font-medium leading-tight tracking-[0.15em] mt-0.5"
                    style={{ color: 'var(--color-orange)' }}>& EXTERIOR SOLUTIONS</p>
               </div>
             </motion.div>
           </Link>
 
           {/* ── Desktop Nav ── */}
-          <nav className="hidden md:flex items-center gap-8" role="navigation" aria-label="Main navigation">
+          <nav className="hidden md:flex items-center gap-10" role="navigation" aria-label="Main navigation">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
                 to={link.href}
-                className={`relative text-sm font-medium tracking-wide transition-colors duration-300 group ${
+                onClick={() => {
+                  if (link.href === '/') {
+                    window.scrollTo({ top: 0, behavior: 'smooth' })
+                    if (window.lenis) window.lenis.scrollTo(0, { immediate: true })
+                  }
+                }}
+                className={`relative text-[15px] font-semibold tracking-widest transition-colors duration-300 group ${
                   scrolled ? 'text-gray-700' : 'text-white/90'
                 } ${isActive(link.href) ? '!text-orange-500' : 'hover:text-orange-500'}`}
                 aria-current={isActive(link.href) ? 'page' : undefined}
@@ -116,7 +129,7 @@ export default function Navbar() {
                 {link.label}
                 {/* Active / hover underline */}
                 <span
-                  className={`absolute -bottom-1 left-0 h-0.5 rounded-full transition-all duration-300 ${
+                  className={`absolute -bottom-1.5 left-0 h-[2px] rounded-full transition-all duration-300 ${
                     isActive(link.href) ? 'w-full' : 'w-0 group-hover:w-full'
                   }`}
                   style={{ background: 'var(--color-orange)' }}
@@ -127,7 +140,7 @@ export default function Navbar() {
               <Link
                 to="/contact"
                 id="navbar-cta"
-                className="px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-all duration-300"
+                className="px-8 py-3.5 rounded-full text-[15px] font-bold text-white transition-all duration-300 tracking-wide"
                 style={{
                   background: 'linear-gradient(135deg, var(--color-orange), var(--color-orange-sec))',
                   boxShadow: '0 4px 20px rgba(247,135,1,0.35)',
@@ -193,7 +206,15 @@ export default function Navbar() {
                     className={`font-display text-4xl font-semibold transition-colors ${
                       isActive(link.href) ? 'text-orange-500' : 'text-gray-800 hover:text-orange-500'
                     }`}
-                    onClick={() => setMenuOpen(false)}
+                    onClick={() => {
+                      setMenuOpen(false)
+                      if (link.href === '/') {
+                        setTimeout(() => {
+                          window.scrollTo({ top: 0, behavior: 'smooth' })
+                          if (window.lenis) window.lenis.scrollTo(0, { immediate: true })
+                        }, 100) // Small delay to let menu close first
+                      }
+                    }}
                   >
                     {link.label}
                   </Link>
