@@ -90,13 +90,13 @@ export default function PremiumCTA() {
           </p>
 
           {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row items-center gap-6">
+          <div className="flex flex-row items-center justify-center gap-3 sm:gap-6 w-full max-w-[340px] sm:max-w-none mx-auto">
             
             {/* Primary Button */}
-            <motion.div whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.98 }}>
+            <motion.div whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.98 }} className="flex-1 sm:flex-none">
               <Link
                 to="/contact"
-                className="inline-flex items-center justify-center gap-3 px-10 py-5 rounded-full text-white font-semibold text-sm md:text-base tracking-wide transition-shadow duration-300"
+                className="inline-flex w-full items-center justify-center px-2 py-3.5 sm:px-10 sm:py-5 rounded-full text-white font-semibold text-[10px] sm:text-base tracking-wide transition-shadow duration-300 whitespace-nowrap"
                 style={{
                   background: 'linear-gradient(135deg, var(--color-orange) 0%, var(--color-orange-sec) 100%)',
                   boxShadow: '0 12px 35px rgba(247,135,1,0.4), inset 0 2px 4px rgba(255,255,255,0.3)',
@@ -107,10 +107,10 @@ export default function PremiumCTA() {
             </motion.div>
 
             {/* Secondary Glass Button */}
-            <motion.div whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.98 }}>
+            <motion.div whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.98 }} className="flex-1 sm:flex-none">
               <Link
                 to="/portfolio"
-                className="inline-flex items-center justify-center gap-3 px-10 py-5 rounded-full text-white font-semibold text-sm md:text-base tracking-wide bg-white/5 border border-white/20 backdrop-blur-md hover:bg-white/10 hover:border-white/30 transition-all duration-300"
+                className="inline-flex w-full items-center justify-center px-2 py-3.5 sm:px-10 sm:py-5 rounded-full text-white font-semibold text-[10px] sm:text-base tracking-wide bg-white/5 border border-white/20 backdrop-blur-md hover:bg-white/10 hover:border-white/30 transition-all duration-300 whitespace-nowrap"
               >
                 View Our Portfolio
               </Link>

@@ -432,19 +432,20 @@ function ConsultationCTA() {
               Book a free consultation with our expert designers. Tell us about your project and we'll craft a bespoke design proposal — tailored specifically to your vision and budget.
             </p>
           </div>
-          <div className="flex flex-col sm:flex-row lg:flex-col gap-4 shrink-0">
-            <motion.div whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}>
+          <div className="flex flex-row lg:flex-col gap-2 sm:gap-4 shrink-0 w-full sm:w-auto max-w-[340px] sm:max-w-none mx-auto lg:mx-0 mt-8 sm:mt-0">
+            <motion.div whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }} className="flex-1 sm:flex-none">
               <Link
                 to="/contact"
                 id="services-consultation-cta"
-                className="inline-flex items-center gap-3 px-8 py-4 rounded-full text-white font-semibold text-sm"
+                className="inline-flex w-full items-center justify-center gap-1.5 sm:gap-3 px-1 sm:px-8 py-3.5 sm:py-4 rounded-full text-white font-semibold text-[10px] sm:text-sm whitespace-nowrap"
                 style={{
                   background: 'linear-gradient(135deg, var(--color-orange), var(--color-orange-sec))',
                   boxShadow: '0 8px 32px rgba(247,135,1,0.4)',
                 }}
               >
-                Book Free Consultation
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" aria-hidden="true">
+                <span className="sm:hidden">Consultation</span>
+                <span className="hidden sm:inline">Book Free Consultation</span>
+                <svg className="hidden sm:block w-4 h-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
               </Link>
@@ -452,10 +453,11 @@ function ConsultationCTA() {
             <a
               href={`tel:${CONTACT_INFO.phone1}`}
               id="services-call-cta"
-              className="inline-flex items-center gap-3 px-8 py-4 rounded-full font-semibold text-sm text-white border border-white/20 transition-all duration-300 hover:border-orange-400"
+              className="flex-1 sm:flex-none inline-flex w-full items-center justify-center gap-1.5 sm:gap-3 px-1 sm:px-8 py-3.5 sm:py-4 rounded-full font-semibold text-[10px] sm:text-sm text-white border border-white/20 transition-all duration-300 hover:border-orange-400 whitespace-nowrap"
             >
               <span>📞</span>
-              Call {CONTACT_INFO.phone1}
+              <span className="sm:hidden">Call Us</span>
+              <span className="hidden sm:inline">Call {CONTACT_INFO.phone1}</span>
             </a>
           </div>
         </motion.div>

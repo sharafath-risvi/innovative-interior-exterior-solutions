@@ -38,6 +38,7 @@ import Navbar   from './components/layout/Navbar'
 import Footer   from './components/layout/Footer'
 import Home     from './pages/Home'
 import WhatsAppButton from './components/ui/WhatsAppButton'
+import EmailFloatingButton from './components/ui/EmailFloatingButton'
 
 const About    = lazy(() => import('./pages/About'))
 const Services = lazy(() => import('./pages/Services'))
@@ -176,6 +177,8 @@ export default function App() {
       <AnimatedRoutes />
       {/* ── Global Footer ── */}
       <Footer />
+      {/* ── Global Email Button ── */}
+      <EmailFloatingButton />
       {/* ── Global WhatsApp Button ── */}
       <WhatsAppButton />
     </BrowserRouter>

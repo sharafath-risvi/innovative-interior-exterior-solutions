@@ -176,8 +176,8 @@ export default function FeaturedServices() {
         tl.to({}, { duration: 0.8 })
       })
 
-      // ── MOBILE/TABLET TIMELINE (max-width: 1024px) ──
-      mm.add("(max-width: 1024px)", () => {
+      // ── TABLET TIMELINE (min-width: 768px and max-width: 1024px) ──
+      mm.add("(min-width: 768px) and (max-width: 1024px)", () => {
         gsap.set(imagesRef.current[0], { opacity: 1, scale: 1.05 })
         gsap.set(fullTextsRef.current[0], { opacity: 1, y: 0 })
         
@@ -287,17 +287,27 @@ export default function FeaturedServices() {
     return () => ctx.revert()
   }, [scenes])
 
-  return (
-    <section ref={containerRef} className="relative w-full h-screen overflow-hidden bg-[#FAFAFA]" aria-label="What We Do Cinematic">
-      
-      {/* ── BACKGROUND ── */}
-      <div className="absolute inset-0 bg-[#FAFAFA] z-0" />
+  useEffect(() => {
+    // Refresh ScrollTrigger to ensure correct height calculations for subsequent sections on mobile
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh()
+    }, 500)
+    return () => clearTimeout(timer)
+  }, [])
 
-      {/* ── IMAGE CONTAINER (First 5 Scenes) ── */}
-      <div 
-        ref={imageContainerRef} 
-        className="absolute top-0 left-0 w-full h-screen will-change-[clip-path] z-10 shadow-[0_0_40px_rgba(0,0,0,0.15)] overflow-hidden bg-black" style={{ clipPath: 'inset(0% 0% 0% 0%)' }}
-      >
+  return (
+    <section ref={containerRef} className="relative w-full md:h-screen md:overflow-hidden bg-[#FAFAFA] z-20" aria-label="What We Do Cinematic">
+      
+      {/* ── DESKTOP & TABLET LAYOUT (Hidden on Mobile) ── */}
+      <div className="hidden md:block w-full h-full relative">
+        {/* ── BACKGROUND ── */}
+        <div className="absolute inset-0 bg-[#FAFAFA] z-0" />
+
+        {/* ── IMAGE CONTAINER (First 5 Scenes) ── */}
+        <div 
+          ref={imageContainerRef} 
+          className="absolute top-0 left-0 w-full h-screen will-change-[clip-path] z-10 shadow-[0_0_40px_rgba(0,0,0,0.15)] overflow-hidden bg-black" style={{ clipPath: 'inset(0% 0% 0% 0%)' }}
+        >
         {scenes.map((scene, i) => (
           <div 
             key={`img-${i}`}
@@ -746,6 +756,176 @@ export default function FeaturedServices() {
                   </Link>
                 </div>
               </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      </div>
+
+      {/* ── MOBILE STACKED LAYOUT (Hidden on Tablet & Desktop) ── */}
+      <div className="block md:hidden relative w-full pt-16 pb-32 bg-[#FAFAFA]">
+        {/* FIRST SCREEN: Award-Winning Luxury Editorial (adapted for mobile) */}
+        <div className="relative px-6 mb-20 flex flex-col items-center text-center">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="flex items-center gap-4 mb-8"
+          >
+            <span className="block w-8 h-px bg-gradient-to-r from-transparent to-[#E68A2E]" />
+            <span className="font-sans font-bold text-[9px] tracking-[0.4em] uppercase text-[#E68A2E]">
+              Our Expertise
+            </span>
+            <span className="block w-8 h-px bg-gradient-to-l from-transparent to-[#E68A2E]" />
+          </motion.div>
+
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="font-serif font-extrabold text-5xl text-[#080808] tracking-tight leading-none mb-6"
+          >
+            What <em className="font-serif italic text-[#F7941D]">We</em> Do
+          </motion.h2>
+
+          <motion.div 
+            initial={{ scale: 0, opacity: 0 }}
+            whileInView={{ scale: 1, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="flex items-center gap-2 justify-center mb-8"
+          >
+            <div className="w-6 h-px bg-gradient-to-r from-transparent to-orange-400/40" />
+            <div className="w-1 h-1 rounded-full border border-orange-400/60" />
+            <div className="w-12 h-[1.5px] bg-gradient-to-r from-orange-400/70 via-orange-500 to-orange-400/70 rounded-sm" />
+            <div className="w-1 h-1 rounded-full border border-orange-400/60" />
+            <div className="w-6 h-px bg-gradient-to-l from-transparent to-orange-400/40" />
+          </motion.div>
+
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="font-serif italic text-base text-[#525252] leading-relaxed max-w-sm mx-auto"
+          >
+            We provide innovative interior and exterior solutions for residential
+            and commercial spaces with premium craftsmanship and modern design.
+          </motion.p>
+        </div>
+
+        {/* SERVICE BLOCKS */}
+        <div className="flex flex-col gap-24 px-6">
+          {sequenceServices.map((service, i) => (
+            <div key={`mob-srv-${i}`} className="flex flex-col gap-6">
+              {/* Image first */}
+              <motion.div 
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className="w-full rounded-2xl overflow-hidden shadow-xl shadow-black/5" 
+                style={{ aspectRatio: '4/3' }}
+              >
+                <motion.img 
+                  initial={{ scale: 1.1 }}
+                  whileInView={{ scale: 1 }}
+                  transition={{ duration: 1.2, ease: "easeOut" }}
+                  src={service.image} 
+                  alt={service.title} 
+                  className="w-full h-full object-cover" 
+                />
+              </motion.div>
+              
+              {/* Content below */}
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                className="flex flex-col pt-2"
+              >
+                <p className="text-[#E68A2E] text-xs font-semibold tracking-[0.15em] uppercase mb-3">
+                  {service.subtitle}
+                </p>
+                <h3 className="font-display font-bold text-gray-900 text-3xl leading-tight mb-4">
+                  {service.title}
+                </h3>
+                <p className="text-gray-600 text-sm leading-relaxed mb-6">
+                  {service.description}
+                </p>
+                {service.features && (
+                  <ul className="grid grid-cols-1 gap-y-3 mb-8">
+                    {service.features.map((feature, idx) => (
+                       <li key={idx} className="flex items-start gap-3 text-gray-700 text-sm font-medium">
+                         <span className="w-1.5 h-1.5 rounded-full bg-[#E68A2E] shrink-0 mt-1.5" />
+                         {feature}
+                       </li>
+                    ))}
+                  </ul>
+                )}
+                <Link 
+                  to="/services" 
+                  className="group inline-flex items-center gap-3 text-xs font-bold tracking-widest uppercase text-gray-900 w-max"
+                >
+                  <span className="w-8 h-[1.5px] bg-gray-900 transition-all group-hover:w-12 group-hover:bg-[#E68A2E]" />
+                  Explore Detail
+                </Link>
+              </motion.div>
+            </div>
+          ))}
+        </div>
+
+        {/* MORE SERVICES (CARDS) */}
+        <div className="mt-32 px-6">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-12"
+          >
+            <h2 className="font-display font-bold text-gray-900 text-3xl leading-tight">
+              Complete Interior &<br />Exterior Solutions
+            </h2>
+          </motion.div>
+
+          <div className="flex flex-col gap-8">
+            {moreServices.map((service, idx) => (
+              <motion.div 
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.8, delay: idx * 0.1 }}
+                key={`mob-more-${service.id}`} 
+                className="group relative rounded-2xl overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.06)] bg-white border border-gray-100"
+              >
+                <div className="h-56 overflow-hidden relative">
+                  <motion.img 
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.7 }}
+                    src={service.image} 
+                    loading="lazy" 
+                    alt={service.title} 
+                    className="w-full h-full object-cover" 
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-70" />
+                </div>
+                <div className="p-6">
+                  <h3 className="font-display font-bold text-gray-900 text-xl mb-3">
+                    {service.title}
+                  </h3>
+                  <p className="text-gray-600 text-sm leading-relaxed line-clamp-2">
+                    {service.description}
+                  </p>
+                  <Link to="/services" className="inline-flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] uppercase text-gray-900 mt-6">
+                    <span className="w-6 h-[1.5px] bg-gray-900" />
+                    Explore Details
+                  </Link>
+                </div>
+              </motion.div>
             ))}
           </div>
         </div>

@@ -733,19 +733,19 @@ function ContactCTA() {
           <p className="relative text-gray-300 max-w-lg mx-auto mb-10">
             Sometimes a quick call is the best way to get started. Reach us directly — we're always happy to chat.
           </p>
-          <div className="relative flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="relative flex flex-row items-center justify-center gap-2 sm:gap-4 w-full max-w-[340px] sm:max-w-none mx-auto">
             <motion.a
               href={`tel:${CONTACT_INFO.phone1}`}
               id="cta-phone-call"
               whileHover={{ scale: 1.04, y: -2 }}
               whileTap={{ scale: 0.97 }}
-              className="inline-flex items-center gap-3 px-8 py-4 rounded-full text-white font-semibold"
+              className="flex-1 sm:flex-none inline-flex w-full items-center justify-center gap-1.5 sm:gap-3 px-2 sm:px-8 py-3.5 sm:py-4 rounded-full text-white font-semibold text-[10px] sm:text-base whitespace-nowrap"
               style={{
                 background: 'linear-gradient(135deg, var(--color-orange), var(--color-orange-sec))',
                 boxShadow: '0 8px 32px rgba(247,135,1,0.4)',
               }}
             >
-              📞 {CONTACT_INFO.phone1}
+              📞 <span className="sm:hidden">Call Us</span><span className="hidden sm:inline">{CONTACT_INFO.phone1}</span>
             </motion.a>
             <motion.a
               href={`https://wa.me/${CONTACT_INFO.whatsapp.replace(/\D/g, '')}`}
@@ -754,13 +754,13 @@ function ContactCTA() {
               id="cta-whatsapp"
               whileHover={{ scale: 1.04, y: -2 }}
               whileTap={{ scale: 0.97 }}
-              className="inline-flex items-center gap-3 px-8 py-4 rounded-full text-white font-semibold"
+              className="flex-1 sm:flex-none inline-flex w-full items-center justify-center gap-1.5 sm:gap-3 px-2 sm:px-8 py-3.5 sm:py-4 rounded-full text-white font-semibold text-[10px] sm:text-base whitespace-nowrap"
               style={{
                 background: 'linear-gradient(135deg, #25D366, #128C7E)',
                 boxShadow: '0 8px 32px rgba(37,211,102,0.3)',
               }}
             >
-              💬 WhatsApp Us
+              💬 <span className="sm:hidden">WhatsApp</span><span className="hidden sm:inline">WhatsApp Us</span>
             </motion.a>
           </div>
         </motion.div>
