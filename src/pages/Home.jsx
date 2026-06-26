@@ -22,7 +22,7 @@ import Hero               from '../components/sections/home/Hero'
 import LeadPopup          from '../components/sections/home/LeadPopup'
 
 const FeaturedServices    = lazy(() => import('../components/sections/home/FeaturedServices'))
-const StorytellingSection = lazy(() => import('../components/sections/home/StorytellingSection'))
+
 const ProjectsGallery     = lazy(() => import('../components/sections/home/ProjectsGallery'))
 const WhyChooseUs         = lazy(() => import('../components/sections/home/WhyChooseUs'))
 const Testimonials        = lazy(() => import('../components/sections/home/Testimonials'))
@@ -41,10 +41,6 @@ export default function Home() {
       <Suspense fallback={null}>
         {/* ── Section 2: Featured Services ── */}
         <FeaturedServices />
-
-        {/* ── Section 3: Storytelling Experience ── */}
-        <StorytellingSection />
-
         {/* ── Section 4: Projects Gallery ── */}
         <ProjectsGallery />
 
