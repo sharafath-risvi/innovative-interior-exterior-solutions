@@ -1,27 +1,15 @@
 // =================================================
-// SERVICES PAGE — COMPLETE
+// SERVICES PAGE — COMPLETE & CLIENT-APPROVED
 // =================================================
 // File: src/pages/Services.jsx
 // Purpose: Comprehensive services showcase with all IIES
-//          interior & exterior services, material solutions,
-//          working process timeline, and consultation CTA.
-// =================================================
-// Sections:
-//   1. Services Hero
-//   2. Interior Services — detailed cards with images
-//   3. Exterior Services — detailed cards with images
-//   4. Material Solutions — material showcase grid
-//   5. Working Process — 5-step animated timeline
-//   6. Consultation CTA
-// Animation:
-//   - Alternating left/right image-text layouts per service
-//   - GSAP ScrollTrigger: process timeline line draw
-//   - Staggered card reveals
-// Responsive: All sections fully responsive
-// Future Developer Notes:
-//   - All service data: src/lib/constants.js
-//   - INTERIOR_SERVICES and EXTERIOR_SERVICES arrays
-//   - Material Solutions: add new materials to MATERIALS array below
+//          interior & exterior services organized into 4 major
+//          professional categories:
+//          1. Residential Interiors
+//          2. Commercial Interiors
+//          3. False Ceiling Solutions
+//          4. Flooring Solutions
+//          Plus Consultation CTA.
 // =================================================
 
 import { useEffect, useRef } from 'react'
@@ -30,30 +18,247 @@ import { Link } from 'react-router-dom'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import SectionHeading from '../components/ui/SectionHeading'
-import { INTERIOR_SERVICES, EXTERIOR_SERVICES, PROCESS_STEPS, CONTACT_INFO } from '../lib/constants'
+import { CONTACT_INFO } from '../lib/constants'
 
-// Import images for material solutions
-import flooringImg    from '../assets/images/flooring.webp'
-import wallpaperImg   from '../assets/images/wallpaper.webp'
-import glassImg       from '../assets/images/glass-partition.webp'
-import upvcImg        from '../assets/images/upvc-windows.webp'
-import falseCeilingImg from '../assets/images/false-ceiling.webp'
-import exteriorAcpImg from '../assets/images/exterior-acp.webp'
-
-// (Image imports removed as background is now video)
+// Import images for service representation
+import flooringImg      from '../assets/images/flooring.webp'
+import wallpaperImg     from '../assets/images/wallpaper.webp'
+import glassImg         from '../assets/images/glass-partition.webp'
+import upvcImg          from '../assets/images/upvc-windows.webp'
+import falseCeilingImg  from '../assets/images/false-ceiling.webp'
+import exteriorAcpImg   from '../assets/images/exterior-acp.webp'
+import residentialImg   from '../assets/images/residential.webp'
+import commercialImg    from '../assets/images/commercial.webp'
+import luxuryRevealImg  from '../assets/images/luxury-reveal.webp'
+import modernVillaImg   from '../assets/images/modern-villa-exterior.webp'
+import premiumHeroImg   from '../assets/images/premium-hero-interior.webp'
+import aboutTeamImg     from '../assets/images/about-team.webp'
 
 gsap.registerPlugin(ScrollTrigger)
 
-// ── Material solutions data ──
-const MATERIALS = [
-  { name: 'Premium Marble',       desc: 'Carrara, Calacatta & exotic marble', icon: '🪨', image: flooringImg },
-  { name: 'Designer Wallpaper',   desc: 'European & Asian collections',        icon: '📄', image: wallpaperImg },
-  { name: 'ACP Panels',           desc: 'Metallic, matte & wood finish',       icon: '🔩', image: exteriorAcpImg },
-  { name: 'Glass Systems',        desc: 'Frameless, frosted & structural',     icon: '🔷', image: glassImg },
-  { name: 'UPVC Windows',         desc: 'Energy-efficient window systems',     icon: '🪟', image: upvcImg },
-  { name: 'Gypsum Ceilings',      desc: 'Board, POP & ornamental plaster',    icon: '✨', image: falseCeilingImg },
+// ──────────────────────────────
+// SERVICE CATEGORIES DATA
+// ──────────────────────────────
+
+const RESIDENTIAL_SERVICES_DATA = [
+  {
+    id: 'res-kitchen',
+    title: 'Modular Kitchen',
+    subtitle: 'Ergonomic Culinary Excellence',
+    description: 'Bespoke modular kitchen layouts designed for effortless workflow, optimized storage, and enduring elegance. Constructed with premium moisture-resistant cabinetry, soft-closing hardware, and luxury stone finishes.',
+    features: ['Ergonomic Workflow Layouts', 'Moisture-Resistant Cabinetry', 'Soft-Close German Hardware', 'Custom Countertop Integration'],
+    image: luxuryRevealImg,
+  },
+  {
+    id: 'res-wardrobes',
+    title: 'Wardrobes',
+    subtitle: 'Intelligent Storage & Style',
+    description: 'Custom-designed floor-to-ceiling wardrobes that seamlessly integrate into your bedroom architecture. Featuring smart organizational systems, integrated sensor lighting, and sliding or hinged designer shutters.',
+    features: ['Floor-to-Ceiling Fit', 'Integrated Sensor Lighting', 'Custom Organizer Sections', 'Designer Glass & Laminate Shutters'],
+    image: residentialImg,
+  },
+  {
+    id: 'res-tv-units',
+    title: 'TV Units',
+    subtitle: 'The Focal Point of Entertainment',
+    description: 'Statement entertainment wall units that blend acoustic functionality with sophisticated design. Expertly crafted with concealed wire management, floating consoles, and back-lit accent panels.',
+    features: ['Concealed Cable Management', 'Floating Console Architecture', 'Ambient Backlighting', 'Acoustic Wall Paneling'],
+    image: premiumHeroImg,
+  },
+  {
+    id: 'res-pooja',
+    title: 'Pooja Units',
+    subtitle: 'Sacred Spaces of Serenity',
+    description: 'Devotional spaces crafted with reverence and intricate detailing. Incorporating traditional bells, CNC-cut jali partitions, warm backlighting, and premium marble or teakwood finishes.',
+    features: ['Intricate CNC Jali Partitions', 'Warm Ambient Backlighting', 'Premium Marble & Teakwood', 'Custom Spatial Sizing'],
+    image: wallpaperImg,
+  },
+  {
+    id: 'res-dividers',
+    title: 'Divider Partitions',
+    subtitle: 'Sculptural Spatial Separation',
+    description: 'Elegant room dividers and display showcases that define open-plan living areas without obstructing natural light. Featuring geometric metalwork, fluted glass, and custom display shelving.',
+    features: ['Open-Plan Zoning', 'Fluted & Beveled Glass', 'Custom Display Shelving', 'Geometric Metal Framework'],
+    image: glassImg,
+  },
+  {
+    id: 'res-shower-cubicles',
+    title: 'Shower Cubicles',
+    subtitle: 'Modern Bathroom Elegance',
+    description: 'Custom glass shower cubicles and bathroom partitions designed for luxury, cleanliness, and spatial optimization. Featuring toughened safety glass, corrosion-resistant hardware, and seamless frameless configurations.',
+    features: ['Toughened Safety Glass', 'Frameless & Semi-Frameless Options', 'Corrosion-Resistant Hardware', 'Custom Spatial Sizing'],
+    image: glassImg,
+  },
+  {
+    id: 'res-ceiling-painting',
+    title: 'False Ceiling & Interior Painting',
+    subtitle: 'Architectural Atmosphere',
+    description: 'Comprehensive overhead styling combined with flawless interior painting. From designer gypsum coves with mood lighting to luxury wall textures and low-VOC premium paint applications.',
+    features: ['Designer Gypsum Cove Lighting', 'Luxury Wall Textures', 'Low-VOC Premium Finishes', 'Flawless Surface Preparation'],
+    image: falseCeilingImg,
+  },
 ]
 
+const COMMERCIAL_SERVICES_DATA = [
+  {
+    id: 'com-workstations',
+    title: 'Workstations',
+    subtitle: 'Collaborative Productivity Hubs',
+    description: 'Ergonomically engineered office workstations designed to foster team collaboration while maintaining individual focus. Equipped with modular privacy screens, integrated raceways for clean cabling, and robust build quality.',
+    features: ['Ergonomic Modular Design', 'Integrated Cabling Raceways', 'Acoustic Privacy Screens', 'Flexible Scalability'],
+    image: commercialImg,
+  },
+  {
+    id: 'com-executive',
+    title: 'Executive Cabins',
+    subtitle: 'Leadership in Design',
+    description: 'Prestigious private office suites tailored for leadership and executive decision-making. Incorporating custom executive desks, premium wall paneling, sophisticated acoustic treatments, and integrated finishing solutions.',
+    features: ['Bespoke Executive Desks', 'Acoustic Wall Treatments', 'Integrated Storage Consoles', 'Premium Leather & Wood Finishes'],
+    image: aboutTeamImg,
+  },
+  {
+    id: 'com-conference',
+    title: 'Conference Rooms',
+    subtitle: 'Immersive Meeting Environments',
+    description: 'State-of-the-art boardrooms and meeting spaces built for impactful presentations and seamless video conferencing. Featuring acoustic wall paneling, custom boardroom tables, and optimized lighting.',
+    features: ['Acoustic Echo Reduction', 'AV & Video Conferencing Integration', 'Custom Boardroom Tables', 'Smart Lighting Controls'],
+    image: glassImg,
+  },
+  {
+    id: 'com-reception',
+    title: 'Reception Zone',
+    subtitle: 'Commanding First Impressions',
+    description: 'Striking entrance lobbies and reception lounges that embody your corporate brand identity from the first step inside. Built with statement reception desks, brand signage walls, and luxury waiting area seating.',
+    features: ['Statement Reception Desks', 'Custom Brand Signage Walls', 'Luxury Visitor Lounge Seating', 'Architectural Lighting Accent'],
+    image: modernVillaImg,
+  },
+  {
+    id: 'com-partitions',
+    title: 'Cabin Partitions',
+    subtitle: 'Transparent & Acoustic Zoning',
+    description: 'Advanced office partitioning systems offering the perfect balance of visual transparency and speech privacy. Available in double-glazed acoustic glass, slim-line aluminum frames, and frosted branding films.',
+    features: ['Double-Glazed Acoustic Glass', 'Slim-Line Aluminum Profiling', 'Custom Frosted Branding Films', 'Seamless Door Integration'],
+    image: upvcImg,
+  },
+  {
+    id: 'com-flooring',
+    title: 'Commercial Flooring',
+    subtitle: 'Heavy-Duty Elegance',
+    description: 'High-performance commercial flooring engineered to withstand heavy daily foot traffic while elevating office aesthetics. We install carpet tiles, heavy-duty SPC planks, and raised access flooring systems.',
+    features: ['Heavy-Duty Wear Resistance', 'Acoustic Carpet Tile Systems', 'Raised Access Floor Options', 'Seamless Maintenance'],
+    image: flooringImg,
+  },
+  {
+    id: 'com-windows',
+    title: 'Windows',
+    subtitle: 'Architectural UPVC & Aluminum Windows',
+    description: 'Modern UPVC windows provide durability, security, weather resistance, thermal insulation, and low maintenance. They improve energy efficiency while offering a stylish and long-lasting solution for residential and commercial spaces.',
+    features: ['UPVC & Structural Aluminum', 'Superior Thermal Insulation', 'Acoustic Noise Dampening', 'Weatherproof Precision Sealing'],
+    image: upvcImg,
+  },
+  {
+    id: 'com-wallpapers',
+    title: 'Wallpapers',
+    subtitle: 'Custom Brand & Designer Wall coverings',
+    description: 'Wallpaper enhances interior spaces with a wide range of colours, textures, and patterns. It creates stylish feature walls, complements different design themes, and is suitable for both residential and commercial interiors.',
+    features: ['Commercial-Grade Vinyl', 'Custom Brand Graphic Murals', 'Textured Architectural Finishes', 'Seamless Professional Installation'],
+    image: wallpaperImg,
+  },
+  {
+    id: 'com-painting',
+    title: 'Painting',
+    subtitle: 'Precision Commercial Surface Coating',
+    description: 'Painting transforms interiors by adding colour, depth, and personality to every space. Professional painting enhances ambience, protects surfaces, and gives homes and commercial interiors a refined, elegant finish.',
+    features: ['Low-VOC High-Durability Coatings', 'Flawless Surface Preparation', 'Custom Brand Color Matching', 'Protective Commercial Finishes'],
+    image: exteriorAcpImg,
+  },
+]
+
+const FALSE_CEILING_DATA = [
+  {
+    id: 'ceil-gypsum',
+    title: 'Gypsum False Ceiling',
+    subtitle: 'Seamless Architectural Contours',
+    description: 'Versatile monolithic ceiling boards that allow for unlimited design creativity. Ideal for creating multi-level drop ceilings, curved architectural contours, and concealed perimeter cove lighting.',
+    features: ['Monolithic Seamless Finish', 'Multi-Level Design Capable', 'Integrated Cove Lighting', 'Fire & Moisture Resistant'],
+    image: falseCeilingImg,
+  },
+  {
+    id: 'ceil-metal',
+    title: 'Metal Ceiling',
+    subtitle: 'Modern Industrial Durability',
+    description: 'Contemporary aluminum and galvanized steel ceiling panels offering exceptional durability and a clean technical aesthetic. Highly resistant to humidity and effortless to dismount for utility access.',
+    features: ['Aluminum & Galvanized Steel', 'Corrosion & Humidity Resistant', 'Easy Utility Access', 'Long-Lifespan Durability'],
+    image: exteriorAcpImg,
+  },
+  {
+    id: 'ceil-grid',
+    title: 'Grid Ceiling',
+    subtitle: 'Modular Functional Efficiency',
+    description: 'Exposed T-grid ceiling systems paired with mineral fiber or metal tiles. The industry standard for corporate offices and commercial facilities requiring quick maintenance access to overhead HVAC and electrical piping.',
+    features: ['Exposed Modular T-Grid', 'Instant Overhead Maintenance Access', 'High Light Reflectance', 'Cost-Effective Commercial Solution'],
+    image: commercialImg,
+  },
+  {
+    id: 'ceil-baffle',
+    title: 'Baffle Ceiling',
+    subtitle: 'Vertical Linear Dynamics',
+    description: 'Vertically suspended linear baffle panels that add striking visual depth and directional rhythm to large commercial spaces. Excellent for masking overhead utilities while maintaining open airflow.',
+    features: ['Striking Vertical Depth', 'Open Airflow Architecture', 'Overhead Utility Masking', 'Custom Spacing & Depths'],
+    image: falseCeilingImg,
+  },
+  {
+    id: 'ceil-linear',
+    title: 'Linear Ceiling',
+    subtitle: 'Streamlined Continuous Flow',
+    description: 'Parallel metal or wood-look linear strip ceilings that guide sightlines and elongate room perception. Perfect for corridors, airport terminals, corporate lobbies, and contemporary exterior overhangs.',
+    features: ['Continuous Visual Elongation', 'Metal & Wood-Grain Finishes', 'Integrated Linear LED Tracks', 'Interior & Exterior Application'],
+    image: upvcImg,
+  },
+  {
+    id: 'ceil-acoustic',
+    title: 'Acoustic Ceiling',
+    subtitle: 'Sound Absorption & Clarity',
+    description: 'Specialized acoustic ceiling panels and perforated boards engineered to absorb ambient noise and eliminate reverberation. Essential for auditoriums, boardrooms, open offices, and home theaters.',
+    features: ['Superior Noise Reduction Coeff (NRC)', 'Perforated Acoustic Panels', 'Eliminates Echo & Reverberation', 'Aesthetic & Functional Harmony'],
+    image: wallpaperImg,
+  },
+]
+
+const FLOORING_DATA = [
+  {
+    id: 'floor-wooden',
+    title: 'Wooden Flooring',
+    subtitle: 'Timeless Warmth & Natural Luxury',
+    description: 'Authentic engineered hardwood and premium laminate wooden planks that infuse interiors with natural organic warmth. Treated with multi-layer UV protection for scratch resistance and lasting richness.',
+    features: ['Engineered Hardwood & Laminate', 'Multi-Layer UV Protection', 'Rich Organic Grain Textures', 'Warm Underfoot Comfort'],
+    image: flooringImg,
+  },
+  {
+    id: 'floor-spc',
+    title: 'SPC Flooring',
+    subtitle: '100% Waterproof Rigid Core',
+    description: 'Stone Plastic Composite (SPC) flooring combines the beauty of natural wood and stone with extreme waterproof durability. Its rigid core prevents indentation and withstands heavy residential or commercial wear.',
+    features: ['100% Waterproof Core', 'Extreme Indentation Resistance', 'Realistic Wood & Stone Textures', 'Rapid Click-Lock Installation'],
+    image: luxuryRevealImg,
+  },
+  {
+    id: 'floor-vinyl',
+    title: 'Vinyl Flooring',
+    subtitle: 'Versatile, Silent & Resilient',
+    description: 'Luxury Vinyl Tiles (LVT) and continuous sheet vinyl offering exceptional cushioning, underfoot comfort, and sound dampening. Ideal for healthcare, retail, educational, and modern residential spaces.',
+    features: ['Soft & Silent Underfoot', 'High Stain & Scratch Resistance', 'Versatile Pattern Configurations', 'Easy Hygienic Maintenance'],
+    image: residentialImg,
+  },
+  {
+    id: 'floor-corporate',
+    title: 'Corporate Flooring',
+    subtitle: 'Engineered for High-Performance Business',
+    description: 'Specialized commercial flooring solutions including heavy-duty carpet tiles, anti-static epoxy coatings, and raised access floors designed for demanding corporate offices and data centers.',
+    features: ['Modular Carpet Tile Systems', 'Anti-Static & ESD Coatings', 'Raised Access Floor Compatibility', 'Engineered for Heavy Traffic'],
+    image: commercialImg,
+  },
+]
 
 // ──────────────────────────────
 // 1. SERVICES HERO
@@ -63,7 +268,6 @@ function ServicesHero() {
   const videoContainerRef = useRef(null)
   const videoRef = useRef(null)
   const textRef = useRef(null)
-  const scrollIndicatorRef = useRef(null)
 
   useEffect(() => {
     let ctx;
@@ -85,8 +289,8 @@ function ServicesHero() {
           }
         })
 
-        // Fade out text and scroll indicator elegantly early in the scroll (first ~15%)
-        tl.to([textRef.current, scrollIndicatorRef.current], { y: -20, opacity: 0, ease: 'power2.out', duration: 0.15 }, 0)
+        // Fade out text elegantly early in the scroll (first ~15%)
+        tl.to(textRef.current, { y: -20, opacity: 0, ease: 'power2.out', duration: 0.15 }, 0)
         
         // Slight scale effect on video container to keep cinematic feel
         tl.to(videoContainerRef.current, { scale: 1.05, ease: 'none', duration: 1 }, 0)
@@ -112,7 +316,7 @@ function ServicesHero() {
   }, [])
 
   // Split text animation for initial load
-  const headingText = "Complete Design Solutions."
+  const headingText = "Complete Interior & Exterior."
 
   return (
     <section 
@@ -132,8 +336,6 @@ function ServicesHero() {
           className="w-full h-full object-cover"
         />
       </div>
-
-      {/* The dark gradient overlay was removed to allow the video to display at original brightness */}
 
       {/* Content */}
       <div 
@@ -182,28 +384,9 @@ function ServicesHero() {
           transition={{ duration: 1, delay: 1.5 }}
           className="text-white text-lg md:text-xl font-serif italic font-medium max-w-2xl mx-auto drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)] px-6 py-2"
         >
-          Complete interior and exterior solutions with premium craftsmanship. End-to-end project delivery for residential and commercial spaces. <br className="hidden md:block"/>
-          Scroll to explore our services.
+          Delivering complete residential, commercial, ceiling, flooring, and premium architectural solutions. We transform homes, offices, and landmark projects with bespoke craftsmanship and enduring elegance.
         </motion.p>
       </div>
-
-      {/* Scroll indicator */}
-      <motion.div 
-        ref={scrollIndicatorRef}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-2 will-change-transform"
-      >
-        <span className="text-white/60 text-xs tracking-[0.2em] uppercase font-medium">Scroll</span>
-        <div className="w-px h-12 bg-white/20 overflow-hidden">
-          <motion.div 
-            animate={{ y: ['-100%', '100%'] }}
-            transition={{ repeat: Infinity, duration: 1.5, ease: 'linear' }}
-            className="w-full h-1/2 bg-orange-500"
-          />
-        </div>
-      </motion.div>
     </section>
   )
 }
@@ -211,16 +394,17 @@ function ServicesHero() {
 // ──────────────────────────────
 // SERVICE DETAIL CARD (Alternating)
 // ──────────────────────────────
-function ServiceDetailCard({ service, index }) {
+function ServiceDetailCard({ service, index, isDark = false }) {
   const isEven = index % 2 === 0
 
   return (
     <motion.article
+      id={service.id}
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-      className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20 last:mb-0`}
+      className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20 last:mb-0"
       aria-label={`Service: ${service.title}`}
     >
       {/* Image */}
@@ -253,7 +437,7 @@ function ServiceDetailCard({ service, index }) {
           {service.subtitle}
         </p>
         <h2
-          className="font-display font-bold text-gray-900 leading-tight mb-4"
+          className={`font-display font-bold leading-tight mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}
           style={{ fontSize: 'clamp(1.75rem, 3vw, 2.5rem)' }}
         >
           {service.title}
@@ -263,12 +447,12 @@ function ServiceDetailCard({ service, index }) {
           style={{ background: 'var(--color-orange)' }}
           aria-hidden="true"
         />
-        <p className="text-gray-500 leading-relaxed mb-7">{service.description}</p>
+        <p className={`leading-relaxed mb-7 ${isDark ? 'text-gray-300' : 'text-gray-500'}`}>{service.description}</p>
 
         {/* Features */}
         <ul className="grid grid-cols-2 gap-3" aria-label={`Features of ${service.title}`}>
           {service.features.map((feature, fi) => (
-            <li key={fi} className="flex items-center gap-2 text-gray-700 text-sm font-medium">
+            <li key={fi} className={`flex items-center gap-2 text-sm font-medium ${isDark ? 'text-gray-200' : 'text-gray-700'}`}>
               <span
                 className="w-5 h-5 rounded-full flex items-center justify-center text-white text-xs shrink-0"
                 style={{ background: 'var(--color-orange)' }}
@@ -286,20 +470,20 @@ function ServiceDetailCard({ service, index }) {
 }
 
 // ──────────────────────────────
-// 2. INTERIOR SERVICES
+// 2. RESIDENTIAL INTERIORS SECTION
 // ──────────────────────────────
-function InteriorServices() {
+function ResidentialInteriorsSection() {
   return (
-    <section id="services-section" className="section-pad bg-white" aria-label="Interior Services">
-      <div className="px-6 md:px-12 lg:px-20" style={{ maxWidth: 'var(--container-max)', margin: '0 auto' }}>
+    <section id="residential" className="section-pad bg-white" aria-label="Residential Interiors">
+      <div id="services-section" className="px-6 md:px-12 lg:px-20" style={{ maxWidth: 'var(--container-max)', margin: '0 auto' }}>
         <SectionHeading
-          badge="Interior Solutions"
-          title="Interior Design"
-          titleAccent="Services"
-          subtitle="Premium interior solutions for residential and commercial spaces — crafted with passion and precision."
+          badge="Service Category 01"
+          title="Residential"
+          titleAccent="Interiors"
+          subtitle="Residential interior design combines functionality and aesthetics to create comfortable and elegant living spaces. Every home is designed to reflect the lifestyle, personality, and preferences of its owner while ensuring comfort, beauty, and practical everyday living."
           centered
         />
-        {INTERIOR_SERVICES.map((service, i) => (
+        {RESIDENTIAL_SERVICES_DATA.map((service, i) => (
           <ServiceDetailCard key={service.id} service={service} index={i} />
         ))}
       </div>
@@ -308,25 +492,48 @@ function InteriorServices() {
 }
 
 // ──────────────────────────────
-// 3. EXTERIOR SERVICES
+// 3. COMMERCIAL INTERIORS SECTION
 // ──────────────────────────────
-function ExteriorServices() {
+function CommercialInteriorsSection() {
   return (
     <section
-      id="exterior-services"
+      id="commercial"
       className="section-pad"
-      style={{ background: 'var(--color-grey-light)' }}
-      aria-label="Exterior Services"
+      style={{ background: '#111111' }}
+      aria-label="Commercial Interiors"
     >
-      <div className="px-6 md:px-12 lg:px-20" style={{ maxWidth: 'var(--container-max)', margin: '0 auto' }}>
+      <div id="commercial-interiors" className="px-6 md:px-12 lg:px-20" style={{ maxWidth: 'var(--container-max)', margin: '0 auto' }}>
         <SectionHeading
-          badge="Exterior Solutions"
-          title="Exterior Design"
-          titleAccent="& Façade Services"
-          subtitle="Bold exteriors that command attention and endure through time — from ACP cladding to structural glazing."
+          badge="Service Category 02"
+          title="Commercial"
+          titleAccent="Interiors"
+          subtitle="Commercial interior design creates productive and inspiring workplaces that enhance employee efficiency and leave a lasting impression on clients. Well-designed commercial spaces improve brand identity, functionality, and user experience."
+          centered
+          light={true}
+        />
+        {COMMERCIAL_SERVICES_DATA.map((service, i) => (
+          <ServiceDetailCard key={service.id} service={service} index={i} isDark={true} />
+        ))}
+      </div>
+    </section>
+  )
+}
+
+// ──────────────────────────────
+// 4. FALSE CEILING SOLUTIONS SECTION
+// ──────────────────────────────
+function FalseCeilingSection() {
+  return (
+    <section id="false-ceiling" className="section-pad bg-white" aria-label="False Ceiling Solutions">
+      <div id="false-ceiling-solutions" className="px-6 md:px-12 lg:px-20" style={{ maxWidth: 'var(--container-max)', margin: '0 auto' }}>
+        <SectionHeading
+          badge="Service Category 03"
+          title="False Ceiling"
+          titleAccent="Solutions"
+          subtitle="False ceilings conceal electrical wiring, plumbing, ducts, and utilities while improving the overall appearance of interiors. They add elegance, enhance lighting, improve acoustics, and create a clean architectural finish."
           centered
         />
-        {EXTERIOR_SERVICES.map((service, i) => (
+        {FALSE_CEILING_DATA.map((service, i) => (
           <ServiceDetailCard key={service.id} service={service} index={i} />
         ))}
       </div>
@@ -335,46 +542,28 @@ function ExteriorServices() {
 }
 
 // ──────────────────────────────
-// 4. MATERIAL SOLUTIONS
+// 5. FLOORING SOLUTIONS SECTION
 // ──────────────────────────────
-function MaterialSolutions() {
+function FlooringSolutionsSection() {
   return (
-    <section id="material-solutions" className="section-pad bg-white" aria-label="Material Solutions">
-      <div className="px-6 md:px-12 lg:px-20" style={{ maxWidth: 'var(--container-max)', margin: '0 auto' }}>
+    <section
+      id="flooring"
+      className="section-pad"
+      style={{ background: '#111111' }}
+      aria-label="Flooring Solutions"
+    >
+      <div id="flooring-solutions" className="px-6 md:px-12 lg:px-20" style={{ maxWidth: 'var(--container-max)', margin: '0 auto' }}>
         <SectionHeading
-          badge="Premium Materials"
-          title="Materials We"
-          titleAccent="Work With"
-          subtitle="We source and work with the finest materials globally — ensuring every surface, texture, and finish meets our premium standards."
+          badge="Service Category 04"
+          title="Flooring"
+          titleAccent="Solutions"
+          subtitle="Quality flooring provides a durable, comfortable, and visually appealing surface for every space. It enhances aesthetics, improves functionality, and increases the long-term value of residential and commercial interiors."
           centered
+          light={true}
         />
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-          {MATERIALS.map((mat, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.08, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className="group relative overflow-hidden rounded-2xl cursor-default"
-              style={{ height: '240px' }}
-              role="figure"
-              aria-label={mat.name}
-            >
-              <img
-                src={mat.image}
-                alt={mat.name}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
-              <div className="absolute bottom-4 left-4 right-4">
-                <h3 className="font-display text-white font-bold text-base mt-1">{mat.name}</h3>
-                <p className="text-gray-300 text-xs mt-0.5">{mat.desc}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+        {FLOORING_DATA.map((service, i) => (
+          <ServiceDetailCard key={service.id} service={service} index={i} isDark={true} />
+        ))}
       </div>
     </section>
   )
@@ -473,9 +662,10 @@ export default function Services() {
   return (
     <main id="main-content">
       <ServicesHero />
-      <InteriorServices />
-      <ExteriorServices />
-      <MaterialSolutions />
+      <ResidentialInteriorsSection />
+      <CommercialInteriorsSection />
+      <FalseCeilingSection />
+      <FlooringSolutionsSection />
       <ConsultationCTA />
     </main>
   )

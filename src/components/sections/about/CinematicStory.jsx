@@ -13,17 +13,17 @@ const STORY_SCENES = [
     id: 's1',
     side: 'left', // image on left, text on right
     img: imgScene1,
-    subtitle: 'Where Every Dream Begins',
-    title: 'Our Story',
-    desc: 'At IIES, our passion is transforming visions into timeless architectural experiences. We seamlessly blend bold creativity with everyday functionality to craft awe-inspiring interiors and exteriors. Driven by precision craftsmanship and unwavering attention to detail, we deliver elegant, luxurious spaces that elevate everyday living.',
+    subtitle: 'Welcome to IIES',
+    title: 'About Us',
+    desc: 'Founded in 2022, Innovative Interior & Exterior Solutions is built on over 16 years of industry expertise, delivering creative, functional, and high-quality interior and exterior solutions. We are committed to crafting environments that inspire, engage, and delight.',
   },
   {
     id: 's2',
     side: 'right', // image on right, text on left
     img: imgScene2,
-    subtitle: 'CRAFTING EXPERIENCES THAT LAST',
-    title: 'Building Spaces That Inspire',
-    desc: 'We turn ambitious ideas into breathtaking realities through continuous innovation and meticulous execution. By selecting only premium materials and focusing on uncompromising quality, we create highly functional spaces built to endure. For us, true success lies in the enduring craftsmanship we deliver and the relationships we build.',
+    subtitle: 'Your Trusted Interior Partner',
+    title: 'Company Introduction',
+    desc: 'Innovative Interior & Exterior Solutions (IIES) is your one-stop solution for all design needs. We blend our 16+ years of industry expertise with modern creativity and functionality to redefine residential, commercial, and landmark spaces.',
   }
 ]
 

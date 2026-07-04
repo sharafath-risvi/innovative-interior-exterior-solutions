@@ -113,22 +113,6 @@ export default function AboutHero() {
         </video>
       </div>
 
-      {/* ── SCROLL INDICATOR ── */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1, duration: 1 }}
-        className="absolute bottom-6 lg:bottom-10 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-2 pointer-events-none"
-      >
-        <span className="text-white/60 text-xs tracking-[0.2em] uppercase font-medium">Scroll to Explore</span>
-        <div className="w-px h-12 bg-white/20 overflow-hidden">
-          <motion.div 
-            animate={{ y: ['-100%', '100%'] }}
-            transition={{ repeat: Infinity, duration: 1.5, ease: 'linear' }}
-            className="w-full h-1/2 bg-orange-500"
-          />
-        </div>
-      </motion.div>
     </section>
   )
 }

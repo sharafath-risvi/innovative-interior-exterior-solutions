@@ -94,15 +94,14 @@ export default function Footer() {
               </div>
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed mb-6">
-              Transforming spaces with passion, precision, and purpose. Your premier partner for luxury interior and exterior design solutions.
+              Innovative Interior & Exterior Solutions (IIES) is a trusted interior and exterior design company committed to delivering creative, functional, and inspiring spaces. Our expertise spans residential interiors, commercial interiors, false ceilings, and complete interior & exterior solutions tailored to every client's needs.
             </p>
             {/* Social Icons */}
             <div className="flex items-center gap-3" aria-label="Social media links">
               {[
-                { label: 'Facebook',  href: '#', icon: 'F' },
-                { label: 'Instagram', href: '#', icon: 'In' },
+                { label: 'Instagram', href: CONTACT_INFO.instagram, icon: 'In' },
+                { label: 'YouTube',   href: CONTACT_INFO.youtube, icon: 'Yt' },
                 { label: 'WhatsApp',  href: `https://wa.me/${CONTACT_INFO.whatsapp.replace(/\D/g, '')}`, icon: 'W' },
-                { label: 'LinkedIn',  href: '#', icon: 'Li' },
               ].map((s) => (
                 <motion.a
                   key={s.label}
@@ -219,8 +218,16 @@ export default function Footer() {
                 </a>
               </li>
               <li className="flex items-center gap-3">
-                <span className="text-orange-400 shrink-0">🕐</span>
-                <span className="text-gray-400 text-sm">{CONTACT_INFO.workingHours}</span>
+                <span className="text-orange-400 shrink-0">✉️</span>
+                <a href={`mailto:${CONTACT_INFO.email2}`} className="text-gray-400 text-sm hover:text-orange-400 transition-colors break-all">
+                  {CONTACT_INFO.email2}
+                </a>
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="text-orange-400 shrink-0">🌐</span>
+                <a href={`https://${CONTACT_INFO.website}`} target="_blank" rel="noopener noreferrer" className="text-gray-400 text-sm hover:text-orange-400 transition-colors">
+                  {CONTACT_INFO.website}
+                </a>
               </li>
             </ul>
           </motion.div>

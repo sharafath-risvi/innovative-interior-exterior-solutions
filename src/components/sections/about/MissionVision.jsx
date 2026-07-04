@@ -113,7 +113,7 @@ export default function MissionVision() {
               className="lg:col-span-3 flex flex-col justify-center"
             >
               <p className="text-[#4A4A4A] font-serif text-lg lg:text-xl leading-relaxed">
-                Designing timeless spaces that blend functionality, craftsmanship, and modern aesthetics while delivering exceptional experiences for every client.
+                We envision a world where every space tells a story, evokes emotions, and fosters connections. Our aim is to transform ordinary places into extraordinary havens that reflect the unique personalities and aspirations of our clients.
               </p>
             </motion.div>
 
@@ -177,9 +177,10 @@ export default function MissionVision() {
               transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
               className="lg:col-span-3 flex flex-col justify-center"
             >
-              <p className="text-[#4A4A4A] font-serif text-lg lg:text-xl leading-relaxed">
-                To become a trusted leader in innovative interior and exterior design, creating iconic spaces that inspire generations.
-              </p>
+              <div className="text-[#4A4A4A] font-serif text-base lg:text-lg leading-relaxed space-y-3">
+                <p>• Premium, stylish, and functional interiors delivered at affordable prices through smart planning and cost optimization.</p>
+                <p>• Timely project completion with proven efficiency, delivering quality projects without compromising workmanship.</p>
+              </div>
             </motion.div>
 
           </div>

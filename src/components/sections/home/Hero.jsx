@@ -292,7 +292,7 @@ export default function Hero() {
               className="text-white text-base md:text-lg font-serif italic font-medium leading-relaxed"
               style={{ textShadow: '0 2px 12px rgba(0,0,0,0.8)' }}
             >
-              From concept to completion, we transform spaces into timeless interiors and exteriors defined by exceptional craftsmanship. Every project is thoughtfully designed to reflect elegance, functionality, and lasting value.
+              Innovative Interior & Exterior Solutions (IIES) is a trusted interior and exterior design company committed to delivering creative, functional, and inspiring spaces. Our expertise spans residential interiors, commercial interiors, false ceilings, and complete interior & exterior solutions tailored to every client's needs.
             </p>
           </div>
         </div>
@@ -311,7 +311,7 @@ export default function Hero() {
               className="text-white text-base md:text-lg font-serif italic font-medium leading-relaxed mb-8"
               style={{ textShadow: '0 2px 12px rgba(0,0,0,0.8)' }}
             >
-              Every detail is thoughtfully crafted to create timeless interiors and exteriors that combine elegance, comfort, and lasting quality.
+              Welcome to Innovative Interior & Exterior Solutions, where creativity meets functionality to redefine spaces and elevate experiences. We are a dynamic interior and exterior design firm committed to crafting environments that inspire, engage, and delight.
             </p>
             
             <button 

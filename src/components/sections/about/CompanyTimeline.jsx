@@ -4,43 +4,36 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 // Images
-import img2016 from '../../../assets/images/about/story_planning.webp'
-import img2018 from '../../../assets/images/residential.webp'
-import img2020 from '../../../assets/images/exterior-acp.webp'
-import img2022 from '../../../assets/images/commercial.webp'
+import img2022 from '../../../assets/images/about/story_planning.webp'
+import img2023 from '../../../assets/images/residential.webp'
+import img2024 from '../../../assets/images/commercial.webp'
 import img2025 from '../../../assets/images/about/completed_hero.webp'
 
 gsap.registerPlugin(ScrollTrigger)
 
 const MILESTONES = [
   {
-    year: '2016',
-    title: 'The Foundation',
-    desc: 'A small studio, a desk full of blueprints, and a massive vision to redefine architectural luxury.',
-    img: img2016
-  },
-  {
-    year: '2018',
-    title: 'Residential Mastery',
-    desc: 'Completed our first 50 luxury residential projects, establishing our signature blend of warmth and modern minimalism.',
-    img: img2018
-  },
-  {
-    year: '2020',
-    title: 'Exterior Dominance',
-    desc: 'Expanded into exterior facades, mastering ACP cladding and structural glazing for towering commercial spaces.',
-    img: img2020
-  },
-  {
     year: '2022',
-    title: 'Award-Winning Spaces',
-    desc: 'Recognized regionally for crafting corporate headquarters that inspire productivity through light and space.',
+    title: 'Official Company Registration',
+    desc: 'Officially established Innovative Interior & Exterior Solutions, building upon over 16 years of industry expertise.',
     img: img2022
   },
   {
+    year: '2023',
+    title: 'Rapid Regional Expansion',
+    desc: 'Expanded residential and commercial interior projects across Chennai, delivering exceptional craftsmanship and custom designs.',
+    img: img2023
+  },
+  {
+    year: '2024',
+    title: 'Landmark Corporate Projects',
+    desc: 'Successfully completed prestigious landmark and corporate headquarters while growing a loyal client portfolio.',
+    img: img2024
+  },
+  {
     year: '2025',
-    title: 'The IIES Legacy',
-    desc: 'Today, we stand as the premier interior and exterior solutions studio, transforming skylines and living spaces.',
+    title: '150+ Projects Delivered',
+    desc: 'Delivering 150+ residential, commercial, and architectural projects with a strong regional reputation for quality and innovation.',
     img: img2025
   }
 ]

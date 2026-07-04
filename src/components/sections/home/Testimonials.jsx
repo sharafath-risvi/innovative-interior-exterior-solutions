@@ -4,21 +4,21 @@ import { motion, useScroll, useTransform, useMotionTemplate } from 'framer-motio
 import blueprintImg from '../../../assets/images/blueprint-dark.webp'
 
 const TESTIMONIALS = [
-  { name: "Ahmed Khan", location: "Dubai", type: "Luxury Villa", review: "Exceptional craftsmanship and attention to detail. They transformed our dream home into reality.", rating: 5, avatar: "https://i.pravatar.cc/150?u=ahmed" },
-  { name: "Sarah Williams", location: "London", type: "Commercial Office", review: "The workspace they designed has completely transformed our team's productivity and morale.", rating: 5, avatar: "https://i.pravatar.cc/150?u=sarah" },
-  { name: "Mohammed Habtoor", location: "Abu Dhabi", type: "Exterior Facade", review: "Their exterior cladding work gave our building a highly premium and distinctive modern look.", rating: 5, avatar: "https://i.pravatar.cc/150?u=mohammed" },
-  { name: "Elena Rostova", location: "Moscow", type: "Glass Partitions", review: "Flawless execution. The structural glass completely opened up our living space with elegance.", rating: 5, avatar: "https://i.pravatar.cc/150?u=elena" },
-  { name: "James Chen", location: "Singapore", type: "Luxury Flooring", review: "The flooring selection and installation process was seamless. Truly a luxurious finish.", rating: 5, avatar: "https://i.pravatar.cc/150?u=james" },
-  { name: "Fatima Maktoum", location: "Dubai", type: "Ceiling Design", review: "The custom false ceilings added an unparalleled level of sophistication to our villa's lighting.", rating: 5, avatar: "https://i.pravatar.cc/150?u=fatima" },
-  { name: "Michael Sterling", location: "New York", type: "Architectural Remodel", review: "They managed to blend modern aesthetics with functional architecture perfectly. Outstanding.", rating: 5, avatar: "https://i.pravatar.cc/150?u=michael" },
-  { name: "Aisha Rahman", location: "Doha", type: "Window Systems", review: "The energy efficiency and noise reduction from their UPVC systems is simply incredible.", rating: 5, avatar: "https://i.pravatar.cc/150?u=aisha" },
-  { name: "David Dubois", location: "Paris", type: "Wall Finishes", review: "The premium wallpaper and texturing work brought a warm, luxurious feel to our boutique.", rating: 5, avatar: "https://i.pravatar.cc/150?u=david" },
-  { name: "Omar Saeed", location: "Riyadh", type: "Corporate HQ", review: "Professional, punctual, and exceptionally talented. The corporate HQ design speaks for itself.", rating: 5, avatar: "https://i.pravatar.cc/150?u=omar" },
-  { name: "Priya Sharma", location: "Mumbai", type: "Residential", review: "A masterpiece of design. Every room flows beautifully into the next with high-end finishes.", rating: 5, avatar: "https://i.pravatar.cc/150?u=priya" },
-  { name: "Thomas Wright", location: "Chicago", type: "Showroom", review: "Our showroom has never looked better. The aesthetic directly elevated our brand perception.", rating: 5, avatar: "https://i.pravatar.cc/150?u=thomas" },
-  { name: "Hassan Ali", location: "Jeddah", type: "Luxury Facade", review: "The exterior transformation was breathtaking. It is now a landmark building in the area.", rating: 5, avatar: "https://i.pravatar.cc/150?u=hassan" },
-  { name: "Isabella Martinez", location: "Madrid", type: "Boutique Hotel", review: "They truly understand luxury hospitality. Every detail contributes to an amazing guest experience.", rating: 5, avatar: "https://i.pravatar.cc/150?u=isabella" },
-  { name: "Chen Wei", location: "Shanghai", type: "Executive Office", review: "An incredibly sleek and modern design that reflects our company's forward-thinking vision.", rating: 5, avatar: "https://i.pravatar.cc/150?u=wei" }
+  { name: "Aakarsha Sha", location: "Chennai", type: "Boutique Interior", review: "The quality and work were excellent. Everything was completed within budget, and now our boutique looks beautiful and aesthetic.", rating: 5, avatar: "https://i.pravatar.cc/150?u=aakarsha" },
+  { name: "Leo George", location: "OMR, Chennai", type: "Office Workspace", review: "Mr. Dhivahar transformed my office from a normal workspace into an excellent one. Outstanding creativity, professionalism, and attention to detail.", rating: 5, avatar: "https://i.pravatar.cc/150?u=leogeorge" },
+  { name: "Hari Krishna", location: "Anna Nagar, Chennai", type: "Residential Interior", review: "Recommended IIES for a residential interior project. They executed everything perfectly within budget, and the final outcome was mind-blowing.", rating: 5, avatar: "https://i.pravatar.cc/150?u=harikrishna" },
+  { name: "Arul Mozhi", location: "Velachery, Chennai", type: "Home Renovation", review: "Exceptional workmanship with outstanding attention to detail. The entire project exceeded my expectations.", rating: 5, avatar: "https://i.pravatar.cc/150?u=arulmozhi" },
+  { name: "Rajasekar Selvaraj", location: "Coimbatore", type: "Modular Wardrobes", review: "Modern designs combined with functionality. Excellent wardrobes, premium finishes, and highly professional execution.", rating: 5, avatar: "https://i.pravatar.cc/150?u=rajasekar" },
+  { name: "Rose Kumar", location: "Guindy, Chennai", type: "Commercial Office", review: "The team guided us from concept to completion. The final office space turned out even better than we imagined.", rating: 5, avatar: "https://i.pravatar.cc/150?u=rosekumar" },
+  { name: "Srinivasulu (SSS Eng. Works)", location: "Ambattur, Chennai", type: "Industrial Finishing", review: "Latest technology finishing, on-time delivery, and 100% satisfaction.", rating: 5, avatar: "https://i.pravatar.cc/150?u=srinivasulu" },
+  { name: "Venkat Ramani", location: "T. Nagar, Chennai", type: "Villa Interior", review: "Our dream home became reality thanks to the professional design and execution provided by IIES.", rating: 5, avatar: "https://i.pravatar.cc/150?u=venkatramani" },
+  { name: "Dr. Sathish", location: "Adyar, Chennai", type: "Clinic & Interior", review: "Excellent and professional interior service with outstanding execution and customer support.", rating: 5, avatar: "https://i.pravatar.cc/150?u=drsathish" },
+  { name: "Aishwarya Ganesh", location: "Maduravoyal, Chennai", type: "Residential Finishing", review: "Best quality work at an affordable price with neat finishing. Highly satisfied.", rating: 5, avatar: "https://i.pravatar.cc/150?u=aishwarya" },
+  { name: "Moni Manju", location: "Bangalore", type: "Interior & Exterior", review: "Creative interior and exterior solutions tailored to customer needs. Truly impressed with the final output.", rating: 5, avatar: "https://i.pravatar.cc/150?u=monimanju" },
+  { name: "Subramani Gunasekaran", location: "Porur, Chennai", type: "Turnkey Execution", review: "Professional execution completed within the promised timeline. Highly recommended.", rating: 5, avatar: "https://i.pravatar.cc/150?u=subramani" },
+  { name: "MD Riyaz Raza", location: "Hyderabad", type: "Office & Interior", review: "Professional work from start to finish. Great quality and impressive execution.", rating: 5, avatar: "https://i.pravatar.cc/150?u=riyazraza" },
+  { name: "Jeyasivam Jake", location: "Madurai", type: "Custom Interior", review: "Affordable, high-quality interior designs with flexible management that understands customer ideas.", rating: 5, avatar: "https://i.pravatar.cc/150?u=jeyasivam" },
+  { name: "Arunkumar Sundar", location: "Tambaram, Chennai", type: "Exterior & Interior", review: "Excellent experience completing an exterior and interior project. Wishing the team continued success.", rating: 5, avatar: "https://i.pravatar.cc/150?u=arunkumar" }
 ];
 
 // Double the items so the columns have plenty of scrolling content
@@ -43,8 +43,8 @@ export default function Testimonials() {
 
   // ── COLUMN PARALLAX ENGINE ──
   // Scrubbing through the remaining scroll height
-  const yUp = useTransform(scrollYProgress, [0, 1], [0, -1200]);
-  const yDown = useTransform(scrollYProgress, [0, 1], [-1200, 0]);
+  const yUp = useTransform(scrollYProgress, [0, 1], [0, -1500]);
+  const yDown = useTransform(scrollYProgress, [0, 1], [-1500, 0]);
 
   // Split arrays for the Desktop 3-Column Layout
   const desktopCol1 = SCROLL_ITEMS.filter((_, i) => i % 3 === 0);
@@ -58,7 +58,7 @@ export default function Testimonials() {
   return (
     <section 
       ref={containerRef} 
-      className="relative h-[250vh] bg-[#0a0a0a]" 
+      className="relative h-[450vh] bg-[#0a0a0a]" 
       aria-label="Client Testimonials"
     >
       
@@ -101,7 +101,7 @@ export default function Testimonials() {
           {/* 📱 MOBILE: 1 Column (Scrolls Up) */}
           <div className="flex md:hidden flex-col items-center w-full h-full">
             <motion.div style={{ y: yUp }} className="flex flex-col gap-6 w-full max-w-md pt-10">
-              {SCROLL_ITEMS.slice(0, 10).map((item, i) => (
+              {SCROLL_ITEMS.slice(0, 15).map((item, i) => (
                 <TestimonialCard key={`mob-${i}`} item={item} />
               ))}
             </motion.div>
@@ -166,14 +166,23 @@ function TestimonialCard({ item }) {
       </p>
 
       {/* Footer: Project Type & Rating */}
-      <div className="flex items-center justify-between mt-2 pt-4 border-t border-white/5">
-        <p className="text-orange-500/90 text-[10px] md:text-xs tracking-wider uppercase font-semibold">
-          {item.type}
-        </p>
-        <div className="flex gap-1">
-          {[...Array(item.rating)].map((_, i) => (
-            <span key={i} className="text-orange-500 text-[10px] md:text-xs">★</span>
-          ))}
+      <div className="flex flex-col gap-2 mt-2 pt-4 border-t border-white/5">
+        <div className="flex items-center justify-between">
+          <p className="text-orange-500/90 text-[10px] md:text-xs tracking-wider uppercase font-semibold">
+            {item.type}
+          </p>
+          <div className="flex items-center gap-1.5">
+            <div className="flex gap-0.5">
+              {[...Array(item.rating)].map((_, i) => (
+                <span key={i} className="text-orange-500 text-[10px] md:text-xs">★</span>
+              ))}
+            </div>
+            <span className="text-white font-bold text-[10px] md:text-xs">5.0</span>
+          </div>
+        </div>
+        <div className="flex items-center justify-end gap-1 text-[9px] md:text-[10px] text-gray-400">
+          <span className="w-3.5 h-3.5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-[8px]">✓</span>
+          <span>Verified Google Review</span>
         </div>
       </div>
 

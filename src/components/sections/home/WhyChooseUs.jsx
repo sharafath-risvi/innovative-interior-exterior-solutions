@@ -12,32 +12,32 @@ import revImg from '../../../assets/images/luxury-reveal.webp'
 const details = [
   {
     id: '01',
-    title: 'Luxury Interior Design',
-    desc: 'Bespoke interior solutions that harmonize modern aesthetics with absolute comfort. We source the finest materials and curate every element to reflect your distinct lifestyle and vision.',
+    title: 'Creative & Modern Designs',
+    desc: 'We create visually captivating, functional interiors and exteriors that blend modern aesthetics with your distinct style.',
     icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6'
   },
   {
     id: '02',
-    title: 'Modern Exterior Design',
-    desc: 'Striking architectural facades that command attention. Our exterior designs blend structural integrity with innovative materials to ensure your property stands out while enduring the elements.',
-    icon: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4'
+    title: '15+ Years Project Experience',
+    desc: 'Over a decade and a half of proven expertise in delivering high-end residential, commercial, and architectural projects.',
+    icon: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 0 011-1h2a1 1 0 011 1v5m-4 0h4'
   },
   {
     id: '03',
-    title: 'End-to-End Project Management',
-    desc: 'A seamless journey from the initial blueprint to the final handover. Our dedicated project managers ensure flawless execution, strict budget control, and transparent communication at every phase.',
+    title: 'Customized Solutions',
+    desc: 'Tailored interior and exterior solutions designed around your specific requirements, lifestyle, and spatial dimensions.',
     icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4'
   },
   {
     id: '04',
-    title: 'Premium Craftsmanship',
-    desc: 'We collaborate with master artisans and skilled engineers to deliver unparalleled build quality. Every joint, finish, and fixture is executed with meticulous attention to detail.',
+    title: 'Experienced Team',
+    desc: 'A dedicated team of master artisans, skilled engineers, and visionary designers committed to uncompromising build quality.',
     icon: 'M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5'
   },
   {
     id: '05',
-    title: 'On-Time Project Delivery',
-    desc: 'Time is your most valuable asset. We employ advanced scheduling methodologies and proactive risk management to guarantee your project is delivered exactly when promised, without compromise.',
+    title: 'On-Time Delivery',
+    desc: 'Proactive project planning and strict execution timelines to ensure your project is completed exactly when promised.',
     icon: 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'
   }
 ]
@@ -152,18 +152,18 @@ export default function WhyChooseUs() {
           <div className="flex flex-col gap-6 md:gap-0">
             {/* Row 1 (3 Hexagons) */}
             <div className="flex flex-col md:flex-row justify-center gap-6 md:gap-4 relative z-10">
-               <Hexagon image={resImg} title={<>Luxury Interior<br/>Design</>} delay={0.1} />
-               <Hexagon image={extImg} title={<>Modern Exterior<br/>Design</>} delay={0.2} />
-               <Hexagon image={bpImg} title={<>End-to-End<br/>Project Management</>} delay={0.3} />
+               <Hexagon image={resImg} title={<>Creative & Modern<br/>Designs</>} delay={0.1} />
+               <Hexagon image={extImg} title={<>15+ Years<br/>Experience</>} delay={0.2} />
+               <Hexagon image={bpImg} title={<>Customized<br/>Solutions</>} delay={0.3} />
             </div>
             
             {/* Row 2 (2 Hexagons, visually shifted towards center for perfect honeycomb symmetry) */}
             <div className="flex flex-col md:flex-row justify-center gap-6 md:gap-4 mt-6 md:-mt-10 relative z-0">
                <div className="w-full max-w-[280px] md:max-w-[320px] md:translate-x-20 mx-auto">
-                 <Hexagon image={ceilImg} title={<>Premium<br/>Craftsmanship</>} delay={0.4} />
+                 <Hexagon image={ceilImg} title={<>Experienced<br/>Team</>} delay={0.4} />
                </div>
                <div className="w-full max-w-[280px] md:max-w-[320px] md:-translate-x-20 mx-auto">
-                 <Hexagon image={revImg} title={<>On-Time<br/>Project Delivery</>} delay={0.5} />
+                 <Hexagon image={revImg} title={<>On-Time<br/>Delivery</>} delay={0.5} />
                </div>
             </div>
           </div>

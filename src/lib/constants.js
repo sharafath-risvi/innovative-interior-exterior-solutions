@@ -41,7 +41,15 @@ export const INTERIOR_SERVICES = [
     subtitle: 'Where Home Meets Luxury',
     description:
       'We craft personalized living spaces that reflect your lifestyle and personality. From concept to completion, every corner is thoughtfully designed — combining functionality with timeless elegance.',
-    features: ['Space Planning', 'Furniture Selection', 'Lighting Design', 'Colour Consulting'],
+    features: [
+      { name: 'Modular Kitchen', id: 'res-kitchen' },
+      { name: 'Wardrobes', id: 'res-wardrobes' },
+      { name: 'TV Units', id: 'res-tv-units' },
+      { name: 'Pooja Units', id: 'res-pooja' },
+      { name: 'Divider Partitions', id: 'res-dividers' },
+      { name: 'Shower Cubicles', id: 'res-shower-cubicles' },
+      { name: 'False Ceiling & Interior Painting', id: 'res-ceiling-painting' },
+    ],
     image: residentialImg,
     icon: '🏠',
     color: '#F78701',
@@ -52,7 +60,17 @@ export const INTERIOR_SERVICES = [
     subtitle: 'Inspiring Workspaces & Retail Environments',
     description:
       'Transform your office, retail outlet, or hospitality venue into a dynamic space that drives productivity, elevates brand identity, and impresses every visitor from day one.',
-    features: ['Office Interiors', 'Retail Design', 'Hospitality Spaces', 'Brand Integration'],
+    features: [
+      { name: 'Workstations', id: 'com-workstations' },
+      { name: 'Executive Cabins', id: 'com-executive' },
+      { name: 'Conference Rooms', id: 'com-conference' },
+      { name: 'Reception Zone', id: 'com-reception' },
+      { name: 'Cabin Partitions', id: 'com-partitions' },
+      { name: 'Commercial Flooring', id: 'com-flooring' },
+      { name: 'Windows', id: 'com-windows' },
+      { name: 'Wallpapers', id: 'com-wallpapers' },
+      { name: 'Painting', id: 'com-painting' },
+    ],
     image: commercialImg,
     icon: '🏢',
     color: '#FC6B00',
@@ -63,7 +81,14 @@ export const INTERIOR_SERVICES = [
     subtitle: 'Elevate Every Room Above',
     description:
       'From sleek minimalist gypsum boards to elaborate decorative plaster ceilings with embedded LED lighting, our false ceiling solutions add a dramatic dimension to any interior.',
-    features: ['Gypsum Board', 'POP Ceilings', 'Designer Ceilings', 'LED Integration'],
+    features: [
+      { name: 'Gypsum False Ceiling', id: 'ceil-gypsum' },
+      { name: 'Metal Ceiling', id: 'ceil-metal' },
+      { name: 'Grid Ceiling', id: 'ceil-grid' },
+      { name: 'Baffle Ceiling', id: 'ceil-baffle' },
+      { name: 'Linear Ceiling', id: 'ceil-linear' },
+      { name: 'Acoustic Ceiling', id: 'ceil-acoustic' },
+    ],
     image: falseCeilingImg,
     icon: '✨',
     color: '#F78701',
@@ -74,7 +99,12 @@ export const INTERIOR_SERVICES = [
     subtitle: 'The Foundation of Luxury',
     description:
       'Premium flooring sets the foundation for every luxury interior. We offer marble, vitrified tiles, hardwood, vinyl plank, epoxy, and custom inlay designs — all expertly installed.',
-    features: ['Marble & Granite', 'Vitrified Tiles', 'Hardwood', 'Epoxy Flooring'],
+    features: [
+      { name: 'Wooden Flooring', id: 'floor-wooden' },
+      { name: 'SPC Flooring', id: 'floor-spc' },
+      { name: 'Vinyl Flooring', id: 'floor-vinyl' },
+      { name: 'Corporate Flooring', id: 'floor-corporate' },
+    ],
     image: flooringImg,
     icon: '🪨',
     color: '#FC6B00',
@@ -309,12 +339,16 @@ export const CORE_VALUES = [
   { icon: '🌍', title: 'Responsible Craftsmanship', desc: 'Sustainable choices that respect both people and planet.' },
 ]
 
-// ── Contact Information (Placeholder) ────────────
+// ── Contact Information ──────────────────────────
 export const CONTACT_INFO = {
-  phone1: '+91 98765 43210',
-  phone2: '+91 87654 32109',
-  email: 'info@iiesolutions.com',
-  address: '123 Design Avenue, Business District, Your City — 000000',
+  phone1: '044-31402076',
+  phone2: '+91 63697 26862',
+  email: 'info@iiesolution.com',
+  email2: 'iiesolution@yahoo.com',
+  address: '5/11E, Deivanai Street, Karthikeyan Nagar, Maduravoyal, Chennai – 600095',
   workingHours: 'Mon – Sat: 9:00 AM – 7:00 PM',
-  whatsapp: '+919876543210',
+  whatsapp: '+91 63697 26862',
+  website: 'www.iiesolution.com',
+  instagram: 'https://www.instagram.com/IIES_2022',
+  youtube: 'https://www.youtube.com/@IIES_2022',
 }

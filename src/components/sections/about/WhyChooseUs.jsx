@@ -23,25 +23,25 @@ const LAYERS = [
 const FEATURES = [
   { 
     id: 'f1', 
-    title: 'Premium Craftsmanship', 
-    desc: 'Uncompromising attention to detail in every corner. We use only the finest materials and masterful techniques to ensure your space reflects true architectural luxury.', 
+    title: 'Creative & Modern Designs', 
+    desc: 'Uncompromising attention to detail in every corner. We use only the finest materials and masterful techniques to craft captivating interiors and exteriors.', 
     img: ceilingImg 
   },
   { 
     id: 'f2', 
-    title: 'End-to-End Management', 
-    desc: 'From the initial conceptual blueprint to the final immaculate handover. We handle all complexities, giving you a seamless and entirely stress-free experience.', 
+    title: '16+ Years Industry Expertise', 
+    desc: 'Over 16 years of proven industry expertise in delivering high-end residential, commercial, and architectural design solutions.', 
     img: acpImg 
   },
   { 
     id: 'f3', 
-    title: 'Transparent Communication', 
-    desc: 'Clear updates, honest pricing, and consistent progress tracking throughout the entire project lifecycle. You are always informed and always in control.', 
+    title: 'Value for Money', 
+    desc: 'Premium, stylish, and functional interiors delivered with exceptional value through smart planning and cost optimization.', 
     img: glassImg 
   },
   { 
     id: 'f4', 
-    title: 'Timely Project Delivery', 
+    title: 'On-Time Delivery', 
     desc: 'We respect your time. Your vision is spectacularly delivered on schedule, without ever compromising our exceptionally high standards of quality.', 
     img: flooringImg 
   },

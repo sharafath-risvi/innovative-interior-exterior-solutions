@@ -185,22 +185,6 @@ function ContactHero() {
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-2"
-      >
-        <span className="text-white/60 text-xs tracking-[0.2em] uppercase font-medium">Scroll</span>
-        <div className="w-px h-12 bg-white/20 overflow-hidden">
-          <motion.div 
-            animate={{ y: ['-100%', '100%'] }}
-            transition={{ repeat: Infinity, duration: 1.5, ease: 'linear' }}
-            className="w-full h-1/2 bg-orange-500"
-          />
-        </div>
-      </motion.div>
     </section>
   )
 }
@@ -233,22 +217,22 @@ function ContactDetails() {
       ),
       label: 'Email',
       primary: CONTACT_INFO.email,
-      secondary: 'We reply within 24 hours',
+      secondary: CONTACT_INFO.email2,
       href: `mailto:${CONTACT_INFO.email}`,
     },
     {
       icon: (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" className="w-8 h-8 opacity-80">
-          <path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z" />
-          <circle cx="12" cy="10" r="3" strokeWidth="1.5" />
-          <line x1="12" y1="2" x2="12" y2="4" />
-          <line x1="12" y1="20" x2="12" y2="22" />
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8 opacity-80">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
         </svg>
       ),
-      label: 'Office Address',
-      primary: CONTACT_INFO.address,
+      label: 'Instagram',
+      primary: 'IIES_2022',
       secondary: null,
-      href: null,
+      href: CONTACT_INFO.instagram,
+      external: true,
     },
     {
       icon: (
@@ -261,7 +245,7 @@ function ContactDetails() {
       ),
       label: 'Working Hours',
       primary: CONTACT_INFO.workingHours,
-      secondary: 'Sunday: By appointment only',
+      secondary: null,
       href: null,
     },
   ]
@@ -294,7 +278,7 @@ function ContactDetails() {
               viewport={{ once: true }}
               transition={{ delay: i * 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               whileHover={{ y: -6, transition: { duration: 0.3 } }}
-              className="group min-h-[300px] p-10 md:p-12 rounded-3xl text-center cursor-default transition-all duration-500 hover:-translate-y-2 relative overflow-hidden flex flex-col justify-center"
+              className={`group ${detail.label === 'Office Address' || detail.label === 'Service Coverage' ? 'min-h-[350px] md:min-h-[360px]' : 'min-h-[300px]'} p-10 md:p-12 rounded-3xl text-center cursor-default transition-all duration-500 hover:-translate-y-2 relative overflow-hidden flex flex-col justify-center`}
               style={{ 
                 background: 'rgba(255, 255, 255, 0.6)',
                 backdropFilter: 'blur(20px)',
@@ -320,6 +304,8 @@ function ContactDetails() {
               {detail.href ? (
                 <a
                   href={detail.href}
+                  target={detail.external ? '_blank' : undefined}
+                  rel={detail.external ? 'noopener noreferrer' : undefined}
                   className="font-display text-gray-900 font-bold text-lg hover:text-orange-500 transition-colors block leading-snug mb-2 relative z-10"
                 >
                   {detail.primary}
@@ -345,7 +331,7 @@ function ContactDetails() {
 // ──────────────────────────────
 function ContactForm() {
   const [formData, setFormData] = useState({
-    name: '', phone: '', email: '', service: '', budget: '', message: '',
+    name: '', phone: '', email: '', service: '', location: '', message: '',
   })
   const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
@@ -567,23 +553,18 @@ function ContactForm() {
                     </select>
                   </div>
                   <div>
-                    <label htmlFor="contact-budget" className="block text-xs font-semibold text-gray-600 mb-2 uppercase tracking-wide">
-                      Budget Range
+                    <label htmlFor="contact-location" className="block text-xs font-semibold text-gray-600 mb-2 uppercase tracking-wide">
+                      Project Location
                     </label>
-                    <select
-                      id="contact-budget"
-                      name="budget"
-                      value={formData.budget}
+                    <input
+                      id="contact-location"
+                      type="text"
+                      name="location"
+                      value={formData.location}
                       onChange={handleChange}
+                      placeholder="e.g. Chennai, OMR, Anna Nagar"
                       className={inputClass}
-                    >
-                      <option value="">Select budget</option>
-                      <option>Below ₹5 Lakhs</option>
-                      <option>₹5 – ₹15 Lakhs</option>
-                      <option>₹15 – ₹30 Lakhs</option>
-                      <option>₹30 – ₹50 Lakhs</option>
-                      <option>Above ₹50 Lakhs</option>
-                    </select>
+                    />
                   </div>
                 </div>
 
@@ -673,7 +654,7 @@ function MapSection() {
           }}
         >
           <iframe
-            src="https://maps.google.com/maps?q=Bandra%20Kurla%20Complex,%20Mumbai&t=&z=14&ie=UTF8&iwloc=&output=embed"
+            src="https://maps.google.com/maps?q=5/11E,%20Deivanai%20Street,%20Karthikeyan%20Nagar,%20Maduravoyal,%20Chennai%20-%20600095&t=&z=14&ie=UTF8&iwloc=&output=embed"
             className="absolute inset-0 w-full h-full border-0"
             allowFullScreen=""
             loading="lazy"

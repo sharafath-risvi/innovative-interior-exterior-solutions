@@ -221,14 +221,12 @@ export default function PremiumHero() {
                 fontSize: 'clamp(15px, 1.4vw, 18px)',
                 lineHeight: 1.85,
                 color: 'rgba(255,255,255,0.68)',
-                maxWidth: '400px',
+                maxWidth: '520px',
                 marginBottom: '48px',
                 textShadow: '0 1px 8px rgba(0,0,0,0.35)',
               }}
             >
-              We design elegant interiors that combine timeless aesthetics,
-              thoughtful functionality, and exceptional craftsmanship for
-              modern living.
+              Welcome to IIES – Your Trusted Interior Partner. Innovative Interior & Exterior Solutions (IIES) is your one-stop solution for all design needs. We blend creativity with functionality to redefine spaces and elevate experiences, utilizing a wide range of interior and exterior products.
             </p>
 
             {/* ⑤ Editorial CTA link */}

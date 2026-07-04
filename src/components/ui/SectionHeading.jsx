@@ -41,9 +41,9 @@ export default function SectionHeading({
         <span
           className="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.2em] uppercase mb-4 px-4 py-1.5 rounded-full"
           style={{
-            background: 'var(--color-orange-pale)',
+            background: light ? 'transparent' : 'var(--color-orange-pale)',
             color: 'var(--color-orange)',
-            border: '1px solid rgba(247,135,1,0.25)',
+            border: light ? '1px solid rgba(255,255,255,0.2)' : '1px solid rgba(247,135,1,0.25)',
           }}
         >
           <span

@@ -1,14 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { CONTACT_INFO } from '../../lib/constants';
 
 export default function WhatsAppButton() {
-  // Placeholder for the client's actual WhatsApp number (include country code without + or 00)
-  // E.g., "1234567890"
-  const whatsappNumber = ""; 
+  const whatsappNumber = CONTACT_INFO.whatsapp.replace(/\D/g, ''); 
 
   return (
     <motion.a
-      href={whatsappNumber ? `https://wa.me/${whatsappNumber}` : "https://wa.me/"}
+      href={`https://wa.me/${whatsappNumber}`}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat with us on WhatsApp"

@@ -3,7 +3,6 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-import founderImg from '../../../assets/images/about/founder_portrait.webp'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -29,12 +28,12 @@ export default function OurFounder() {
     const rect = imageRef.current.getBoundingClientRect()
     const x = ((e.clientX - rect.left) / rect.width - 0.5) * 15 // max 15 deg tilt
     const y = ((e.clientY - rect.top) / rect.height - 0.5) * -15
-    imageRef.current.style.transform = `perspective(1000px) rotateX(${y}deg) rotateY(${x}deg) scale3d(1.02, 1.02, 1.02)`
+    imageRef.current.style.transform = `perspective(1000px) rotateX(${y}deg) rotateY(${x}deg) scale3d(1.14, 1.14, 1.14)`
   }
 
   const handleImageMouseLeave = () => {
     if (imageRef.current) {
-      imageRef.current.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`
+      imageRef.current.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1.12, 1.12, 1.12)`
     }
   }
 
@@ -99,21 +98,21 @@ export default function OurFounder() {
               ref={imageRef}
               onMouseMove={handleImageMouseMove}
               onMouseLeave={handleImageMouseLeave}
-              className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden transition-transform duration-300 ease-out shadow-2xl"
-              style={{ transformStyle: 'preserve-3d', boxShadow: '0 30px 60px rgba(0,0,0,0.6)' }}
+              className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden transition-transform duration-300 ease-out shadow-2xl"
+              style={{ transformStyle: 'preserve-3d', boxShadow: '0 30px 60px rgba(0,0,0,0.6)', transform: 'scale3d(1.12, 1.12, 1.12)' }}
             >
               <motion.img 
                 style={{ y: yBg }}
-                src={founderImg} 
-                alt="Founder of IIES" 
+                src="/iiesImages/ceoofiies.jpeg" 
+                alt="Managing Director of IIES" 
                 className="absolute inset-0 w-full h-[120%] object-cover object-center -top-[10%]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
               
               {/* Floating Name Badge */}
               <div className="absolute bottom-8 left-8 transform-gpu" style={{ transform: 'translateZ(50px)' }}>
-                <p className="text-orange-400 text-xs font-semibold tracking-widest uppercase mb-1">Founder & Lead Designer</p>
-                <h3 className="text-white font-display text-3xl font-bold">A. Cade</h3>
+                <p className="text-orange-400 text-xs font-semibold tracking-widest uppercase mb-1">Managing Director</p>
+                <h3 className="text-white font-display text-3xl font-bold">Dhivahar Murugan</h3>
               </div>
             </div>
             
@@ -129,12 +128,12 @@ export default function OurFounder() {
             </div>
 
             <div className="relative z-10 space-y-6">
-              <h2 className="reveal-line font-display text-4xl md:text-5xl lg:text-6xl text-white font-bold leading-tight mb-8">
-                "Design is not just what it looks like. It is how it <em className="not-italic text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600">breathes</em>."
+              <h2 className="reveal-line font-display text-3xl md:text-4xl lg:text-5xl text-white font-bold leading-tight mb-8">
+                "IIES is a place where all kind of Interior Products used to create <em className="not-italic text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600">Interesting and Inspiring Designs</em>."
               </h2>
 
               <p className="reveal-line text-gray-400 text-lg leading-relaxed font-light">
-                What started as a solitary vision in a small studio has grown into a collective pursuit of architectural perfection. I founded IIES with a singular belief: every space has a story waiting to be told.
+                What started as a solitary vision has grown into a collective pursuit of architectural perfection. Founded in 2022 and built on over 16 years of industry expertise, I established IIES with a singular belief: every space has a story waiting to be told.
               </p>
 
               <p className="reveal-line text-gray-400 text-lg leading-relaxed font-light">
@@ -147,8 +146,8 @@ export default function OurFounder() {
 
               {/* Signature */}
               <div className="reveal-line pt-10">
-                <span className="font-signature text-5xl text-orange-400 opacity-80 block transform -rotate-2">
-                  Alexander Cade
+                <span className="font-signature text-5xl text-orange-400 opacity-80 block">
+                  Dhivahar Murugan
                 </span>
               </div>
             </div>

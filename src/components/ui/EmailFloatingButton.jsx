@@ -1,8 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { CONTACT_INFO } from '../../lib/constants';
 
 export default function EmailFloatingButton() {
-  const emailAddress = "clientemail@example.com"; 
+  const emailAddress = CONTACT_INFO.email; 
 
   return (
     <motion.a

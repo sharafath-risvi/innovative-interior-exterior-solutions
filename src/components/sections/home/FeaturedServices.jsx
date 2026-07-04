@@ -13,6 +13,9 @@ import { motion } from 'framer-motion'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { INTERIOR_SERVICES, EXTERIOR_SERVICES } from '../../../lib/constants'
+import commercialImg from '../../../assets/images/commercial.webp'
+import exteriorAcpImg from '../../../assets/images/exterior-acp.webp'
+import glassImg from '../../../assets/images/glass-partition.webp'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -23,13 +26,33 @@ export default function FeaturedServices() {
   const fullTextsRef = useRef([])
   const splitLeftTextsRef = useRef([])
   const splitRightTextsRef = useRef([])
+  const stRef = useRef(null)
   
   const cardsContainerRef = useRef(null)
   
   // Combine services to create the sequence
   const allServices = useMemo(() => [...INTERIOR_SERVICES, ...EXTERIOR_SERVICES], [])
   const sequenceServices = useMemo(() => allServices.slice(0, 4), [allServices]) // Stop sticky images after Flooring
-  const moreServices = useMemo(() => allServices.slice(5, 8), [allServices]) // Next 3 services for cards
+  const moreServices = useMemo(() => [
+    {
+      id: 'chennai-metro',
+      title: 'Chennai Metro',
+      description: 'Interior and finishing works delivered for selected Chennai Metro stations with precision, durability, and modern architectural standards.',
+      image: commercialImg,
+    },
+    {
+      id: 'statue-of-unity',
+      title: 'Statue of Unity',
+      description: 'Specialized interior and architectural finishing solutions executed for one of India\'s most iconic national landmarks.',
+      image: exteriorAcpImg,
+    },
+    {
+      id: 'amazon-hyderabad',
+      title: 'Amazon Hyderabad',
+      description: 'Professional interior execution and premium finishing works completed for Amazon\'s Hyderabad corporate facility.',
+      image: glassImg,
+    }
+  ], []) // Next 3 services for cards
   
   // Build scenes sequence for the first 5 services
   const scenes = useMemo(() => {
@@ -75,6 +98,7 @@ export default function FeaturedServices() {
             anticipatePin: 1,
           }
         })
+        stRef.current = tl.scrollTrigger
         
         scenes.forEach((scene, i) => {
           if (i === 0) return
@@ -664,12 +688,21 @@ export default function FeaturedServices() {
               </p>
               {scene.service.features && (
                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-4 mb-6 lg:mb-10">
-                  {scene.service.features.map((feature, idx) => (
-                     <li key={idx} className="flex items-center gap-2 text-gray-700 text-xs sm:text-sm font-medium">
-                       <span className="w-1.5 h-1.5 rounded-full bg-orange-500 shrink-0" />
-                       {feature}
-                     </li>
-                  ))}
+                  {scene.service.features.map((feature, idx) => {
+                     const isObj = typeof feature === 'object' && feature !== null
+                     const name = isObj ? feature.name : feature
+                     return (
+                       <li key={idx}>
+                         <Link
+                           to="/services"
+                           className="flex items-center gap-2 text-gray-700 hover:text-orange-500 transition-colors duration-300 text-xs sm:text-sm font-medium group/feat"
+                         >
+                           <span className="w-1.5 h-1.5 rounded-full bg-orange-500 shrink-0 group-hover/feat:scale-125 transition-transform" />
+                           {name}
+                         </Link>
+                       </li>
+                     )
+                  })}
                 </ul>
               )}
               <Link 
@@ -704,12 +737,21 @@ export default function FeaturedServices() {
               </p>
               {scene.service.features && (
                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-4 mb-6 lg:mb-10">
-                  {scene.service.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-center gap-2 text-gray-700 text-xs sm:text-sm font-medium">
-                      <span className="w-1.5 h-1.5 rounded-full bg-orange-500 shrink-0" />
-                      {feature}
-                    </li>
-                  ))}
+                  {scene.service.features.map((feature, idx) => {
+                     const isObj = typeof feature === 'object' && feature !== null
+                     const name = isObj ? feature.name : feature
+                     return (
+                       <li key={idx}>
+                         <Link
+                           to="/services"
+                           className="flex items-center gap-2 text-gray-700 hover:text-orange-500 transition-colors duration-300 text-xs sm:text-sm font-medium group/feat"
+                         >
+                           <span className="w-1.5 h-1.5 rounded-full bg-orange-500 shrink-0 group-hover/feat:scale-125 transition-transform" />
+                           {name}
+                         </Link>
+                       </li>
+                     )
+                  })}
                 </ul>
               )}
               <Link 
@@ -732,7 +774,7 @@ export default function FeaturedServices() {
         <div className="w-full px-6 md:px-12 lg:px-20 max-w-7xl mx-auto">
           <div className="text-center mb-10 md:mb-16">
             <h2 className="font-display font-bold text-gray-900 text-4xl md:text-5xl">
-              Complete Interior & Exterior Solutions
+              Signature Projects
             </h2>
           </div>
           
@@ -819,7 +861,7 @@ export default function FeaturedServices() {
         {/* SERVICE BLOCKS */}
         <div className="flex flex-col gap-24 px-6">
           {sequenceServices.map((service, i) => (
-            <div key={`mob-srv-${i}`} className="flex flex-col gap-6">
+            <div key={`mob-srv-${i}`} id={`what-we-do-${service.id}`} className="flex flex-col gap-6">
               {/* Image first */}
               <motion.div 
                 initial={{ opacity: 0, y: 30 }}
@@ -858,12 +900,21 @@ export default function FeaturedServices() {
                 </p>
                 {service.features && (
                   <ul className="grid grid-cols-1 gap-y-3 mb-8">
-                    {service.features.map((feature, idx) => (
-                       <li key={idx} className="flex items-start gap-3 text-gray-700 text-sm font-medium">
-                         <span className="w-1.5 h-1.5 rounded-full bg-[#E68A2E] shrink-0 mt-1.5" />
-                         {feature}
-                       </li>
-                    ))}
+                    {service.features.map((feature, idx) => {
+                       const isObj = typeof feature === 'object' && feature !== null
+                       const name = isObj ? feature.name : feature
+                       return (
+                         <li key={idx}>
+                           <Link
+                             to="/services"
+                             className="flex items-start gap-3 text-gray-700 hover:text-[#E68A2E] transition-colors duration-300 text-sm font-medium group/feat"
+                           >
+                             <span className="w-1.5 h-1.5 rounded-full bg-[#E68A2E] shrink-0 mt-1.5 group-hover/feat:scale-125 transition-transform" />
+                             {name}
+                           </Link>
+                         </li>
+                       )
+                    })}
                   </ul>
                 )}
                 <Link 
@@ -888,7 +939,7 @@ export default function FeaturedServices() {
             className="text-center mb-12"
           >
             <h2 className="font-display font-bold text-gray-900 text-3xl leading-tight">
-              Complete Interior &<br />Exterior Solutions
+              Signature Projects
             </h2>
           </motion.div>
 
