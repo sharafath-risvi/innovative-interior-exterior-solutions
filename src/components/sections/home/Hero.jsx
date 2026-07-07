@@ -280,57 +280,45 @@ export default function Hero() {
 
         {/* 1. SCROLL SECTION 1 (LEFT) */}
         <div ref={text1Ref} className="absolute inset-0 z-20 pointer-events-none flex flex-col items-start justify-center pl-8 md:pl-16 lg:pr-8 lg:pl-32 opacity-0 will-change-transform">
-          <div className="w-[320px] md:w-[480px] text-left">
+          <div 
+            className="w-[320px] md:w-[480px] text-left rounded-2xl p-6 md:p-8 border border-white/15 shadow-[0_16px_40px_rgba(0,0,0,0.5)] backdrop-blur-md"
+            style={{ background: 'rgba(28, 28, 32, 0.82)' }}
+          >
             <h2 
-              className="font-display font-extrabold text-2xl md:text-4xl leading-tight mb-5 text-white uppercase tracking-[-0.02em]"
+              className="font-display font-extrabold text-[21px] md:text-[32px] leading-tight mb-5 text-white uppercase tracking-[-0.02em]"
               style={{ textShadow: '0 4px 16px rgba(0,0,0,0.6)' }}
             >
               Innovative Interior<br />& Exterior Solutions
             </h2>
             <div className="w-12 h-1 bg-orange-500 rounded-full mb-5 drop-shadow-lg mr-auto ml-0" />
             <p 
-              className="text-white text-base md:text-lg font-serif italic font-medium leading-relaxed"
+              className="text-white text-[17px] md:text-[20px] font-serif italic font-medium leading-relaxed"
               style={{ textShadow: '0 2px 12px rgba(0,0,0,0.8)' }}
             >
-              Innovative Interior & Exterior Solutions (IIES) is a trusted interior and exterior design company committed to delivering creative, functional, and inspiring spaces. Our expertise spans residential interiors, commercial interiors, false ceilings, and complete interior & exterior solutions tailored to every client's needs.
+              Innovative Interior & Exterior Solutions is a trusted interior and exterior design company committed to delivering creative, functional, and inspiring spaces.
             </p>
           </div>
         </div>
 
         {/* 2. SCROLL SECTION 2 (RIGHT) */}
         <div ref={text2Ref} className="absolute inset-0 z-20 pointer-events-none flex flex-col items-end justify-center pr-8 md:pr-16 lg:pr-32 opacity-0 will-change-transform">
-          <div className="w-[320px] md:w-[480px] text-left">
+          <div 
+            className="w-[320px] md:w-[480px] text-left rounded-2xl p-6 md:p-8 border border-white/15 shadow-[0_16px_40px_rgba(0,0,0,0.5)] backdrop-blur-md"
+            style={{ background: 'rgba(28, 28, 32, 0.82)' }}
+          >
             <h2 
-              className="font-display font-extrabold text-2xl md:text-4xl leading-tight mb-5 text-white uppercase tracking-[-0.02em]"
+              className="font-display font-extrabold text-[21px] md:text-[32px] leading-tight mb-5 text-white uppercase tracking-[-0.02em]"
               style={{ textShadow: '0 4px 16px rgba(0,0,0,0.6)' }}
             >
               Designed For Life<br />Built To Last
             </h2>
             <div className="w-12 h-1 bg-orange-500 rounded-full mb-5 drop-shadow-lg mr-auto ml-0" />
             <p 
-              className="text-white text-base md:text-lg font-serif italic font-medium leading-relaxed mb-8"
+              className="text-white text-[17px] md:text-[20px] font-serif italic font-medium leading-relaxed"
               style={{ textShadow: '0 2px 12px rgba(0,0,0,0.8)' }}
             >
-              Welcome to Innovative Interior & Exterior Solutions, where creativity meets functionality to redefine spaces and elevate experiences. We are a dynamic interior and exterior design firm committed to crafting environments that inspire, engage, and delight.
+              Welcome to Innovative Interior & Exterior Solutions, where creativity meets functionality to redefine spaces and elevate experiences.
             </p>
-            
-            <button 
-              onClick={() => {
-                const el = document.getElementById('services') || document.querySelector('[data-section="services"]');
-                if(el) el.scrollIntoView({ behavior: 'smooth' });
-                else window.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
-              }}
-              className="pointer-events-auto inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full text-white font-semibold text-[13px] tracking-wide transition-transform duration-300 hover:scale-105 active:scale-95"
-              style={{
-                background: 'linear-gradient(135deg, var(--color-orange, #f97316), var(--color-orange-sec, #ea580c))',
-                boxShadow: '0 8px 32px rgba(249,115,22,0.4)',
-              }}
-            >
-              Explore Our Services
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
           </div>
         </div>
 

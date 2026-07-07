@@ -43,7 +43,12 @@ import LandlineFloatingButton from './components/ui/LandlineFloatingButton'
 
 const About    = lazy(() => import('./pages/About'))
 const Services = lazy(() => import('./pages/Services'))
+const Projects = lazy(() => import('./pages/Projects'))
 const Contact  = lazy(() => import('./pages/Contact'))
+const ResidentialInteriors = lazy(() => import('./pages/services/ResidentialInteriors'))
+const CommercialInteriors  = lazy(() => import('./pages/services/CommercialInteriors'))
+const FalseCeiling         = lazy(() => import('./pages/services/FalseCeiling'))
+const FlooringSolutions    = lazy(() => import('./pages/services/FlooringSolutions'))
 
 // ── Register GSAP Plugins globally ──
 gsap.registerPlugin(ScrollTrigger)
@@ -124,6 +129,11 @@ function ScrollToTop() {
     const timer = setTimeout(() => {
       const hash = window.location.hash
       if (hash) {
+        if (hash.startsWith('#what-we-do-') && window.innerWidth >= 768) {
+          if (window.lenis) window.lenis.start()
+          ScrollTrigger.refresh()
+          return
+        }
         const id = hash.substring(1)
         const el = document.getElementById(id)
         if (el) {
@@ -161,6 +171,11 @@ function AnimatedRoutes() {
         <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
         <Route path="/about" element={<PageWrapper><Suspense fallback={null}><About /></Suspense></PageWrapper>} />
         <Route path="/services" element={<PageWrapper><Suspense fallback={null}><Services /></Suspense></PageWrapper>} />
+        <Route path="/projects" element={<PageWrapper><Suspense fallback={null}><Projects /></Suspense></PageWrapper>} />
+        <Route path="/services/residential-interiors" element={<PageWrapper><Suspense fallback={null}><ResidentialInteriors /></Suspense></PageWrapper>} />
+        <Route path="/services/commercial-interiors" element={<PageWrapper><Suspense fallback={null}><CommercialInteriors /></Suspense></PageWrapper>} />
+        <Route path="/services/false-ceiling" element={<PageWrapper><Suspense fallback={null}><FalseCeiling /></Suspense></PageWrapper>} />
+        <Route path="/services/flooring-solutions" element={<PageWrapper><Suspense fallback={null}><FlooringSolutions /></Suspense></PageWrapper>} />
         <Route path="/contact" element={<PageWrapper><Suspense fallback={null}><Contact /></Suspense></PageWrapper>} />
       </Routes>
     </AnimatePresence>

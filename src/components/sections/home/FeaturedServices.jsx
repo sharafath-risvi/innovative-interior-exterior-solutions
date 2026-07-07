@@ -19,6 +19,23 @@ import glassImg from '../../../assets/images/glass-partition.webp'
 
 gsap.registerPlugin(ScrollTrigger)
 
+const getServiceDetailUrl = (id) => {
+  switch (id) {
+    case 'residential': return '/services/residential-interiors';
+    case 'commercial': return '/services/commercial-interiors';
+    case 'false-ceiling': return '/services/false-ceiling';
+    case 'flooring': return '/services/flooring-solutions';
+    default: return '/services';
+  }
+};
+
+const handleServiceClick = (id) => {
+  if (id && ['residential', 'commercial', 'false-ceiling', 'flooring'].includes(id)) {
+    window.history.replaceState(null, '', `/#what-we-do-${id}`);
+    sessionStorage.setItem('last_what_we_do', id);
+  }
+};
+
 export default function FeaturedServices() {
   const containerRef = useRef(null)
   const imageContainerRef = useRef(null)
@@ -38,19 +55,19 @@ export default function FeaturedServices() {
       id: 'chennai-metro',
       title: 'Chennai Metro',
       description: 'Interior and finishing works delivered for selected Chennai Metro stations with precision, durability, and modern architectural standards.',
-      image: commercialImg,
+      image: '/iiesImages/chennaimetro.webp',
     },
     {
       id: 'statue-of-unity',
       title: 'Statue of Unity',
       description: 'Specialized interior and architectural finishing solutions executed for one of India\'s most iconic national landmarks.',
-      image: exteriorAcpImg,
+      image: '/iiesImages/statueofunity.webp',
     },
     {
       id: 'amazon-hyderabad',
       title: 'Amazon Hyderabad',
       description: 'Professional interior execution and premium finishing works completed for Amazon\'s Hyderabad corporate facility.',
-      image: glassImg,
+      image: '/iiesImages/amazonhyderabad.jpeg',
     }
   ], []) // Next 3 services for cards
   
@@ -215,6 +232,7 @@ export default function FeaturedServices() {
             anticipatePin: 1,
           }
         })
+        stRef.current = tl.scrollTrigger
         
         scenes.forEach((scene, i) => {
           if (i === 0) return
@@ -312,15 +330,71 @@ export default function FeaturedServices() {
   }, [scenes])
 
   useEffect(() => {
-    // Refresh ScrollTrigger to ensure correct height calculations for subsequent sections on mobile
+    const handleCinematicScroll = () => {
+      const hash = window.location.hash || ''
+      const lastWhatWeDo = sessionStorage.getItem('last_what_we_do')
+      const fromDetail = sessionStorage.getItem('from_service_detail')
+      
+      let targetId = null
+      if (hash && hash.startsWith('#what-we-do-')) {
+        targetId = hash.replace('#what-we-do-', '')
+      } else if (fromDetail && lastWhatWeDo) {
+        targetId = lastWhatWeDo
+      }
+
+      if (targetId) {
+        if (window.innerWidth < 768) {
+          const el = document.getElementById(`what-we-do-${targetId}`)
+          if (el) {
+            const top = el.getBoundingClientRect().top + window.scrollY - 80
+            if (window.lenis) {
+              window.lenis.scrollTo(top, { immediate: true })
+            } else {
+              window.scrollTo({ top, behavior: 'instant' })
+            }
+          }
+        } else if (stRef.current) {
+          let targetScroll = undefined
+          if (targetId === 'residential') {
+            const s1 = stRef.current.labelToScroll("step1")
+            const s2 = stRef.current.labelToScroll("step2")
+            if (s1 !== undefined && s2 !== undefined) targetScroll = s1 + (s2 - s1) * 0.82
+          } else if (targetId === 'commercial') {
+            const s2 = stRef.current.labelToScroll("step2")
+            const s3 = stRef.current.labelToScroll("step3")
+            if (s2 !== undefined && s3 !== undefined) targetScroll = s2 + (s3 - s2) * 0.82
+          } else if (targetId === 'false-ceiling') {
+            const s3 = stRef.current.labelToScroll("step3")
+            const s4 = stRef.current.labelToScroll("step4")
+            if (s3 !== undefined && s4 !== undefined) targetScroll = s3 + (s4 - s3) * 0.82
+          } else if (targetId === 'flooring') {
+            const s4 = stRef.current.labelToScroll("step4")
+            const sEnd = stRef.current.labelToScroll("sceneCards") || stRef.current.end
+            if (s4 !== undefined && sEnd !== undefined) targetScroll = s4 + (sEnd - s4) * 0.75
+          }
+
+          if (targetScroll !== undefined && !isNaN(targetScroll)) {
+            if (window.lenis) {
+              window.lenis.scrollTo(targetScroll, { immediate: true })
+            }
+            window.scrollTo({ top: targetScroll, behavior: 'instant' })
+          }
+        }
+      }
+      if (fromDetail) {
+        sessionStorage.removeItem('from_service_detail')
+      }
+    }
+
     const timer = setTimeout(() => {
       ScrollTrigger.refresh()
-    }, 500)
+      handleCinematicScroll()
+    }, 640)
     return () => clearTimeout(timer)
-  }, [])
+  }, [scenes])
 
   return (
-    <section ref={containerRef} className="relative w-full md:h-screen md:overflow-hidden bg-[#FAFAFA] z-20" aria-label="What We Do Cinematic">
+    <section ref={containerRef} id="what-we-do" className="relative w-full md:h-screen md:overflow-hidden bg-[#FAFAFA] z-20" aria-label="What We Do Cinematic">
       
       {/* ── DESKTOP & TABLET LAYOUT (Hidden on Mobile) ── */}
       <div className="hidden md:block w-full h-full relative">
@@ -693,24 +767,27 @@ export default function FeaturedServices() {
                      const name = isObj ? feature.name : feature
                      return (
                        <li key={idx}>
-                         <Link
-                           to="/services"
-                           className="flex items-center gap-2 text-gray-700 hover:text-orange-500 transition-colors duration-300 text-xs sm:text-sm font-medium group/feat"
+                         <div
+                           className="flex items-center gap-2 text-gray-700 transition-colors duration-300 text-xs sm:text-sm font-medium group/feat cursor-default"
                          >
                            <span className="w-1.5 h-1.5 rounded-full bg-orange-500 shrink-0 group-hover/feat:scale-125 transition-transform" />
                            {name}
-                         </Link>
+                         </div>
                        </li>
                      )
                   })}
                 </ul>
               )}
               <Link 
-                to="/services" 
-                className="group inline-flex items-center gap-3 text-xs lg:text-sm font-semibold tracking-widest uppercase transition-colors hover:text-orange-500 w-max"
+                to={getServiceDetailUrl(scene.service.id)}
+                onClick={() => handleServiceClick(scene.service.id)}
+                className="group inline-flex items-center gap-3 px-6 py-3.5 rounded-full border border-gray-300 hover:border-orange-500 bg-white hover:bg-orange-50/60 text-gray-900 hover:text-orange-500 transition-all duration-300 text-xs lg:text-sm font-semibold tracking-widest uppercase shadow-sm hover:shadow-md hover:-translate-y-0.5 w-max"
               >
-                <span className="w-8 h-px bg-gray-900 transition-all group-hover:w-12 group-hover:bg-orange-500" />
-                Explore Detail
+                <span className="w-6 h-px bg-gray-900 transition-all duration-300 group-hover:w-10 group-hover:bg-orange-500" />
+                <span>Explore Details</span>
+                <svg className="w-4 h-4 text-gray-900 group-hover:text-orange-500 transition-transform duration-300 group-hover:translate-x-1 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
               </Link>
             </div>
           )
@@ -742,24 +819,27 @@ export default function FeaturedServices() {
                      const name = isObj ? feature.name : feature
                      return (
                        <li key={idx}>
-                         <Link
-                           to="/services"
-                           className="flex items-center gap-2 text-gray-700 hover:text-orange-500 transition-colors duration-300 text-xs sm:text-sm font-medium group/feat"
+                         <div
+                           className="flex items-center gap-2 text-gray-700 transition-colors duration-300 text-xs sm:text-sm font-medium group/feat cursor-default"
                          >
                            <span className="w-1.5 h-1.5 rounded-full bg-orange-500 shrink-0 group-hover/feat:scale-125 transition-transform" />
                            {name}
-                         </Link>
+                         </div>
                        </li>
                      )
                   })}
                 </ul>
               )}
               <Link 
-                to="/services" 
-                className="group inline-flex items-center gap-3 text-xs lg:text-sm font-semibold tracking-widest uppercase transition-colors hover:text-orange-500 w-max"
+                to={getServiceDetailUrl(scene.service.id)}
+                onClick={() => handleServiceClick(scene.service.id)}
+                className="group inline-flex items-center gap-3 px-6 py-3.5 rounded-full border border-gray-300 hover:border-orange-500 bg-white hover:bg-orange-50/60 text-gray-900 hover:text-orange-500 transition-all duration-300 text-xs lg:text-sm font-semibold tracking-widest uppercase shadow-sm hover:shadow-md hover:-translate-y-0.5 w-max"
               >
-                <span className="w-8 h-px bg-gray-900 transition-all group-hover:w-12 group-hover:bg-orange-500" />
-                Explore Detail
+                <span className="w-6 h-px bg-gray-900 transition-all duration-300 group-hover:w-10 group-hover:bg-orange-500" />
+                <span>Explore Details</span>
+                <svg className="w-4 h-4 text-gray-900 group-hover:text-orange-500 transition-transform duration-300 group-hover:translate-x-1 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
               </Link>
             </div>
           )
@@ -905,24 +985,27 @@ export default function FeaturedServices() {
                        const name = isObj ? feature.name : feature
                        return (
                          <li key={idx}>
-                           <Link
-                             to="/services"
-                             className="flex items-start gap-3 text-gray-700 hover:text-[#E68A2E] transition-colors duration-300 text-sm font-medium group/feat"
+                           <div
+                             className="flex items-start gap-3 text-gray-700 transition-colors duration-300 text-sm font-medium group/feat cursor-default"
                            >
                              <span className="w-1.5 h-1.5 rounded-full bg-[#E68A2E] shrink-0 mt-1.5 group-hover/feat:scale-125 transition-transform" />
                              {name}
-                           </Link>
+                           </div>
                          </li>
                        )
                     })}
                   </ul>
                 )}
                 <Link 
-                  to="/services" 
-                  className="group inline-flex items-center gap-3 text-xs font-bold tracking-widest uppercase text-gray-900 w-max"
+                  to={getServiceDetailUrl(service.id)}
+                  onClick={() => handleServiceClick(service.id)}
+                  className="group inline-flex items-center gap-3 px-6 py-3 rounded-full border border-gray-300 hover:border-[#E68A2E] bg-white hover:bg-orange-50/60 text-gray-900 hover:text-[#E68A2E] transition-all duration-300 text-xs font-bold tracking-widest uppercase shadow-sm hover:shadow-md hover:-translate-y-0.5 w-max"
                 >
-                  <span className="w-8 h-[1.5px] bg-gray-900 transition-all group-hover:w-12 group-hover:bg-[#E68A2E]" />
-                  Explore Detail
+                  <span className="w-6 h-[1.5px] bg-gray-900 transition-all duration-300 group-hover:w-10 group-hover:bg-[#E68A2E]" />
+                  <span>Explore Details</span>
+                  <svg className="w-4 h-4 text-gray-900 group-hover:text-[#E68A2E] transition-transform duration-300 group-hover:translate-x-1 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
                 </Link>
               </motion.div>
             </div>
