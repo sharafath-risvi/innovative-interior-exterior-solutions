@@ -54,23 +54,15 @@ export const RESIDENTIAL_SERVICES_DATA = [
     subtitle: 'Sacred Spaces of Serenity',
     description: 'Devotional spaces crafted with reverence and intricate detailing. Incorporating traditional bells, CNC-cut jali partitions, warm backlighting, and premium marble or teakwood finishes.',
     features: ['Intricate CNC Jali Partitions', 'Warm Ambient Backlighting', 'Premium Marble & Teakwood', 'Custom Spatial Sizing'],
-    image: '/servicesImages/poojaunit.JPG',
+    image: '/servicesImages/poojaunit.jpeg',
   },
   {
     id: 'res-dividers',
     title: 'Divider Partitions',
     subtitle: 'Sculptural Spatial Separation',
     description: 'Elegant room dividers and display showcases that define open-plan living areas without obstructing natural light. Featuring geometric metalwork, fluted glass, and custom display shelving.',
-    features: ['Open-Plan Zoning', 'Fluted & Beveled Glass', 'Custom Display Shelving', 'Geometric Metal Framework'],
-    image: glassImg,
-  },
-  {
-    id: 'res-shower-cubicles',
-    title: 'Shower Cubicles',
-    subtitle: 'Modern Bathroom Elegance',
-    description: 'Custom glass shower cubicles and bathroom partitions designed for luxury, cleanliness, and spatial optimization. Featuring toughened safety glass, corrosion-resistant hardware, and seamless frameless configurations.',
-    features: ['Toughened Safety Glass', 'Frameless & Semi-Frameless Options', 'Corrosion-Resistant Hardware', 'Custom Spatial Sizing'],
-    image: glassImg,
+    features: ['Divider Partitions', 'Shower Cubicles'],
+    image: '/servicesImages/dividerpartition.webp',
   },
   {
     id: 'res-ceiling-painting',
@@ -79,6 +71,22 @@ export const RESIDENTIAL_SERVICES_DATA = [
     description: 'Comprehensive overhead styling combined with flawless interior painting. From designer gypsum coves with mood lighting to luxury wall textures and low-VOC premium paint applications.',
     features: ['Designer Gypsum Cove Lighting', 'Luxury Wall Textures', 'Low-VOC Premium Finishes', 'Flawless Surface Preparation'],
     image: falseCeilingImg,
+  },
+  {
+    id: 'res-upvc',
+    title: 'UPVC Windows',
+    subtitle: 'Energy Efficient & Modern Fenestration',
+    description: 'Modern UPVC windows providing superior durability, weather resistance, thermal insulation, and acoustic sound dampening for residential spaces. Engineered for elegant design and effortless maintenance.',
+    features: ['UPVC & Structural Aluminum', 'Superior Thermal Insulation', 'Acoustic Noise Dampening', 'Weatherproof Precision Sealing'],
+    image: upvcImg,
+  },
+  {
+    id: 'res-walldecor',
+    title: 'Wall Decor',
+    subtitle: 'Designer Wall Coverings & Textures',
+    description: 'Enhance your living spaces with curated wall coverings, custom wallpapers, and architectural wall treatments. Designed to create stunning accent walls and complement your personal interior aesthetic.',
+    features: ['Wallpaper', 'Wall Cladding', 'Wall Decor', 'Painting'],
+    image: '/servicesImages/walldecor.webp',
   },
 ]
 
@@ -89,7 +97,7 @@ export const COMMERCIAL_SERVICES_DATA = [
     subtitle: 'Collaborative Productivity Hubs',
     description: 'Ergonomically engineered office workstations designed to foster team collaboration while maintaining individual focus. Equipped with modular privacy screens, integrated raceways for clean cabling, and robust build quality.',
     features: ['Ergonomic Modular Design', 'Integrated Cabling Raceways', 'Acoustic Privacy Screens', 'Flexible Scalability'],
-    image: '/servicesImages/workstations.JPG',
+    image: '/servicesImages/workstation.jpeg',
   },
   {
     id: 'com-executive',
@@ -97,7 +105,7 @@ export const COMMERCIAL_SERVICES_DATA = [
     subtitle: 'Leadership in Design',
     description: 'Prestigious private office suites tailored for leadership and executive decision-making. Incorporating custom executive desks, premium wall paneling, sophisticated acoustic treatments, and integrated finishing solutions.',
     features: ['Bespoke Executive Desks', 'Acoustic Wall Treatments', 'Integrated Storage Consoles', 'Premium Leather & Wood Finishes'],
-    image: aboutTeamImg,
+    image: '/servicesImages/officecabin.webp',
   },
   {
     id: 'com-conference',
@@ -105,7 +113,7 @@ export const COMMERCIAL_SERVICES_DATA = [
     subtitle: 'Immersive Meeting Environments',
     description: 'State-of-the-art boardrooms and meeting spaces built for impactful presentations and seamless video conferencing. Featuring acoustic wall paneling, custom boardroom tables, and optimized lighting.',
     features: ['Acoustic Echo Reduction', 'AV & Video Conferencing Integration', 'Custom Boardroom Tables', 'Smart Lighting Controls'],
-    image: glassImg,
+    image: '/servicesImages/conferenceimage.jpeg',
   },
   {
     id: 'com-reception',
@@ -113,19 +121,11 @@ export const COMMERCIAL_SERVICES_DATA = [
     subtitle: 'Commanding First Impressions',
     description: 'Striking entrance lobbies and reception lounges that embody your corporate brand identity from the first step inside. Built with statement reception desks, brand signage walls, and luxury waiting area seating.',
     features: ['Statement Reception Desks', 'Custom Brand Signage Walls', 'Luxury Visitor Lounge Seating', 'Architectural Lighting Accent'],
-    image: '/servicesImages/Receptions.JPG',
-  },
-  {
-    id: 'com-partitions',
-    title: 'Cabin Partitions',
-    subtitle: 'Transparent & Acoustic Zoning',
-    description: 'Advanced office partitioning systems offering the perfect balance of visual transparency and speech privacy. Available in double-glazed acoustic glass, slim-line aluminum frames, and frosted branding films.',
-    features: ['Double-Glazed Acoustic Glass', 'Slim-Line Aluminum Profiling', 'Custom Frosted Branding Films', 'Seamless Door Integration'],
-    image: upvcImg,
+    image: '/servicesImages/receptionarea.avif',
   },
   {
     id: 'com-flooring',
-    title: 'Commercial Flooring',
+    title: 'Flooring',
     subtitle: 'Heavy-Duty Elegance',
     description: 'High-performance commercial flooring engineered to withstand heavy daily foot traffic while elevating office aesthetics. We install carpet tiles, heavy-duty SPC planks, and raised access flooring systems.',
     features: ['Heavy-Duty Wear Resistance', 'Acoustic Carpet Tile Systems', 'Raised Access Floor Options', 'Seamless Maintenance'],
@@ -137,15 +137,7 @@ export const COMMERCIAL_SERVICES_DATA = [
     subtitle: 'Architectural UPVC & Aluminum Windows',
     description: 'Modern UPVC windows provide durability, security, weather resistance, thermal insulation, and low maintenance. They improve energy efficiency while offering a stylish and long-lasting solution for residential and commercial spaces.',
     features: ['UPVC & Structural Aluminum', 'Superior Thermal Insulation', 'Acoustic Noise Dampening', 'Weatherproof Precision Sealing'],
-    image: upvcImg,
-  },
-  {
-    id: 'com-wallpapers',
-    title: 'Wallpapers',
-    subtitle: 'Custom Brand & Designer Wall coverings',
-    description: 'Wallpaper enhances interior spaces with a wide range of colours, textures, and patterns. It creates stylish feature walls, complements different design themes, and is suitable for both residential and commercial interiors.',
-    features: ['Commercial-Grade Vinyl', 'Custom Brand Graphic Murals', 'Textured Architectural Finishes', 'Seamless Professional Installation'],
-    image: wallpaperImg,
+    image: '/servicesImages/windowscommercial.webp',
   },
   {
     id: 'com-painting',
@@ -153,18 +145,18 @@ export const COMMERCIAL_SERVICES_DATA = [
     subtitle: 'Precision Commercial Surface Coating',
     description: 'Painting transforms interiors by adding colour, depth, and personality to every space. Professional painting enhances ambience, protects surfaces, and gives homes and commercial interiors a refined, elegant finish.',
     features: ['Low-VOC High-Durability Coatings', 'Flawless Surface Preparation', 'Custom Brand Color Matching', 'Protective Commercial Finishes'],
-    image: exteriorAcpImg,
+    image: '/servicesImages/commercialinteriiorpainting.jpg',
   },
 ]
 
 export const FALSE_CEILING_DATA = [
   {
     id: 'ceil-gypsum',
-    title: 'Gypsum False Ceiling',
+    title: 'Gypsum Ceiling',
     subtitle: 'Seamless Architectural Contours',
     description: 'Versatile monolithic ceiling boards that allow for unlimited design creativity. Ideal for creating multi-level drop ceilings, curved architectural contours, and concealed perimeter cove lighting.',
     features: ['Monolithic Seamless Finish', 'Multi-Level Design Capable', 'Integrated Cove Lighting', 'Fire & Moisture Resistant'],
-    image: falseCeilingImg,
+    image: '/servicesImages/gypsumceiling.jpeg',
   },
   {
     id: 'ceil-metal',
@@ -172,7 +164,7 @@ export const FALSE_CEILING_DATA = [
     subtitle: 'Modern Industrial Durability',
     description: 'Contemporary aluminum and galvanized steel ceiling panels offering exceptional durability and a clean technical aesthetic. Highly resistant to humidity and effortless to dismount for utility access.',
     features: ['Aluminum & Galvanized Steel', 'Corrosion & Humidity Resistant', 'Easy Utility Access', 'Long-Lifespan Durability'],
-    image: exteriorAcpImg,
+    image: '/servicesImages/metalceiling.jpg',
   },
   {
     id: 'ceil-grid',
@@ -180,7 +172,7 @@ export const FALSE_CEILING_DATA = [
     subtitle: 'Modular Functional Efficiency',
     description: 'Exposed T-grid ceiling systems paired with mineral fiber or metal tiles. The industry standard for corporate offices and commercial facilities requiring quick maintenance access to overhead HVAC and electrical piping.',
     features: ['Exposed Modular T-Grid', 'Instant Overhead Maintenance Access', 'High Light Reflectance', 'Cost-Effective Commercial Solution'],
-    image: commercialImg,
+    image: '/servicesImages/gridceiling.jpeg',
   },
   {
     id: 'ceil-baffle',
@@ -188,7 +180,7 @@ export const FALSE_CEILING_DATA = [
     subtitle: 'Vertical Linear Dynamics',
     description: 'Vertically suspended linear baffle panels that add striking visual depth and directional rhythm to large commercial spaces. Excellent for masking overhead utilities while maintaining open airflow.',
     features: ['Striking Vertical Depth', 'Open Airflow Architecture', 'Overhead Utility Masking', 'Custom Spacing & Depths'],
-    image: falseCeilingImg,
+    image: '/servicesImages/baffleceiling.jpg',
   },
   {
     id: 'ceil-linear',
@@ -196,15 +188,7 @@ export const FALSE_CEILING_DATA = [
     subtitle: 'Streamlined Continuous Flow',
     description: 'Parallel metal or wood-look linear strip ceilings that guide sightlines and elongate room perception. Perfect for corridors, airport terminals, corporate lobbies, and contemporary exterior overhangs.',
     features: ['Continuous Visual Elongation', 'Metal & Wood-Grain Finishes', 'Integrated Linear LED Tracks', 'Interior & Exterior Application'],
-    image: upvcImg,
-  },
-  {
-    id: 'ceil-acoustic',
-    title: 'Acoustic Ceiling',
-    subtitle: 'Sound Absorption & Clarity',
-    description: 'Specialized acoustic ceiling panels and perforated boards engineered to absorb ambient noise and eliminate reverberation. Essential for auditoriums, boardrooms, open offices, and home theaters.',
-    features: ['Superior Noise Reduction Coeff (NRC)', 'Perforated Acoustic Panels', 'Eliminates Echo & Reverberation', 'Aesthetic & Functional Harmony'],
-    image: wallpaperImg,
+    image: '/servicesImages/linearceiling.webp',
   },
 ]
 
@@ -215,7 +199,7 @@ export const FLOORING_DATA = [
     subtitle: 'Timeless Warmth & Natural Luxury',
     description: 'Authentic engineered hardwood and premium laminate wooden planks that infuse interiors with natural organic warmth. Treated with multi-layer UV protection for scratch resistance and lasting richness.',
     features: ['Engineered Hardwood & Laminate', 'Multi-Layer UV Protection', 'Rich Organic Grain Textures', 'Warm Underfoot Comfort'],
-    image: flooringImg,
+    image: '/servicesImages/Wooden-Flooring.png',
   },
   {
     id: 'floor-spc',
@@ -231,7 +215,7 @@ export const FLOORING_DATA = [
     subtitle: 'Versatile, Silent & Resilient',
     description: 'Luxury Vinyl Tiles (LVT) and continuous sheet vinyl offering exceptional cushioning, underfoot comfort, and sound dampening. Ideal for healthcare, retail, educational, and modern residential spaces.',
     features: ['Soft & Silent Underfoot', 'High Stain & Scratch Resistance', 'Versatile Pattern Configurations', 'Easy Hygienic Maintenance'],
-    image: residentialImg,
+    image: '/servicesImages/vinylflooring.jpeg',
   },
   {
     id: 'floor-corporate',
@@ -240,6 +224,41 @@ export const FLOORING_DATA = [
     description: 'Specialized commercial flooring solutions including heavy-duty carpet tiles, anti-static epoxy coatings, and raised access floors designed for demanding corporate offices and data centers.',
     features: ['Modular Carpet Tile Systems', 'Anti-Static & ESD Coatings', 'Raised Access Floor Compatibility', 'Engineered for Heavy Traffic'],
     image: '/servicesImages/corporateflooring.JPG',
+  },
+]
+
+export const ELEVATION_SERVICES_DATA = [
+  {
+    id: 'elev-acp',
+    title: 'ACP Cladding',
+    subtitle: 'Modern Façades & Architectural Sleekness',
+    description: 'Aluminium Composite Panel (ACP) cladding delivers a sleek, modern aesthetic with superior weather resistance, thermal insulation, and fire-retardant durability. Expertly installed on residential façades, corporate headquarters, and commercial complexes.',
+    features: ['Weather & UV Resistance', 'Fire-Retardant Core Options', 'Metallic, Matte & Wood Finishes', 'Precision Seamless Installation'],
+    image: '/servicesImages/acpcladding.jpeg',
+  },
+  {
+    id: 'elev-glazing',
+    title: 'Glazing',
+    subtitle: 'Structural Curtain Walls & Glass Elevations',
+    description: 'High-performance structural glazing and curtain wall systems engineered for striking visual transparency, acoustic dampening, and superior energy efficiency. Custom-designed for commercial towers, showrooms, and luxury villas.',
+    features: ['Structural & Curtain Wall Glazing', 'Spider Glazing Systems', 'High-Performance Insulated Glass', 'Acoustic & Thermal Optimization'],
+    image: '/servicesImages/glazing.jpeg',
+  },
+  {
+    id: 'elev-fluted',
+    title: 'Fluted Panel Cladding',
+    subtitle: 'Rhythmic 3D Exterior Texture',
+    description: 'Exterior-grade WPC and metallic fluted panel cladding that adds architectural depth, vertical rhythm, and sophisticated shadow lines to modern building exteriors and feature walls.',
+    features: ['Exterior-Grade UV Protection', 'Striking 3D Linear Rhythm', 'Termite & Moisture Resistant', 'Low-Maintenance Durability'],
+    image: '/servicesImages/flutedpanelcladding.jpeg',
+  },
+  {
+    id: 'elev-louvres',
+    title: 'Louvre Panels',
+    subtitle: 'Dynamic Solar Shading & Ventilation',
+    description: 'Architectural aluminum and composite louvre panel systems engineered to provide natural airflow, privacy, and effective solar heat reduction while defining contemporary building elevations.',
+    features: ['Dynamic Solar Heat Shielding', 'Optimized Natural Ventilation', 'Fixed & Adjustable Systems', 'Architectural Aluminum Profiles'],
+    image: '/servicesImages/louvrepanels.jpeg',
   },
 ]
 
@@ -280,6 +299,38 @@ export const CATEGORY_METADATA = {
     isDark: true,
     services: FLOORING_DATA,
   },
+  elevation: {
+    id: 'elevation',
+    badge: 'Service Category 05',
+    title: 'Elevation',
+    titleAccent: 'Solutions',
+    subtitle: 'Elevation and exterior cladding transform building façades with sleek architectural design, weather resistance, and lasting durability. Well-designed exterior elevations elevate curb appeal while providing structural protection and thermal efficiency.',
+    services: ELEVATION_SERVICES_DATA,
+  },
+  'gypsum-plaster': {
+    id: 'gypsum-plaster',
+    badge: 'Service Category 06',
+    title: 'Gypsum',
+    titleAccent: 'Plaster',
+    subtitle: 'Environment-friendly gypsum plaster solutions for faster, smoother, and premium interior wall and ceiling finishes.',
+    isDark: true,
+    services: [],
+  },
+}
+
+export const GYPSUM_PLASTER_DATA = {
+  id: 'gyp-plaster',
+  title: 'Gypsum Plaster',
+  subtitle: 'Environment-Friendly Interior Plastering',
+  description: 'Gypsum plaster is an environmentally friendly alternative to traditional sand-cement plastering for interior walls and ceilings. It provides a smooth, durable finish with faster application, eliminates the need for water curing, reduces construction time, and creates an ideal surface for premium interior finishes.',
+  applications: [
+    'Brick / Block Masonry',
+    'Blocks',
+    'RCC Walls & Ceilings',
+    'Interior Levelling (Gypsum Plastering)',
+    'Finishing (Paint Application)',
+  ],
+  image: '/servicesImages/gypsumplaster.jpg',
 }
 
 export const getCategoryById = (id) => CATEGORY_METADATA[id] || CATEGORY_METADATA.residential

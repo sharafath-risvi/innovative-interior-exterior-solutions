@@ -13,20 +13,20 @@ import SectionHeading from '../../ui/SectionHeading'
 
 // ── Project Data ──
 const LEFT_PROJECTS = [
-  { id: 'l1', title: 'Chennai Metro Rail', category: 'Residential Interior', year: '2025', image: '/iiesImages/chennaimetro.webp', height: 'h-[40vh] lg:h-[45vh]' },
+  { id: 'l1', title: 'Chennai Metro Rail', category: 'Residential Interior', year: '2025', image: '/iiesImages/metrostation.jpeg', height: 'h-[40vh] lg:h-[45vh]' },
   { id: 'l2', title: 'Statue of Unity', category: 'Office Interior', year: '2024', image: '/iiesImages/statueofunity.webp', height: 'h-[50vh] lg:h-[55vh]' },
-  { id: 'l3', title: 'Amazon Office – Hyderabad', category: 'Interior Detail', year: '2025', image: '/iiesImages/amazonhyderabad.jpeg', height: 'h-[35vh] lg:h-[40vh]' },
-  { id: 'l4', title: 'Butterfly Marketing Office', category: 'Architectural Detail', year: '2024', image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80', height: 'h-[45vh] lg:h-[50vh]' },
+  { id: 'l3', title: 'Amazon Office – Hyderabad', category: 'Interior Detail', year: '2025', image: '/iiesImages/amazonhyderabad.jpg', height: 'h-[35vh] lg:h-[40vh]' },
+  { id: 'l4', title: 'Butterfly Marketing Office', category: 'Architectural Detail', year: '2024', image: '/iiesImages/butterflyoffice.avif', height: 'h-[45vh] lg:h-[50vh]' },
 ]
 
 const CENTER_PROJECTS = [
   { id: 'c1', title: 'World Trade Center – Chennai', category: 'Residential Interior', year: '2025', image: '/iiesImages/worldtradecenter.webp', height: 'h-[60vh] lg:h-[70vh]' },
-  { id: 'c2', title: 'Bhavani Power Plant – Kalpakkam', category: 'Signature Exterior', year: '2025', image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80', height: 'h-[60vh] lg:h-[70vh]' },
+  { id: 'c2', title: 'Apollo Hospital – Porur (Interior View)', category: 'Healthcare Interior', year: '2025', image: '/iiesImages/apollohospital.webp', height: 'h-[60vh] lg:h-[70vh]' },
 ]
 
 const RIGHT_PROJECTS = [
   { id: 'r1', title: 'Madras Boat Club', category: 'Residential Interior', year: '2025', image: '/iiesImages/madrasboatclub.png', height: 'h-[45vh] lg:h-[50vh]' },
-  { id: 'r2', title: 'Anna Nagar Tower Park Club', category: 'Hospitality Design', year: '2025', image: '/iiesImages/annanagartower.avif', height: 'h-[40vh] lg:h-[45vh]' },
+  { id: 'r2', title: 'Anna Nagar Tower Park Club', category: 'Hospitality Design', year: '2025', image: '/iiesImages/annanagartowerclub.avif', height: 'h-[40vh] lg:h-[45vh]' },
   { id: 'r3', title: 'Premium Residential Villas', category: 'Commercial Interior', year: '2024', image: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=800&q=80', height: 'h-[50vh] lg:h-[55vh]' },
   { id: 'r4', title: 'Luxury Apartments & Individual Houses', category: 'Exterior & Landscaping', year: '2024', image: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=800&q=80', height: 'h-[35vh] lg:h-[40vh]' },
 ]

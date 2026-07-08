@@ -25,12 +25,14 @@ const getServiceDetailUrl = (id) => {
     case 'commercial': return '/services/commercial-interiors';
     case 'false-ceiling': return '/services/false-ceiling';
     case 'flooring': return '/services/flooring-solutions';
+    case 'elevation': return '/services/elevation';
+    case 'gypsum-plaster': return '/services#gypsum-plaster';
     default: return '/services';
   }
 };
 
 const handleServiceClick = (id) => {
-  if (id && ['residential', 'commercial', 'false-ceiling', 'flooring'].includes(id)) {
+  if (id && ['residential', 'commercial', 'false-ceiling', 'flooring', 'elevation', 'gypsum-plaster'].includes(id)) {
     window.history.replaceState(null, '', `/#what-we-do-${id}`);
     sessionStorage.setItem('last_what_we_do', id);
   }
@@ -49,13 +51,34 @@ export default function FeaturedServices() {
   
   // Combine services to create the sequence
   const allServices = useMemo(() => [...INTERIOR_SERVICES, ...EXTERIOR_SERVICES], [])
-  const sequenceServices = useMemo(() => allServices.slice(0, 4), [allServices]) // Stop sticky images after Flooring
+  const sequenceServices = useMemo(() => [
+    INTERIOR_SERVICES[0],
+    INTERIOR_SERVICES[1],
+    INTERIOR_SERVICES[2],
+    {
+      id: 'elevation',
+      title: 'Elevation',
+      subtitle: 'Architectural Exterior Transformation',
+      description: 'Transform your building façade with cutting-edge elevation solutions. Engineered for durability, weather resistance, and striking architectural aesthetics.',
+      features: [
+        'ACP Cladding',
+        'Glazing',
+        'Painting',
+        'Fluted Panel Cladding',
+        'Plumbing Cladding',
+        'Louvre Panels'
+      ],
+      image: '/servicesImages/louvrepanels.jpeg',
+      icon: '🏗️',
+      color: '#FC6B00'
+    }
+  ], []) // Stop sticky images after Elevation
   const moreServices = useMemo(() => [
     {
       id: 'chennai-metro',
       title: 'Chennai Metro',
       description: 'Interior and finishing works delivered for selected Chennai Metro stations with precision, durability, and modern architectural standards.',
-      image: '/iiesImages/chennaimetro.webp',
+      image: '/iiesImages/metrostation.jpeg',
     },
     {
       id: 'statue-of-unity',
@@ -67,7 +90,7 @@ export default function FeaturedServices() {
       id: 'amazon-hyderabad',
       title: 'Amazon Hyderabad',
       description: 'Professional interior execution and premium finishing works completed for Amazon\'s Hyderabad corporate facility.',
-      image: '/iiesImages/amazonhyderabad.jpeg',
+      image: '/iiesImages/amazonhyderabad.jpg',
     }
   ], []) // Next 3 services for cards
   
@@ -367,7 +390,7 @@ export default function FeaturedServices() {
             const s3 = stRef.current.labelToScroll("step3")
             const s4 = stRef.current.labelToScroll("step4")
             if (s3 !== undefined && s4 !== undefined) targetScroll = s3 + (s4 - s3) * 0.82
-          } else if (targetId === 'flooring') {
+          } else if (targetId === 'flooring' || targetId === 'elevation') {
             const s4 = stRef.current.labelToScroll("step4")
             const sEnd = stRef.current.labelToScroll("sceneCards") || stRef.current.end
             if (s4 !== undefined && sEnd !== undefined) targetScroll = s4 + (sEnd - s4) * 0.75

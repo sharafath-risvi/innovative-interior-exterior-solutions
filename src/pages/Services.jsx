@@ -25,6 +25,7 @@ import {
   COMMERCIAL_SERVICES_DATA,
   FALSE_CEILING_DATA,
   FLOORING_DATA,
+  ELEVATION_SERVICES_DATA,
 } from '../components/sections/services/servicesData'
 import ServiceDetailCard from '../components/sections/services/ServiceDetailCard'
 import ConsultationCTA from '../components/sections/services/ConsultationCTA'
@@ -263,6 +264,134 @@ function FlooringSolutionsSection() {
 
 
 // ──────────────────────────────
+// 6. ELEVATION SOLUTIONS SECTION
+// ──────────────────────────────
+function ElevationSection() {
+  return (
+    <section id="elevation" className="section-pad bg-white" aria-label="Elevation Solutions">
+      <div id="elevation-solutions" className="px-6 md:px-12 lg:px-20" style={{ maxWidth: 'var(--container-max)', margin: '0 auto' }}>
+        <SectionHeading
+          badge="Service Category 05"
+          title="Elevation"
+          titleAccent="Solutions"
+          subtitle="Elevation and exterior cladding transform building façades with sleek architectural design, weather resistance, and lasting durability. Well-designed exterior elevations elevate curb appeal while providing structural protection and thermal efficiency."
+          centered
+        />
+        {ELEVATION_SERVICES_DATA.map((service, i) => (
+          <ServiceDetailCard key={service.id} service={service} index={i} />
+        ))}
+      </div>
+    </section>
+  )
+}
+
+
+// ──────────────────────────────
+// 7. GYPSUM PLASTER SECTION
+// ──────────────────────────────
+function GypsumPlasterSection() {
+  return (
+    <section
+      id="gypsum-plaster"
+      className="section-pad"
+      style={{ background: '#111111' }}
+      aria-label="Gypsum Plaster"
+    >
+      <div id="gypsum-plaster-solutions" className="px-6 md:px-12 lg:px-20" style={{ maxWidth: 'var(--container-max)', margin: '0 auto' }}>
+        <SectionHeading
+          badge="Service Category 06"
+          title="Gypsum"
+          titleAccent="Plaster"
+          subtitle="Gypsum plaster is an environmentally friendly alternative to traditional sand-cement plastering for interior walls and ceilings. It provides a smooth, durable finish with faster application, eliminates the need for water curing, reduces construction time, and creates an ideal surface for premium interior finishes."
+          centered
+          light={true}
+        />
+
+        <motion.article
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
+          aria-label="Gypsum Plaster Information"
+        >
+          {/* Large image */}
+          <div
+            className="relative overflow-hidden rounded-2xl"
+            style={{ height: '440px' }}
+          >
+            <img
+              src="/servicesImages/gypsumplaster.jpg"
+              alt="Gypsum Plaster"
+              className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+              loading="lazy"
+            />
+            <div
+              className="absolute top-4 left-4 w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-sm"
+              style={{ background: 'linear-gradient(135deg, var(--color-orange), var(--color-orange-sec))' }}
+              aria-hidden="true"
+            >
+              01
+            </div>
+          </div>
+
+          {/* Content & Areas of Application */}
+          <div>
+            <p
+              className="text-xs font-semibold tracking-[0.2em] uppercase mb-3"
+              style={{ color: 'var(--color-orange)' }}
+            >
+              ENVIRONMENT-FRIENDLY PLASTERING
+            </p>
+            <h2
+              className="font-display font-bold leading-tight mb-4 text-white"
+              style={{ fontSize: 'clamp(1.75rem, 3vw, 2.5rem)' }}
+            >
+              Gypsum Plaster
+            </h2>
+            <div
+              className="w-12 h-0.5 rounded-full mb-5"
+              style={{ background: 'var(--color-orange)' }}
+              aria-hidden="true"
+            />
+            <p className="leading-relaxed mb-7 text-gray-300">
+              Gypsum plaster is an environmentally friendly alternative to traditional sand-cement plastering for interior walls and ceilings. It provides a smooth, durable finish with faster application, eliminates the need for water curing, reduces construction time, and creates an ideal surface for premium interior finishes.
+            </p>
+
+            <p className="text-xs font-semibold tracking-wider uppercase mb-4" style={{ color: 'var(--color-orange)' }}>
+              Areas of Application
+            </p>
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3" aria-label="Areas of Application">
+              {[
+                'Brick / Block Masonry',
+                'Blocks',
+                'RCC Walls & Ceilings',
+                'Interior Levelling (Gypsum Plastering)',
+                'Finishing (Paint Application)'
+              ].map((app, idx) => (
+                <li
+                  key={idx}
+                  className="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-gray-200 text-sm font-medium"
+                >
+                  <span
+                    className="w-5 h-5 rounded-full flex items-center justify-center text-white text-xs shrink-0"
+                    style={{ background: 'var(--color-orange)' }}
+                    aria-hidden="true"
+                  >
+                    ✓
+                  </span>
+                  {app}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </motion.article>
+      </div>
+    </section>
+  )
+}
+
+// ──────────────────────────────
 // SERVICES PAGE ASSEMBLY
 // ──────────────────────────────
 export default function Services() {
@@ -273,6 +402,8 @@ export default function Services() {
       <CommercialInteriorsSection />
       <FalseCeilingSection />
       <FlooringSolutionsSection />
+      <ElevationSection />
+      <GypsumPlasterSection />
       <ConsultationCTA />
     </main>
   )

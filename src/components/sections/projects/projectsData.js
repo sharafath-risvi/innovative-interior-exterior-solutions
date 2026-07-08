@@ -16,7 +16,7 @@ export const COMPLETED_PROJECTS = [
     location: 'Chennai',
     category: 'Infrastructure Project',
     description: 'Interior and architectural finishing solutions delivered for selected Chennai Metro stations with a strong focus on durability, precision, and modern public infrastructure.',
-    image: '/iiesImages/chennaimetro.webp',
+    image: '/iiesImages/metrostation.jpeg',
     year: '2025',
     highlights: [
       'High-durability public station interior finishing',
@@ -30,7 +30,7 @@ export const COMPLETED_PROJECTS = [
     location: 'Hyderabad',
     category: 'Corporate Interior',
     description: 'Premium corporate workspace featuring executive cabins, collaborative workspaces, conference rooms, reception areas, and modern interior finishes.',
-    image: '/iiesImages/amazonhyderabad.jpeg',
+    image: '/iiesImages/amazonhyderabad.jpg',
     year: '2025',
     highlights: [
       'Acoustic-engineered executive boardrooms & cabins',
@@ -72,7 +72,7 @@ export const COMPLETED_PROJECTS = [
     location: 'Chennai',
     category: 'Corporate Office',
     description: 'Modern office interiors with executive workspaces, meeting rooms, reception zones, and premium architectural finishes.',
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80',
+    image: '/iiesImages/butterflyoffice.avif',
     year: '2024',
     highlights: [
       'Ergonomic executive suites and workstation zones',
@@ -82,16 +82,16 @@ export const COMPLETED_PROJECTS = [
   },
   {
     id: 'comp-6',
-    title: 'Bhavani Power Plant',
-    location: 'Kalpakkam',
-    category: 'Industrial Infrastructure',
-    description: 'Specialized architectural and interior finishing work executed for an industrial infrastructure project with a focus on quality and durability.',
-    image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1200&q=80',
+    title: 'Apollo Hospital – Porur (Interior View)',
+    location: 'Chennai',
+    category: 'Healthcare Interior',
+    description: 'Specialized medical and healthcare interior finishing work delivered for Apollo Hospital Porur with a focus on hygiene, acoustic comfort, and modern clinical aesthetics.',
+    image: '/iiesImages/apollohospital.webp',
     year: '2025',
     highlights: [
-      'Heavy-duty industrial grade interior finishing',
-      'Corrosion and heat resistant architectural coatings',
-      'Precision structural interior detailing'
+      'Clinical-grade hygienic surface finishing',
+      'Acoustic and ambient interior healthcare environment',
+      'Precision architectural healthcare interior execution'
     ]
   },
   {
@@ -142,17 +142,17 @@ export const COMPLETED_PROJECTS = [
 export const ICONIC_PROJECTS = [
   {
     id: 'iconic-1',
-    title: 'Chennai Metro Rail',
-    location: 'Chennai',
-    category: 'Infrastructure Project',
-    description: 'Delivering robust interior architecture and high-durability finishing solutions across selected stations of Chennai Metro Rail, setting benchmarks in public transport infrastructure.',
-    image: '/iiesImages/chennaimetro.webp',
+    title: 'Amazon Hyderabad Office',
+    location: 'Hyderabad',
+    category: 'Corporate Interior',
+    description: 'Crafting an ultra-modern global technology workspace featuring acoustic conference hubs, collaborative open spaces, executive suites, and bespoke architectural elements.',
+    image: '/iiesImages/amazonhyderabad.jpg',
     year: '2025',
-    scale: 'Public Infrastructure Landmark',
+    scale: 'Global Corporate Campus',
     highlights: [
-      'Large-scale public station architectural finishing',
-      'Heavy-duty material selection for high footfall durability',
-      'Uncompromising precision engineering and safety execution'
+      'Next-generation collaborative tech workspace design',
+      'Acoustic ceiling and glass partition integration',
+      'Premium ergonomic lounge and conference environments'
     ]
   },
   {
@@ -172,62 +172,17 @@ export const ICONIC_PROJECTS = [
   },
   {
     id: 'iconic-3',
-    title: 'Amazon Office – Hyderabad',
-    location: 'Hyderabad',
-    category: 'Corporate Interior',
-    description: 'Crafting an ultra-modern global technology workspace featuring acoustic conference hubs, collaborative open spaces, executive suites, and bespoke architectural elements.',
-    image: '/iiesImages/amazonhyderabad.jpeg',
-    year: '2025',
-    scale: 'Global Corporate Campus',
-    highlights: [
-      'Next-generation collaborative tech workspace design',
-      'Acoustic ceiling and glass partition integration',
-      'Premium ergonomic lounge and conference environments'
-    ]
-  },
-  {
-    id: 'iconic-4',
-    title: 'World Trade Center – Chennai',
+    title: 'Apollo Hospital – Porur (Interior View)',
     location: 'Chennai',
-    category: 'Commercial Interior',
-    description: 'Engineering sophisticated high-end commercial interiors and luxury lobby finishes for one of South India\'s most prestigious corporate towers and business destinations.',
-    image: '/iiesImages/worldtradecenter.webp',
+    category: 'Healthcare Interior',
+    description: 'Delivering clinical-grade healthcare interior finishing and specialized medical environment aesthetics for Apollo Hospital Porur.',
+    image: '/iiesImages/apollohospital.webp',
     year: '2025',
-    scale: 'Premier Commercial Tower',
+    scale: 'Healthcare Infrastructure',
     highlights: [
-      'Turnkey luxury finishing for corporate lobbies & corridors',
-      'Linear acoustic baffle ceilings and stone cladding',
-      'World-class execution standards for global enterprise tenants'
-    ]
-  },
-  {
-    id: 'iconic-5',
-    title: 'Butterfly Marketing Office',
-    location: 'Chennai',
-    category: 'Corporate Office',
-    description: 'Designing a cutting-edge corporate headquarters with dynamic reception zones, executive cabins, state-of-the-art boardrooms, and custom ceiling and flooring treatments.',
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=80',
-    year: '2024',
-    scale: 'Corporate Headquarters',
-    highlights: [
-      'Executive boardroom and cabin spatial architecture',
-      'Custom lighting integrated decorative false ceilings',
-      'Sophisticated brand-aligned interior styling'
-    ]
-  },
-  {
-    id: 'iconic-6',
-    title: 'Bhavani Power Plant – Kalpakkam',
-    location: 'Kalpakkam',
-    category: 'Industrial Infrastructure',
-    description: 'Deploying specialized, high-strength architectural and interior finishing solutions designed to withstand demanding industrial environments while maintaining modern aesthetics.',
-    image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&q=80',
-    year: '2025',
-    scale: 'Industrial Power Facility',
-    highlights: [
-      'Specialized heavy industrial structural finishing',
-      'High-performance protective coatings and ceiling systems',
-      'Precision engineering in critical operational zones'
+      'Clinical-grade hygienic interior finishing',
+      'Specialized healthcare architectural detailing',
+      'Precision acoustic and patient environment execution'
     ]
   }
 ]

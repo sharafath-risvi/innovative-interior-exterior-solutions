@@ -3,6 +3,16 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export default function LeadPopup() {
   const [isOpen, setIsOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    service: '',
+  });
+
+  const handleChange = (e) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
 
   useEffect(() => {
     // DEVELOPMENT MODE
@@ -106,6 +116,9 @@ export default function LeadPopup() {
               <div>
                 <input 
                   type="text" 
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
                   required
                   placeholder="Full Name" 
                   className="w-full px-5 py-3.5 bg-white/60 border border-gray-200 rounded-xl focus:outline-none focus:border-[#F7941D] focus:ring-1 focus:ring-[#F7941D] transition-all duration-300 text-[#111111] placeholder:text-gray-400 font-medium text-[14px]"
@@ -114,6 +127,9 @@ export default function LeadPopup() {
               <div>
                 <input 
                   type="tel" 
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
                   required
                   placeholder="Mobile Number" 
                   className="w-full px-5 py-3.5 bg-white/60 border border-gray-200 rounded-xl focus:outline-none focus:border-[#F7941D] focus:ring-1 focus:ring-[#F7941D] transition-all duration-300 text-[#111111] placeholder:text-gray-400 font-medium text-[14px]"
@@ -122,10 +138,41 @@ export default function LeadPopup() {
               <div>
                 <input 
                   type="email" 
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   required
                   placeholder="Email Address" 
                   className="w-full px-5 py-3.5 bg-white/60 border border-gray-200 rounded-xl focus:outline-none focus:border-[#F7941D] focus:ring-1 focus:ring-[#F7941D] transition-all duration-300 text-[#111111] placeholder:text-gray-400 font-medium text-[14px]"
                 />
+              </div>
+              <div>
+                <select
+                  name="service"
+                  value={formData.service}
+                  onChange={handleChange}
+                  className="w-full px-5 py-3.5 bg-white/60 border border-gray-200 rounded-xl focus:outline-none focus:border-[#F7941D] focus:ring-1 focus:ring-[#F7941D] transition-all duration-300 text-[#111111] font-medium text-[14px]"
+                >
+                  <option value="">Select a service</option>
+                  <optgroup label="Interior Services">
+                    <option>Residential Interiors</option>
+                    <option>Commercial Interiors</option>
+                    <option>Interior Design</option>
+                    <option>False Ceiling</option>
+                    <option>Flooring</option>
+                    <option>Wallpaper</option>
+                    <option>Painting</option>
+                    <option>Glass Partitions</option>
+                  </optgroup>
+                  <optgroup label="Exterior Services">
+                    <option>Exterior Design</option>
+                    <option>ACP Cladding</option>
+                    <option>Glazing</option>
+                    <option>UPVC Windows</option>
+                    <option>Gypsum Plaster</option>
+                  </optgroup>
+                  <option>Multiple Services</option>
+                </select>
               </div>
               <button 
                 type="submit"
