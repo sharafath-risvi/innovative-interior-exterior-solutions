@@ -262,6 +262,33 @@ export const ELEVATION_SERVICES_DATA = [
   },
 ]
 
+export const GYPSUM_PLASTER_SERVICES_DATA = [
+  {
+    id: 'gyp-wall',
+    title: 'Interior Wall Gypsum Plastering',
+    subtitle: 'Smooth Crack-Free Premium Wall Finishes',
+    description: 'High-grade gypsum plaster application for internal brick, block, and RCC walls. Delivers a perfectly level, supremely smooth, crack-free surface ready for direct painting or wallpapering without any putty required.',
+    features: ['Direct Application on Bricks & Blocks', 'Zero Water Curing Required', 'Supremely Smooth Level Finish', 'Thermal & Acoustic Insulation'],
+    image: '/servicesImages/gypsumplaster.jpg',
+  },
+  {
+    id: 'gyp-ceiling',
+    title: 'RCC Ceiling Levelling & Finishing',
+    subtitle: 'Direct Bonding Ceiling Plaster',
+    description: 'Specialized gypsum plaster formulated for direct application on RCC ceilings and soffits. Excellent bonding strength eliminates the need for rough sand-cement rendering while drastically reducing structural dead load.',
+    features: ['Direct RCC Ceiling Bonding', 'Lightweight Structural Load', 'Rapid Setting & Drying Time', 'Seamless Flawless Surface'],
+    image: '/servicesImages/gypsumplaster2.webp',
+  },
+  {
+    id: 'gyp-eco',
+    title: 'Eco-Friendly Green Building Plaster',
+    subtitle: 'Sustainable Interior Construction',
+    description: 'Environmentally responsible gypsum plaster solutions that conserve millions of liters of water by requiring zero curing. Non-combustible, fire-retardant, and certified safe for sustainable residential and commercial developments.',
+    features: ['100% Water Curing Free', 'Fire Retardant & Non-Combustible', 'Green Building Compatible', 'Accelerated Project Delivery'],
+    image: '/servicesImages/gypsumplaster3.jpeg',
+  },
+]
+
 export const CATEGORY_METADATA = {
   residential: {
     id: 'residential',
@@ -312,9 +339,9 @@ export const CATEGORY_METADATA = {
     badge: 'Service Category 06',
     title: 'Gypsum',
     titleAccent: 'Plaster',
-    subtitle: 'Environment-friendly gypsum plaster solutions for faster, smoother, and premium interior wall and ceiling finishes.',
+    subtitle: 'Gypsum plaster is an eco-friendly alternative to traditional sand-cement plaster, delivering smooth premium finishes with faster application. It requires no water curing, enhances durability, and is ideal for modern residential and commercial interiors.',
     isDark: true,
-    services: [],
+    services: GYPSUM_PLASTER_SERVICES_DATA,
   },
 }
 
@@ -334,3 +361,4 @@ export const GYPSUM_PLASTER_DATA = {
 }
 
 export const getCategoryById = (id) => CATEGORY_METADATA[id] || CATEGORY_METADATA.residential
+

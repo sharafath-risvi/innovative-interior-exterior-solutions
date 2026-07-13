@@ -50,6 +50,7 @@ const CommercialInteriors  = lazy(() => import('./pages/services/CommercialInter
 const FalseCeiling         = lazy(() => import('./pages/services/FalseCeiling'))
 const FlooringSolutions    = lazy(() => import('./pages/services/FlooringSolutions'))
 const Elevation            = lazy(() => import('./pages/services/Elevation'))
+const GypsumPlaster        = lazy(() => import('./pages/services/GypsumPlaster'))
 
 // ── Register GSAP Plugins globally ──
 gsap.registerPlugin(ScrollTrigger)
@@ -178,6 +179,7 @@ function AnimatedRoutes() {
         <Route path="/services/false-ceiling" element={<PageWrapper><Suspense fallback={null}><FalseCeiling /></Suspense></PageWrapper>} />
         <Route path="/services/flooring-solutions" element={<PageWrapper><Suspense fallback={null}><FlooringSolutions /></Suspense></PageWrapper>} />
         <Route path="/services/elevation" element={<PageWrapper><Suspense fallback={null}><Elevation /></Suspense></PageWrapper>} />
+        <Route path="/services/gypsum-plaster" element={<PageWrapper><Suspense fallback={null}><GypsumPlaster /></Suspense></PageWrapper>} />
         <Route path="/contact" element={<PageWrapper><Suspense fallback={null}><Contact /></Suspense></PageWrapper>} />
       </Routes>
     </AnimatePresence>

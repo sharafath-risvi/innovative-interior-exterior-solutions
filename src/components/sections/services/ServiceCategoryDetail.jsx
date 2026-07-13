@@ -13,6 +13,7 @@ import { motion } from 'framer-motion'
 import SectionHeading from '../../ui/SectionHeading'
 import ServiceDetailCard from './ServiceDetailCard'
 import ConsultationCTA from './ConsultationCTA'
+import GypsumPlasterContent from './GypsumPlasterContent'
 import { getCategoryById } from './servicesData'
 
 export default function ServiceCategoryDetail({ categoryId }) {
@@ -75,34 +76,38 @@ export default function ServiceCategoryDetail({ categoryId }) {
       </div>
 
       {/* ── Isolated Service Category Section ── */}
-      <section
-        id={category.id}
-        className={`section-pad ${category.isDark ? 'bg-[#111111] text-white' : 'bg-white text-gray-900'}`}
-        aria-label={`${category.title} ${category.titleAccent}`}
-      >
-        <div
-          id="services-section"
-          className="px-6 md:px-12 lg:px-20"
-          style={{ maxWidth: 'var(--container-max)', margin: '0 auto' }}
+      {category.id === 'gypsum-plaster' ? (
+        <GypsumPlasterContent />
+      ) : (
+        <section
+          id={category.id}
+          className={`section-pad ${category.isDark ? 'bg-[#111111] text-white' : 'bg-white text-gray-900'}`}
+          aria-label={`${category.title} ${category.titleAccent}`}
         >
-          <SectionHeading
-            badge={category.badge}
-            title={category.title}
-            titleAccent={category.titleAccent}
-            subtitle={category.subtitle}
-            centered
-            light={category.isDark}
-          />
-          {category.services.map((service, i) => (
-            <ServiceDetailCard
-              key={service.id}
-              service={service}
-              index={i}
-              isDark={category.isDark}
+          <div
+            id="services-section"
+            className="px-6 md:px-12 lg:px-20"
+            style={{ maxWidth: 'var(--container-max)', margin: '0 auto' }}
+          >
+            <SectionHeading
+              badge={category.badge}
+              title={category.title}
+              titleAccent={category.titleAccent}
+              subtitle={category.subtitle}
+              centered
+              light={category.isDark}
             />
-          ))}
-        </div>
-      </section>
+            {category.services.map((service, i) => (
+              <ServiceDetailCard
+                key={service.id}
+                service={service}
+                index={i}
+                isDark={category.isDark}
+              />
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* ── Consultation CTA ── */}
       <ConsultationCTA />

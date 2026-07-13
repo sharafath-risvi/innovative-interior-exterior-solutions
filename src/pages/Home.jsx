@@ -16,10 +16,11 @@
 //   - New sections: create in src/components/sections/home/ and import
 // =================================================
 
-import React, { lazy, Suspense } from 'react'
+import React, { useState, lazy, Suspense } from 'react'
 import PremiumHero        from '../components/sections/home/PremiumHero'
 import Hero               from '../components/sections/home/Hero'
 import LeadPopup          from '../components/sections/home/LeadPopup'
+import ProjectDetailModal from '../components/sections/projects/ProjectDetailModal'
 
 const FeaturedServices    = lazy(() => import('../components/sections/home/FeaturedServices'))
 
@@ -29,6 +30,12 @@ const Testimonials        = lazy(() => import('../components/sections/home/Testi
 const PremiumCTA          = lazy(() => import('../components/sections/home/PremiumCTA'))
 
 export default function Home() {
+  const [selectedProject, setSelectedProject] = useState(null)
+
+  const handleCloseModal = () => {
+    setSelectedProject(null)
+  }
+
   return (
     <main id="main-content">
       {/* ── Section 0: Premium Hero (First Impression) ── */}
@@ -40,9 +47,9 @@ export default function Home() {
       {/* ── Secondary Sections (Lazy Loaded) ── */}
       <Suspense fallback={null}>
         {/* ── Section 2: Featured Services ── */}
-        <FeaturedServices />
+        <FeaturedServices onSelectProject={setSelectedProject} />
         {/* ── Section 4: Projects Gallery ── */}
-        <ProjectsGallery />
+        <ProjectsGallery onSelectProject={setSelectedProject} />
 
         {/* ── Section 5: Why Choose Us ── */}
         <WhyChooseUs />
@@ -56,6 +63,13 @@ export default function Home() {
 
       {/* ── Lead Generation Popup ── */}
       <LeadPopup />
+
+      {/* ── Interactive Detail Modal (Shared with Projects page) ── */}
+      <ProjectDetailModal
+        project={selectedProject}
+        onClose={handleCloseModal}
+      />
     </main>
   )
 }
+

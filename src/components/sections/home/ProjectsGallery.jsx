@@ -8,38 +8,49 @@
 
 import { useRef } from 'react'
 import { motion } from 'framer-motion'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import SectionHeading from '../../ui/SectionHeading'
 
 // ── Project Data ──
 const LEFT_PROJECTS = [
-  { id: 'l1', title: 'Chennai Metro Rail', category: 'Residential Interior', year: '2025', image: '/iiesImages/metrostation.jpeg', height: 'h-[40vh] lg:h-[45vh]' },
-  { id: 'l2', title: 'Statue of Unity', category: 'Office Interior', year: '2024', image: '/iiesImages/statueofunity.webp', height: 'h-[50vh] lg:h-[55vh]' },
-  { id: 'l3', title: 'Amazon Office – Hyderabad', category: 'Interior Detail', year: '2025', image: '/iiesImages/amazonhyderabad.jpg', height: 'h-[35vh] lg:h-[40vh]' },
-  { id: 'l4', title: 'Butterfly Marketing Office', category: 'Architectural Detail', year: '2024', image: '/iiesImages/butterflyoffice.avif', height: 'h-[45vh] lg:h-[50vh]' },
+  { id: 'l1', title: 'Chennai Metro Rail', category: 'Infrastructure Project', location: 'Chennai', year: '2025', image: '/iiesImages/metrostation.jpeg', description: 'Interior and architectural finishing solutions delivered for selected Chennai Metro stations with a strong focus on durability, precision, and modern public infrastructure.', height: 'h-[40vh] lg:h-[45vh]' },
+  { id: 'l2', title: 'Statue of Unity', category: 'Landmark Project', location: 'Gujarat', year: '2024', image: '/iiesImages/statueofunity.webp', description: 'Architectural finishing work delivered for one of India\'s most iconic national landmarks, maintaining exceptional quality and execution standards.', height: 'h-[50vh] lg:h-[55vh]' },
+  { id: 'l3', title: 'Amazon Office – Hyderabad', category: 'Corporate Interior', location: 'Hyderabad', year: '2025', image: '/iiesImages/amazonhyderabad.jpg', description: 'Premium corporate workspace featuring executive cabins, collaborative workspaces, conference rooms, reception areas, and modern interior finishes.', height: 'h-[35vh] lg:h-[40vh]' },
+  { id: 'l4', title: 'Butterfly Marketing Office', category: 'Corporate Office', location: 'Chennai', year: '2024', image: '/iiesImages/butterflyoffice.avif', description: 'Modern office interiors with executive workspaces, meeting rooms, reception zones, and premium architectural finishes.', height: 'h-[45vh] lg:h-[50vh]' },
 ]
 
 const CENTER_PROJECTS = [
-  { id: 'c1', title: 'World Trade Center – Chennai', category: 'Residential Interior', year: '2025', image: '/iiesImages/worldtradecenter.webp', height: 'h-[60vh] lg:h-[70vh]' },
-  { id: 'c2', title: 'Apollo Hospital – Porur (Interior View)', category: 'Healthcare Interior', year: '2025', image: '/iiesImages/apollohospital.webp', height: 'h-[60vh] lg:h-[70vh]' },
+  { id: 'c1', title: 'World Trade Center – Chennai', category: 'Commercial Interior', location: 'Chennai', year: '2025', image: '/iiesImages/worldtradecenter.webp', description: 'High-end commercial interior and finishing solutions executed for one of Chennai\'s most prestigious business destinations.', height: 'h-[60vh] lg:h-[70vh]' },
+  { id: 'c2', title: 'Apollo Hospital (Interior View)', category: 'Healthcare Interior', location: 'Chennai', year: '2025', image: '/iiesImages/apollohospital.webp', description: 'Specialized medical and healthcare interior finishing work delivered for Apollo Hospital with a focus on hygiene, acoustic comfort, and modern clinical aesthetics.', height: 'h-[60vh] lg:h-[70vh]' },
 ]
 
 const RIGHT_PROJECTS = [
-  { id: 'r1', title: 'Madras Boat Club', category: 'Residential Interior', year: '2025', image: '/iiesImages/madrasboatclub.png', height: 'h-[45vh] lg:h-[50vh]' },
-  { id: 'r2', title: 'Anna Nagar Tower Park Club', category: 'Hospitality Design', year: '2025', image: '/iiesImages/annanagartowerclub.avif', height: 'h-[40vh] lg:h-[45vh]' },
-  { id: 'r3', title: 'Premium Residential Villas', category: 'Commercial Interior', year: '2024', image: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=800&q=80', height: 'h-[50vh] lg:h-[55vh]' },
-  { id: 'r4', title: 'Luxury Apartments & Individual Houses', category: 'Exterior & Landscaping', year: '2024', image: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=800&q=80', height: 'h-[35vh] lg:h-[40vh]' },
+  { id: 'r1', title: 'Madras Boat Club', category: 'Premium Hospitality', location: 'Chennai', year: '2025', image: '/iiesImages/madrasboatclub.png', description: 'Elegant interior finishing and customized design solutions delivered for one of Chennai\'s most prestigious private clubs.', height: 'h-[45vh] lg:h-[50vh]' },
+  { id: 'r2', title: 'Anna Nagar Tower Park Club', category: 'Hospitality Design', location: 'Chennai', year: '2025', image: '/iiesImages/annanagartowerclub.avif', description: 'Sophisticated hospitality and clubhouse interior transformation featuring tailored structural finishes, custom lighting, and refined architectural details.', height: 'h-[40vh] lg:h-[45vh]' },
+  { id: 'r3', title: 'Premium Residential Villas', category: 'Residential Interior', location: 'Chennai', year: '2024', image: '/iiesImages/villas.jpg', description: 'Turnkey architectural finishing and bespoke interior solutions crafted for premium residential villas, combining luxury aesthetics with lasting durability.', height: 'h-[50vh] lg:h-[55vh]' },
+  { id: 'r4', title: 'Luxury Apartments & Individual Houses', category: 'Residential & Exterior', location: 'Chennai', year: '2024', image: '/iiesImages/residential.jpeg', description: 'Comprehensive interior and architectural finishing execution for luxury apartments and individual residences, designed for modern elegance and superior comfort.', height: 'h-[35vh] lg:h-[40vh]' },
 ]
 
 // ── Individual project card ──
-function ProjectCard({ project, index }) {
+function ProjectCard({ project, index, onSelectProject }) {
+  const navigate = useNavigate()
+
+  const handleClick = () => {
+    if (onSelectProject) {
+      onSelectProject(project)
+    } else {
+      navigate('/projects', { state: { selectedProject: project } })
+    }
+  }
+
   return (
     <motion.div
+      onClick={handleClick}
       initial={{ opacity: 0, y: 30, scale: 0.98 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true, margin: '-50px' }}
       transition={{ delay: (index % 3) * 0.1, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative w-full overflow-hidden rounded-[20px] lg:rounded-[24px]"
+      className="group relative w-full overflow-hidden rounded-[20px] lg:rounded-[24px] cursor-pointer"
       style={{
         boxShadow: '0 20px 40px rgba(0,0,0,0.08)',
         border: '1px solid rgba(0,0,0,0.05)',
@@ -94,7 +105,7 @@ function ProjectCard({ project, index }) {
   )
 }
 
-export default function ProjectsGallery() {
+export default function ProjectsGallery({ onSelectProject }) {
   const sectionRef = useRef(null)
 
   return (
@@ -144,7 +155,7 @@ export default function ProjectsGallery() {
           {/* Left Column */}
           <div className="flex flex-col gap-8">
             {LEFT_PROJECTS.map((project, i) => (
-              <ProjectCard key={project.id} project={project} index={i} />
+              <ProjectCard key={project.id} project={project} index={i} onSelectProject={onSelectProject} />
             ))}
           </div>
 
@@ -153,7 +164,7 @@ export default function ProjectsGallery() {
             <div className="flex flex-col gap-8 h-full">
               {CENTER_PROJECTS.map((project, i) => (
                 <div key={project.id} className="sticky w-full" style={{ top: `calc(8rem + ${i * 2}rem)` }}>
-                  <ProjectCard project={project} index={i} />
+                  <ProjectCard project={project} index={i} onSelectProject={onSelectProject} />
                 </div>
               ))}
             </div>
@@ -162,7 +173,7 @@ export default function ProjectsGallery() {
           {/* Right Column */}
           <div className="flex flex-col gap-8">
             {RIGHT_PROJECTS.map((project, i) => (
-              <ProjectCard key={project.id} project={project} index={i} />
+              <ProjectCard key={project.id} project={project} index={i} onSelectProject={onSelectProject} />
             ))}
           </div>
           
@@ -173,14 +184,14 @@ export default function ProjectsGallery() {
           <div className="flex flex-col gap-6">
             {[...LEFT_PROJECTS, ...CENTER_PROJECTS.slice(0,1)].map((project, i) => (
               <div key={project.id} className="sticky" style={{ top: `calc(6rem + ${i * 1.5}rem)` }}>
-                <ProjectCard project={project} index={i} />
+                <ProjectCard project={project} index={i} onSelectProject={onSelectProject} />
               </div>
             ))}
           </div>
           <div className="flex flex-col gap-6">
             {[...RIGHT_PROJECTS, ...CENTER_PROJECTS.slice(1)].map((project, i) => (
               <div key={project.id} className="sticky" style={{ top: `calc(8rem + ${i * 1.5}rem)` }}>
-                <ProjectCard project={project} index={i} />
+                <ProjectCard project={project} index={i} onSelectProject={onSelectProject} />
               </div>
             ))}
           </div>
@@ -190,7 +201,7 @@ export default function ProjectsGallery() {
         <div className="grid md:hidden grid-cols-1 gap-6 relative items-start pb-24">
           {[...CENTER_PROJECTS, ...LEFT_PROJECTS, ...RIGHT_PROJECTS].map((project, i) => (
             <div key={project.id} className="sticky" style={{ top: `calc(5rem + ${i * 1}rem)` }}>
-              <ProjectCard project={project} index={i} />
+              <ProjectCard project={project} index={i} onSelectProject={onSelectProject} />
             </div>
           ))}
         </div>

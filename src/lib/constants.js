@@ -71,7 +71,7 @@ export const INTERIOR_SERVICES = [
       { name: 'Windows', id: 'com-windows' },
       { name: 'Painting', id: 'com-painting' },
     ],
-    image: '/iiesImages/CommercialImage.jpeg',
+    image: '/iiesImages/CommercialImage.jpg',
     icon: '🏢',
     color: '#FC6B00',
   },

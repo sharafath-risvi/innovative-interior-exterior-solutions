@@ -8,7 +8,7 @@
 // =================================================
 
 import { useEffect, useRef, useMemo } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -26,7 +26,7 @@ const getServiceDetailUrl = (id) => {
     case 'false-ceiling': return '/services/false-ceiling';
     case 'flooring': return '/services/flooring-solutions';
     case 'elevation': return '/services/elevation';
-    case 'gypsum-plaster': return '/services#gypsum-plaster';
+    case 'gypsum-plaster': return '/services/gypsum-plaster';
     default: return '/services';
   }
 };
@@ -38,7 +38,17 @@ const handleServiceClick = (id) => {
   }
 };
 
-export default function FeaturedServices() {
+export default function FeaturedServices({ onSelectProject }) {
+  const navigate = useNavigate()
+
+  const handleSignatureProjectClick = (service) => {
+    if (onSelectProject) {
+      onSelectProject(service)
+    } else {
+      navigate('/projects', { state: { selectedProject: service } })
+    }
+  }
+
   const containerRef = useRef(null)
   const imageContainerRef = useRef(null)
   const imagesRef = useRef([])
@@ -71,24 +81,60 @@ export default function FeaturedServices() {
       image: '/servicesImages/louvrepanels.jpeg',
       icon: '🏗️',
       color: '#FC6B00'
+    },
+    {
+      id: 'gypsum-plaster',
+      title: 'Gypsum Plaster',
+      subtitle: 'Eco-Friendly Premium Wall Finishes',
+      description: 'Gypsum plaster is an eco-friendly alternative to traditional sand-cement plaster, delivering smooth premium finishes with faster application. It requires no water curing, enhances durability, and is ideal for modern residential and commercial interiors.',
+      features: [
+        {
+          title: 'Eco-Friendly Alternative',
+          desc: 'An environmentally friendly alternative to traditional sand-cement plaster.'
+        },
+        {
+          title: 'Faster Application',
+          desc: 'Significantly faster application for internal plastering.'
+        },
+        {
+          title: 'No Water Curing Required',
+          desc: 'No water curing required, saving both water and valuable construction time.'
+        },
+        {
+          title: 'Versatile Compatibility',
+          desc: 'Suitable for bricks, blocks, RCC walls and ceilings.'
+        }
+      ],
+      image: '/servicesImages/gypsumplaster3.jpeg',
+      icon: '🏛️',
+      color: '#FC6B00'
     }
-  ], []) // Stop sticky images after Elevation
+  ], []) // Stop sticky images after Gypsum Plaster
   const moreServices = useMemo(() => [
     {
       id: 'chennai-metro',
-      title: 'Chennai Metro',
+      title: 'Chennai Metro Rail',
+      location: 'Chennai',
+      category: 'Infrastructure Project',
+      year: '2025',
       description: 'Interior and finishing works delivered for selected Chennai Metro stations with precision, durability, and modern architectural standards.',
       image: '/iiesImages/metrostation.jpeg',
     },
     {
       id: 'statue-of-unity',
       title: 'Statue of Unity',
+      location: 'Gujarat',
+      category: 'Landmark Project',
+      year: '2024',
       description: 'Specialized interior and architectural finishing solutions executed for one of India\'s most iconic national landmarks.',
       image: '/iiesImages/statueofunity.webp',
     },
     {
       id: 'amazon-hyderabad',
-      title: 'Amazon Hyderabad',
+      title: 'Amazon Hyderabad Office',
+      location: 'Hyderabad',
+      category: 'Corporate Interior',
+      year: '2025',
       description: 'Professional interior execution and premium finishing works completed for Amazon\'s Hyderabad corporate facility.',
       image: '/iiesImages/amazonhyderabad.jpg',
     }
@@ -390,10 +436,14 @@ export default function FeaturedServices() {
             const s3 = stRef.current.labelToScroll("step3")
             const s4 = stRef.current.labelToScroll("step4")
             if (s3 !== undefined && s4 !== undefined) targetScroll = s3 + (s4 - s3) * 0.82
-          } else if (targetId === 'flooring' || targetId === 'elevation') {
+          } else if (targetId === 'elevation') {
             const s4 = stRef.current.labelToScroll("step4")
-            const sEnd = stRef.current.labelToScroll("sceneCards") || stRef.current.end
-            if (s4 !== undefined && sEnd !== undefined) targetScroll = s4 + (sEnd - s4) * 0.75
+            const s5 = stRef.current.labelToScroll("step5")
+            if (s4 !== undefined && s5 !== undefined) targetScroll = s4 + (s5 - s4) * 0.75
+          } else if (targetId === 'gypsum-plaster' || targetId === 'flooring') {
+            const s5 = stRef.current.labelToScroll("step5")
+            const sCards = stRef.current.labelToScroll("sceneCards") || stRef.current.end
+            if (s5 !== undefined && sCards !== undefined) targetScroll = s5 + (sCards - s5) * 0.5
           }
 
           if (targetScroll !== undefined && !isNaN(targetScroll)) {
@@ -772,46 +822,100 @@ export default function FeaturedServices() {
             <div 
               key={`split-left-${i}`}
               ref={el => splitLeftTextsRef.current[i] = el}
-              className="absolute bottom-0 left-0 w-full h-[55vh] lg:h-screen lg:w-[40vw] flex flex-col justify-center px-6 sm:px-10 lg:px-24 opacity-0 pointer-events-auto"
+              className="absolute bottom-0 left-0 w-full h-[55vh] lg:h-screen lg:w-[44vw] flex flex-col justify-center px-6 sm:px-10 lg:px-16 opacity-0 pointer-events-auto"
             >
-              <p className="text-orange-500 text-sm font-semibold tracking-widest uppercase mb-2 lg:mb-4 flex items-center gap-2 lg:gap-3">
-                {scene.service.subtitle}
-              </p>
-              <h3 className="font-display font-bold text-gray-900 text-3xl sm:text-4xl lg:text-5xl leading-tight mb-4 lg:mb-6">
-                {scene.service.title}
-              </h3>
-              <p className="text-gray-500 text-sm sm:text-base lg:text-lg leading-relaxed mb-6 lg:mb-8 line-clamp-3 lg:line-clamp-none">
-                {scene.service.description}
-              </p>
-              {scene.service.features && (
-                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-4 mb-6 lg:mb-10">
-                  {scene.service.features.map((feature, idx) => {
-                     const isObj = typeof feature === 'object' && feature !== null
-                     const name = isObj ? feature.name : feature
-                     return (
-                       <li key={idx}>
-                         <div
-                           className="flex items-center gap-2 text-gray-700 transition-colors duration-300 text-xs sm:text-sm font-medium group/feat cursor-default"
-                         >
-                           <span className="w-1.5 h-1.5 rounded-full bg-orange-500 shrink-0 group-hover/feat:scale-125 transition-transform" />
-                           {name}
-                         </div>
-                       </li>
-                     )
-                  })}
-                </ul>
+              {scene.service.id === 'gypsum-plaster' ? (
+                <div className="flex flex-col justify-center">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-600 text-xs font-semibold tracking-widest uppercase mb-3 w-max">
+                    <span className="w-1.5 h-1.5 rounded-full bg-orange-500" />
+                    Eco-Friendly Wall Finishes
+                  </div>
+                  <h3 className="font-display font-bold text-gray-900 text-3xl sm:text-4xl lg:text-5xl leading-tight mb-4 lg:mb-6">
+                    Gypsum Plaster
+                  </h3>
+                  <p className="text-gray-500 text-sm sm:text-base lg:text-lg leading-relaxed mb-6 lg:mb-8">
+                    Gypsum plaster is an eco-friendly alternative to traditional sand-cement plaster, delivering smooth premium finishes with faster application. It requires no water curing, enhances durability, and is ideal for modern residential and commercial interiors.
+                  </p>
+                  
+                  {/* Modern Feature List with Checkmarks */}
+                  <div className="grid grid-cols-2 gap-2.5 mb-5">
+                    {[
+                      'Faster Application',
+                      'No Water Curing',
+                      'Smooth Premium Finish',
+                      'Eco-Friendly Material'
+                    ].map((item, idx) => (
+                      <div key={idx} className="flex items-center gap-2 text-gray-800 font-medium text-xs sm:text-sm">
+                        <span className="flex items-center justify-center w-5 h-5 rounded-full bg-orange-500/10 text-orange-600 shrink-0">
+                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                          </svg>
+                        </span>
+                        <span>{item}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <Link 
+                    to={getServiceDetailUrl(scene.service.id)}
+                    onClick={() => handleServiceClick(scene.service.id)}
+                    className="group inline-flex items-center gap-3 px-6 py-3.5 rounded-full border border-gray-300 hover:border-orange-500 bg-white hover:bg-orange-50/60 text-gray-900 hover:text-orange-500 transition-all duration-300 text-xs lg:text-sm font-semibold tracking-widest uppercase shadow-sm hover:shadow-md hover:-translate-y-0.5 w-max mt-2 sm:mt-3"
+                  >
+                    <span className="w-6 h-px bg-gray-900 transition-all duration-300 group-hover:w-10 group-hover:bg-orange-500" />
+                    <span>Explore Details</span>
+                    <svg className="w-4 h-4 text-gray-900 group-hover:text-orange-500 transition-transform duration-300 group-hover:translate-x-1 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </Link>
+                </div>
+              ) : (
+                <>
+                  <p className="text-orange-500 text-sm font-semibold tracking-widest uppercase mb-2 lg:mb-4 flex items-center gap-2 lg:gap-3">
+                    {scene.service.subtitle}
+                  </p>
+                  <h3 className="font-display font-bold text-gray-900 text-3xl sm:text-4xl lg:text-5xl leading-tight mb-4 lg:mb-6">
+                    {scene.service.title}
+                  </h3>
+                  <p className="text-gray-500 text-sm sm:text-base lg:text-lg leading-relaxed mb-6 lg:mb-8 line-clamp-3 lg:line-clamp-none">
+                    {scene.service.description}
+                  </p>
+                  {scene.service.features && (
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-5 mb-6 lg:mb-10">
+                      {scene.service.features.map((feature, idx) => {
+                         const isObj = typeof feature === 'object' && feature !== null
+                         const name = isObj ? (feature.title || feature.name) : feature
+                         const desc = isObj ? feature.desc : null
+                         return (
+                           <li key={idx} className={desc ? "col-span-1" : ""}>
+                             <div
+                               className="flex items-start gap-2.5 text-gray-700 transition-colors duration-300 text-xs sm:text-sm font-medium group/feat cursor-default"
+                             >
+                               <span className="w-1.5 h-1.5 rounded-full bg-orange-500 shrink-0 mt-1.5 group-hover/feat:scale-125 transition-transform" />
+                               <div>
+                                 <span className="font-semibold text-gray-900 block">{name}</span>
+                                 {desc && <span className="text-gray-500 text-xs font-normal block mt-0.5 leading-relaxed">{desc}</span>}
+                               </div>
+                             </div>
+                           </li>
+                         )
+                      })}
+                    </ul>
+                  )}
+                  {!scene.service.hideExploreButton && (
+                    <Link 
+                      to={getServiceDetailUrl(scene.service.id)}
+                      onClick={() => handleServiceClick(scene.service.id)}
+                      className="group inline-flex items-center gap-3 px-6 py-3.5 rounded-full border border-gray-300 hover:border-orange-500 bg-white hover:bg-orange-50/60 text-gray-900 hover:text-orange-500 transition-all duration-300 text-xs lg:text-sm font-semibold tracking-widest uppercase shadow-sm hover:shadow-md hover:-translate-y-0.5 w-max"
+                    >
+                      <span className="w-6 h-px bg-gray-900 transition-all duration-300 group-hover:w-10 group-hover:bg-orange-500" />
+                      <span>Explore Details</span>
+                      <svg className="w-4 h-4 text-gray-900 group-hover:text-orange-500 transition-transform duration-300 group-hover:translate-x-1 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                      </svg>
+                    </Link>
+                  )}
+                </>
               )}
-              <Link 
-                to={getServiceDetailUrl(scene.service.id)}
-                onClick={() => handleServiceClick(scene.service.id)}
-                className="group inline-flex items-center gap-3 px-6 py-3.5 rounded-full border border-gray-300 hover:border-orange-500 bg-white hover:bg-orange-50/60 text-gray-900 hover:text-orange-500 transition-all duration-300 text-xs lg:text-sm font-semibold tracking-widest uppercase shadow-sm hover:shadow-md hover:-translate-y-0.5 w-max"
-              >
-                <span className="w-6 h-px bg-gray-900 transition-all duration-300 group-hover:w-10 group-hover:bg-orange-500" />
-                <span>Explore Details</span>
-                <svg className="w-4 h-4 text-gray-900 group-hover:text-orange-500 transition-transform duration-300 group-hover:translate-x-1 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </Link>
             </div>
           )
         ))}
@@ -853,17 +957,19 @@ export default function FeaturedServices() {
                   })}
                 </ul>
               )}
-              <Link 
-                to={getServiceDetailUrl(scene.service.id)}
-                onClick={() => handleServiceClick(scene.service.id)}
-                className="group inline-flex items-center gap-3 px-6 py-3.5 rounded-full border border-gray-300 hover:border-orange-500 bg-white hover:bg-orange-50/60 text-gray-900 hover:text-orange-500 transition-all duration-300 text-xs lg:text-sm font-semibold tracking-widest uppercase shadow-sm hover:shadow-md hover:-translate-y-0.5 w-max"
-              >
-                <span className="w-6 h-px bg-gray-900 transition-all duration-300 group-hover:w-10 group-hover:bg-orange-500" />
-                <span>Explore Details</span>
-                <svg className="w-4 h-4 text-gray-900 group-hover:text-orange-500 transition-transform duration-300 group-hover:translate-x-1 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </Link>
+              {!scene.service.hideExploreButton && (
+                <Link 
+                  to={getServiceDetailUrl(scene.service.id)}
+                  onClick={() => handleServiceClick(scene.service.id)}
+                  className="group inline-flex items-center gap-3 px-6 py-3.5 rounded-full border border-gray-300 hover:border-orange-500 bg-white hover:bg-orange-50/60 text-gray-900 hover:text-orange-500 transition-all duration-300 text-xs lg:text-sm font-semibold tracking-widest uppercase shadow-sm hover:shadow-md hover:-translate-y-0.5 w-max"
+                >
+                  <span className="w-6 h-px bg-gray-900 transition-all duration-300 group-hover:w-10 group-hover:bg-orange-500" />
+                  <span>Explore Details</span>
+                  <svg className="w-4 h-4 text-gray-900 group-hover:text-orange-500 transition-transform duration-300 group-hover:translate-x-1 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </Link>
+              )}
             </div>
           )
         ))}
@@ -883,7 +989,7 @@ export default function FeaturedServices() {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             {moreServices.map(service => (
-              <div key={service.id} className="group relative rounded-2xl overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.06)] bg-white border border-gray-100 hover:shadow-[0_20px_40px_rgba(0,0,0,0.12)] transition-all duration-500 hover:-translate-y-2">
+              <div key={service.id} onClick={() => handleSignatureProjectClick(service)} className="group relative rounded-2xl overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.06)] bg-white border border-gray-100 hover:shadow-[0_20px_40px_rgba(0,0,0,0.12)] transition-all duration-500 hover:-translate-y-2 cursor-pointer">
                 <div className="h-48 md:h-64 overflow-hidden relative">
                   <img src={service.image} loading="lazy" alt={service.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60" />
@@ -895,10 +1001,10 @@ export default function FeaturedServices() {
                   <p className="text-gray-600 text-xs md:text-sm leading-relaxed line-clamp-2">
                     {service.description}
                   </p>
-                  <Link to="/services" className="inline-flex items-center gap-2 text-xs font-semibold tracking-widest uppercase text-gray-900 mt-6 group-hover:text-[#E68A2E] transition-colors">
+                  <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-widest uppercase text-gray-900 mt-6 group-hover:text-[#E68A2E] transition-colors">
                     <span className="w-6 h-px bg-gray-900 group-hover:w-10 group-hover:bg-[#E68A2E] transition-all" />
                     Explore Details
-                  </Link>
+                  </span>
                 </div>
               </div>
             ))}
@@ -985,52 +1091,104 @@ export default function FeaturedServices() {
               </motion.div>
               
               {/* Content below */}
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-                className="flex flex-col pt-2"
-              >
-                <p className="text-[#E68A2E] text-xs font-semibold tracking-[0.15em] uppercase mb-3">
-                  {service.subtitle}
-                </p>
-                <h3 className="font-display font-bold text-gray-900 text-3xl leading-tight mb-4">
-                  {service.title}
-                </h3>
-                <p className="text-gray-600 text-sm leading-relaxed mb-6">
-                  {service.description}
-                </p>
-                {service.features && (
-                  <ul className="grid grid-cols-1 gap-y-3 mb-8">
-                    {service.features.map((feature, idx) => {
-                       const isObj = typeof feature === 'object' && feature !== null
-                       const name = isObj ? feature.name : feature
-                       return (
-                         <li key={idx}>
-                           <div
-                             className="flex items-start gap-3 text-gray-700 transition-colors duration-300 text-sm font-medium group/feat cursor-default"
-                           >
-                             <span className="w-1.5 h-1.5 rounded-full bg-[#E68A2E] shrink-0 mt-1.5 group-hover/feat:scale-125 transition-transform" />
-                             {name}
-                           </div>
-                         </li>
-                       )
-                    })}
-                  </ul>
-                )}
-                <Link 
-                  to={getServiceDetailUrl(service.id)}
-                  onClick={() => handleServiceClick(service.id)}
-                  className="group inline-flex items-center gap-3 px-6 py-3 rounded-full border border-gray-300 hover:border-[#E68A2E] bg-white hover:bg-orange-50/60 text-gray-900 hover:text-[#E68A2E] transition-all duration-300 text-xs font-bold tracking-widest uppercase shadow-sm hover:shadow-md hover:-translate-y-0.5 w-max"
+              {service.id === 'gypsum-plaster' ? (
+                <div className="flex flex-col pt-2">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-600 text-xs font-semibold tracking-widest uppercase mb-3 w-max">
+                    <span className="w-1.5 h-1.5 rounded-full bg-orange-500" />
+                    Eco-Friendly Wall Finishes
+                  </div>
+                  <h3 className="font-display font-bold text-gray-900 text-3xl leading-tight mb-4">
+                    Gypsum Plaster
+                  </h3>
+                  <p className="text-gray-600 text-sm leading-relaxed mb-6">
+                    Gypsum plaster is an eco-friendly alternative to traditional sand-cement plaster, delivering smooth premium finishes with faster application. It requires no water curing, enhances durability, and is ideal for modern residential and commercial interiors.
+                  </p>
+                  
+                  {/* Modern Feature List with SVG Checkmarks */}
+                  <div className="grid grid-cols-2 gap-2.5 mb-6">
+                    {[
+                      'Faster Application',
+                      'No Water Curing',
+                      'Smooth Premium Finish',
+                      'Eco-Friendly Material'
+                    ].map((item, idx) => (
+                      <div key={idx} className="flex items-center gap-2 text-gray-800 font-medium text-xs sm:text-sm">
+                        <span className="flex items-center justify-center w-5 h-5 rounded-full bg-orange-500/10 text-orange-600 shrink-0">
+                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                          </svg>
+                        </span>
+                        <span>{item}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <Link 
+                    to={getServiceDetailUrl(service.id)}
+                    onClick={() => handleServiceClick(service.id)}
+                    className="group inline-flex items-center gap-3 px-6 py-3 rounded-full border border-gray-300 hover:border-[#E68A2E] bg-white hover:bg-orange-50/60 text-gray-900 hover:text-[#E68A2E] transition-all duration-300 text-xs font-bold tracking-widest uppercase shadow-sm hover:shadow-md hover:-translate-y-0.5 w-max mt-2 sm:mt-3"
+                  >
+                    <span className="w-6 h-[1.5px] bg-gray-900 transition-all duration-300 group-hover:w-10 group-hover:bg-[#E68A2E]" />
+                    <span>Explore Details</span>
+                    <svg className="w-4 h-4 text-gray-900 group-hover:text-[#E68A2E] transition-transform duration-300 group-hover:translate-x-1 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </Link>
+                </div>
+              ) : (
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                  className="flex flex-col pt-2"
                 >
-                  <span className="w-6 h-[1.5px] bg-gray-900 transition-all duration-300 group-hover:w-10 group-hover:bg-[#E68A2E]" />
-                  <span>Explore Details</span>
-                  <svg className="w-4 h-4 text-gray-900 group-hover:text-[#E68A2E] transition-transform duration-300 group-hover:translate-x-1 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
-                </Link>
-              </motion.div>
+                  <p className="text-[#E68A2E] text-xs font-semibold tracking-[0.15em] uppercase mb-3">
+                    {service.subtitle}
+                  </p>
+                  <h3 className="font-display font-bold text-gray-900 text-3xl leading-tight mb-4">
+                    {service.title}
+                  </h3>
+                  <p className="text-gray-600 text-sm leading-relaxed mb-6">
+                    {service.description}
+                  </p>
+                  {service.features && (
+                    <ul className="grid grid-cols-1 gap-y-3.5 mb-8">
+                      {service.features.map((feature, idx) => {
+                         const isObj = typeof feature === 'object' && feature !== null
+                         const name = isObj ? (feature.title || feature.name) : feature
+                         const desc = isObj ? feature.desc : null
+                         return (
+                           <li key={idx}>
+                             <div
+                               className="flex items-start gap-3 text-gray-700 transition-colors duration-300 text-sm font-medium group/feat cursor-default"
+                             >
+                               <span className="w-1.5 h-1.5 rounded-full bg-[#E68A2E] shrink-0 mt-1.5 group-hover/feat:scale-125 transition-transform" />
+                               <div>
+                                 <span className="font-semibold text-gray-900 block">{name}</span>
+                                 {desc && <span className="text-gray-500 text-xs font-normal block mt-0.5 leading-relaxed">{desc}</span>}
+                               </div>
+                             </div>
+                           </li>
+                         )
+                      })}
+                    </ul>
+                  )}
+                  {!service.hideExploreButton && (
+                    <Link 
+                      to={getServiceDetailUrl(service.id)}
+                      onClick={() => handleServiceClick(service.id)}
+                      className="group inline-flex items-center gap-3 px-6 py-3 rounded-full border border-gray-300 hover:border-[#E68A2E] bg-white hover:bg-orange-50/60 text-gray-900 hover:text-[#E68A2E] transition-all duration-300 text-xs font-bold tracking-widest uppercase shadow-sm hover:shadow-md hover:-translate-y-0.5 w-max"
+                    >
+                      <span className="w-6 h-[1.5px] bg-gray-900 transition-all duration-300 group-hover:w-10 group-hover:bg-[#E68A2E]" />
+                      <span>Explore Details</span>
+                      <svg className="w-4 h-4 text-gray-900 group-hover:text-[#E68A2E] transition-transform duration-300 group-hover:translate-x-1 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                      </svg>
+                    </Link>
+                  )}
+                </motion.div>
+              )}
             </div>
           ))}
         </div>
@@ -1052,12 +1210,13 @@ export default function FeaturedServices() {
           <div className="flex flex-col gap-8">
             {moreServices.map((service, idx) => (
               <motion.div 
+                onClick={() => handleSignatureProjectClick(service)}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.8, delay: idx * 0.1 }}
                 key={`mob-more-${service.id}`} 
-                className="group relative rounded-2xl overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.06)] bg-white border border-gray-100"
+                className="group relative rounded-2xl overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.06)] bg-white border border-gray-100 cursor-pointer"
               >
                 <div className="h-56 overflow-hidden relative">
                   <motion.img 
@@ -1077,10 +1236,10 @@ export default function FeaturedServices() {
                   <p className="text-gray-600 text-sm leading-relaxed line-clamp-2">
                     {service.description}
                   </p>
-                  <Link to="/services" className="inline-flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] uppercase text-gray-900 mt-6">
+                  <span className="inline-flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] uppercase text-gray-900 mt-6">
                     <span className="w-6 h-[1.5px] bg-gray-900" />
                     Explore Details
-                  </Link>
+                  </span>
                 </div>
               </motion.div>
             ))}

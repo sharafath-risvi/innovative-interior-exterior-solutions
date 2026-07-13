@@ -82,10 +82,10 @@ export const COMPLETED_PROJECTS = [
   },
   {
     id: 'comp-6',
-    title: 'Apollo Hospital – Porur (Interior View)',
+    title: 'Apollo Hospital (Interior View)',
     location: 'Chennai',
     category: 'Healthcare Interior',
-    description: 'Specialized medical and healthcare interior finishing work delivered for Apollo Hospital Porur with a focus on hygiene, acoustic comfort, and modern clinical aesthetics.',
+    description: 'Specialized medical and healthcare interior finishing work delivered for Apollo Hospital with a focus on hygiene, acoustic comfort, and modern clinical aesthetics.',
     image: '/iiesImages/apollohospital.webp',
     year: '2025',
     highlights: [
@@ -172,10 +172,10 @@ export const ICONIC_PROJECTS = [
   },
   {
     id: 'iconic-3',
-    title: 'Apollo Hospital – Porur (Interior View)',
+    title: 'Apollo Hospital (Interior View)',
     location: 'Chennai',
     category: 'Healthcare Interior',
-    description: 'Delivering clinical-grade healthcare interior finishing and specialized medical environment aesthetics for Apollo Hospital Porur.',
+    description: 'Delivering clinical-grade healthcare interior finishing and specialized medical environment aesthetics for Apollo Hospital.',
     image: '/iiesImages/apollohospital.webp',
     year: '2025',
     scale: 'Healthcare Infrastructure',

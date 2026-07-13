@@ -8,14 +8,31 @@
 //          equipped with interactive detail modal & consultation CTA.
 // =================================================
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import IconicProjects from '../components/sections/projects/IconicProjects'
 import CompletedProjects from '../components/sections/projects/CompletedProjects'
 import ProjectDetailModal from '../components/sections/projects/ProjectDetailModal'
 import ConsultationCTA from '../components/sections/services/ConsultationCTA'
 
 export default function Projects() {
-  const [selectedProject, setSelectedProject] = useState(null)
+  const location = useLocation()
+  const [selectedProject, setSelectedProject] = useState(() => {
+    return location.state?.selectedProject || null
+  })
+
+  useEffect(() => {
+    if (location.state?.selectedProject) {
+      setSelectedProject(location.state.selectedProject)
+    }
+  }, [location.state])
+
+  const handleCloseModal = () => {
+    setSelectedProject(null)
+    if (location.state?.selectedProject) {
+      window.history.replaceState({}, document.title)
+    }
+  }
 
   return (
     <main id="main-content" className="bg-white">
@@ -31,7 +48,7 @@ export default function Projects() {
       {/* ── Interactive Detail Modal (For Completed Projects) ── */}
       <ProjectDetailModal
         project={selectedProject}
-        onClose={() => setSelectedProject(null)}
+        onClose={handleCloseModal}
       />
     </main>
   )
