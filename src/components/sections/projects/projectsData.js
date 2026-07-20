@@ -86,7 +86,7 @@ export const COMPLETED_PROJECTS = [
     location: 'Chennai',
     category: 'Healthcare Interior',
     description: 'Specialized medical and healthcare interior finishing work delivered for Apollo Hospital with a focus on hygiene, acoustic comfort, and modern clinical aesthetics.',
-    image: '/iiesImages/apollohospital.webp',
+    image: '/iiesImages/appollo.jpg',
     year: '2025',
     highlights: [
       'Clinical-grade hygienic surface finishing',
@@ -176,7 +176,7 @@ export const ICONIC_PROJECTS = [
     location: 'Chennai',
     category: 'Healthcare Interior',
     description: 'Delivering clinical-grade healthcare interior finishing and specialized medical environment aesthetics for Apollo Hospital.',
-    image: '/iiesImages/apollohospital.webp',
+    image: '/iiesImages/appollo.jpg',
     year: '2025',
     scale: 'Healthcare Infrastructure',
     highlights: [

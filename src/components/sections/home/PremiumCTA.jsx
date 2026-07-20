@@ -105,16 +105,6 @@ export default function PremiumCTA() {
                 Get Free Consultation
               </Link>
             </motion.div>
-
-            {/* Secondary Glass Button */}
-            <motion.div whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.98 }} className="flex-1 sm:flex-none">
-              <Link
-                to="/portfolio"
-                className="inline-flex w-full items-center justify-center px-2 py-3.5 sm:px-10 sm:py-5 rounded-full text-white font-semibold text-[10px] sm:text-base tracking-wide bg-white/5 border border-white/20 backdrop-blur-md hover:bg-white/10 hover:border-white/30 transition-all duration-300 whitespace-nowrap"
-              >
-                View Our Portfolio
-              </Link>
-            </motion.div>
             
           </div>
         </motion.div>

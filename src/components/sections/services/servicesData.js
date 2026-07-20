@@ -285,7 +285,7 @@ export const GYPSUM_PLASTER_SERVICES_DATA = [
     subtitle: 'Sustainable Interior Construction',
     description: 'Environmentally responsible gypsum plaster solutions that conserve millions of liters of water by requiring zero curing. Non-combustible, fire-retardant, and certified safe for sustainable residential and commercial developments.',
     features: ['100% Water Curing Free', 'Fire Retardant & Non-Combustible', 'Green Building Compatible', 'Accelerated Project Delivery'],
-    image: '/servicesImages/gypsumplaster3.jpeg',
+    image: '/servicesImages/gypsumplaster4.jpg',
   },
 ]
 

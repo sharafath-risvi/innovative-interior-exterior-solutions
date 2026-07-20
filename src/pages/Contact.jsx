@@ -429,7 +429,6 @@ function ContactForm() {
                 boxShadow: '0 8px 24px rgba(37,211,102,0.35)',
               }}
             >
-              <span>💬</span>
               Chat on WhatsApp
             </motion.a>
           </div>
@@ -726,7 +725,7 @@ function ContactCTA() {
                 boxShadow: '0 8px 32px rgba(247,135,1,0.4)',
               }}
             >
-              📞 <span className="sm:hidden">Call Us</span><span className="hidden sm:inline">{CONTACT_INFO.phone1}</span>
+              <span className="sm:hidden">Call Us</span><span className="hidden sm:inline">{CONTACT_INFO.phone1}</span>
             </motion.a>
             <motion.a
               href={`https://wa.me/${CONTACT_INFO.whatsapp.replace(/\D/g, '')}`}
@@ -741,7 +740,7 @@ function ContactCTA() {
                 boxShadow: '0 8px 32px rgba(37,211,102,0.3)',
               }}
             >
-              💬 <span className="sm:hidden">WhatsApp</span><span className="hidden sm:inline">WhatsApp Us</span>
+              <span className="sm:hidden">WhatsApp</span><span className="hidden sm:inline">WhatsApp Us</span>
             </motion.a>
           </div>
         </motion.div>

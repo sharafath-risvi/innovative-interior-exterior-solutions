@@ -42,7 +42,7 @@ export default function GypsumPlasterContent() {
             style={{ height: '440px' }}
           >
             <img
-              src="/servicesImages/gypsumplaster.jpg"
+              src="/servicesImages/gypsumplaster4.jpg"
               alt="Gypsum Plaster"
               className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
               loading="lazy"

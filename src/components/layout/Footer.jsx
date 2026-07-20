@@ -85,13 +85,13 @@ export default function Footer() {
               className="flex items-center gap-3 mb-5" 
               aria-label="IIES Home"
             >
-              <img loading="lazy" src="/IIES.webp" alt="IIES" className="w-12 h-12 object-contain" />
-              <div>
-                <p className="font-display text-white text-sm font-semibold leading-tight">Innovative Interior</p>
-                <p className="text-[11px] tracking-widest leading-tight" style={{ color: 'var(--color-orange)' }}>
-                  & EXTERIOR SOLUTIONS
-                </p>
-              </div>
+              <img loading="lazy" src="/IIES.webp" alt="IIES Logo" className="w-12 h-12 object-contain shrink-0" />
+              <img 
+                loading="lazy" 
+                src="/IIESTEXT1.webp" 
+                alt="Innovative Interior & Exterior Solutions" 
+                className="h-[28px] sm:h-[32px] lg:h-[36px] w-auto object-contain" 
+              />
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed mb-6">
               Innovative Interior & Exterior Solutions (IIES) is a trusted interior and exterior design company committed to delivering creative, functional, and inspiring spaces. Our expertise spans residential interiors, commercial interiors, false ceilings, and complete interior & exterior solutions tailored to every client's needs.
@@ -196,37 +196,55 @@ export default function Footer() {
           <motion.div custom={3} variants={colVariant} initial="hidden" whileInView="visible" viewport={{ once: true }}>
             <h3 className="text-white font-semibold text-sm tracking-widest uppercase mb-5">Contact Us</h3>
             <ul className="space-y-4">
-              <li className="flex items-start gap-3">
-                <span className="text-orange-400 mt-0.5 shrink-0">📍</span>
+              <li className="flex items-start gap-3 group">
+                <span
+                  className="w-4 h-0.5 rounded-full transition-all duration-300 mt-2 shrink-0 group-hover:w-6"
+                  style={{ background: 'var(--color-orange)' }}
+                />
                 <span className="text-gray-400 text-sm leading-relaxed">{CONTACT_INFO.address}</span>
               </li>
-              <li className="flex items-center gap-3">
-                <span className="text-orange-400 shrink-0">📞</span>
-                <a href={`tel:${CONTACT_INFO.phone1}`} className="text-gray-400 text-sm hover:text-orange-400 transition-colors">
+              <li>
+                <a href={`tel:${CONTACT_INFO.phone1}`} className="flex items-center gap-3 text-gray-400 text-sm hover:text-orange-400 transition-colors group">
+                  <span
+                    className="w-4 h-0.5 rounded-full transition-all duration-300 shrink-0 group-hover:w-6"
+                    style={{ background: 'var(--color-orange)' }}
+                  />
                   {CONTACT_INFO.phone1}
                 </a>
               </li>
-              <li className="flex items-center gap-3">
-                <span className="text-orange-400 shrink-0">📱</span>
-                <a href={`tel:${CONTACT_INFO.phone2}`} className="text-gray-400 text-sm hover:text-orange-400 transition-colors">
+              <li>
+                <a href={`tel:${CONTACT_INFO.phone2}`} className="flex items-center gap-3 text-gray-400 text-sm hover:text-orange-400 transition-colors group">
+                  <span
+                    className="w-4 h-0.5 rounded-full transition-all duration-300 shrink-0 group-hover:w-6"
+                    style={{ background: 'var(--color-orange)' }}
+                  />
                   {CONTACT_INFO.phone2}
                 </a>
               </li>
-              <li className="flex items-center gap-3">
-                <span className="text-orange-400 shrink-0">✉️</span>
-                <a href={`mailto:${CONTACT_INFO.email}`} className="text-gray-400 text-sm hover:text-orange-400 transition-colors break-all">
+              <li>
+                <a href={`mailto:${CONTACT_INFO.email}`} className="flex items-center gap-3 text-gray-400 text-sm hover:text-orange-400 transition-colors break-all group">
+                  <span
+                    className="w-4 h-0.5 rounded-full transition-all duration-300 shrink-0 group-hover:w-6"
+                    style={{ background: 'var(--color-orange)' }}
+                  />
                   {CONTACT_INFO.email}
                 </a>
               </li>
-              <li className="flex items-center gap-3">
-                <span className="text-orange-400 shrink-0">✉️</span>
-                <a href={`mailto:${CONTACT_INFO.email2}`} className="text-gray-400 text-sm hover:text-orange-400 transition-colors break-all">
+              <li>
+                <a href={`mailto:${CONTACT_INFO.email2}`} className="flex items-center gap-3 text-gray-400 text-sm hover:text-orange-400 transition-colors break-all group">
+                  <span
+                    className="w-4 h-0.5 rounded-full transition-all duration-300 shrink-0 group-hover:w-6"
+                    style={{ background: 'var(--color-orange)' }}
+                  />
                   {CONTACT_INFO.email2}
                 </a>
               </li>
-              <li className="flex items-center gap-3">
-                <span className="text-orange-400 shrink-0">🌐</span>
-                <a href={`https://${CONTACT_INFO.website}`} target="_blank" rel="noopener noreferrer" className="text-gray-400 text-sm hover:text-orange-400 transition-colors">
+              <li>
+                <a href={`https://${CONTACT_INFO.website}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-gray-400 text-sm hover:text-orange-400 transition-colors group">
+                  <span
+                    className="w-4 h-0.5 rounded-full transition-all duration-300 shrink-0 group-hover:w-6"
+                    style={{ background: 'var(--color-orange)' }}
+                  />
                   {CONTACT_INFO.website}
                 </a>
               </li>

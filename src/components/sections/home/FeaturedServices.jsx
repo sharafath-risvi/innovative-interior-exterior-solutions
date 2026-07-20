@@ -105,7 +105,7 @@ export default function FeaturedServices({ onSelectProject }) {
           desc: 'Suitable for bricks, blocks, RCC walls and ceilings.'
         }
       ],
-      image: '/servicesImages/gypsumplaster3.jpeg',
+      image: '/servicesImages/gypsumplaster4.jpg',
       icon: '🏛️',
       color: '#FC6B00'
     }
@@ -837,7 +837,7 @@ export default function FeaturedServices({ onSelectProject }) {
                     Gypsum plaster is an eco-friendly alternative to traditional sand-cement plaster, delivering smooth premium finishes with faster application. It requires no water curing, enhances durability, and is ideal for modern residential and commercial interiors.
                   </p>
                   
-                  {/* Modern Feature List with Checkmarks */}
+                  {/* Modern Feature List */}
                   <div className="grid grid-cols-2 gap-2.5 mb-5">
                     {[
                       'Faster Application',
@@ -845,12 +845,8 @@ export default function FeaturedServices({ onSelectProject }) {
                       'Smooth Premium Finish',
                       'Eco-Friendly Material'
                     ].map((item, idx) => (
-                      <div key={idx} className="flex items-center gap-2 text-gray-800 font-medium text-xs sm:text-sm">
-                        <span className="flex items-center justify-center w-5 h-5 rounded-full bg-orange-500/10 text-orange-600 shrink-0">
-                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                          </svg>
-                        </span>
+                      <div key={idx} className="flex items-center gap-2 text-gray-700 transition-colors duration-300 text-xs sm:text-sm font-medium group/feat cursor-default">
+                        <span className="w-1.5 h-1.5 rounded-full bg-orange-500 shrink-0 group-hover/feat:scale-125 transition-transform" />
                         <span>{item}</span>
                       </div>
                     ))}

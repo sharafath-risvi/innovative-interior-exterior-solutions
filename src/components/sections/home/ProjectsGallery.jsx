@@ -21,7 +21,7 @@ const LEFT_PROJECTS = [
 
 const CENTER_PROJECTS = [
   { id: 'c1', title: 'World Trade Center – Chennai', category: 'Commercial Interior', location: 'Chennai', year: '2025', image: '/iiesImages/worldtradecenter.webp', description: 'High-end commercial interior and finishing solutions executed for one of Chennai\'s most prestigious business destinations.', height: 'h-[60vh] lg:h-[70vh]' },
-  { id: 'c2', title: 'Apollo Hospital (Interior View)', category: 'Healthcare Interior', location: 'Chennai', year: '2025', image: '/iiesImages/apollohospital.webp', description: 'Specialized medical and healthcare interior finishing work delivered for Apollo Hospital with a focus on hygiene, acoustic comfort, and modern clinical aesthetics.', height: 'h-[60vh] lg:h-[70vh]' },
+  { id: 'c2', title: 'Apollo Hospital (Interior View)', category: 'Healthcare Interior', location: 'Chennai', year: '2025', image: '/iiesImages/appollo.jpg', description: 'Specialized medical and healthcare interior finishing work delivered for Apollo Hospital with a focus on hygiene, acoustic comfort, and modern clinical aesthetics.', height: 'h-[60vh] lg:h-[70vh]' },
 ]
 
 const RIGHT_PROJECTS = [

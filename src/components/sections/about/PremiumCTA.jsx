@@ -105,6 +105,14 @@ export default function PremiumCTA() {
           
           <Link 
             to="/contact"
+            onClick={() => {
+              window.scrollTo(0, 0)
+              if (window.lenis) window.lenis.scrollTo(0, { immediate: true })
+              setTimeout(() => {
+                window.scrollTo(0, 0)
+                if (window.lenis) window.lenis.scrollTo(0, { immediate: true })
+              }, 50)
+            }}
             className="relative flex items-center gap-4 px-12 py-5 rounded-full overflow-hidden bg-white border border-gray-200 shadow-md backdrop-blur-xl transition-all duration-500 group-hover:bg-gray-50 group-hover:border-orange-400/50"
           >
             {/* Inner gradient sweeping effect */}

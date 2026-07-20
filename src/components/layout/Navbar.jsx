@@ -71,17 +71,29 @@ export default function Navbar() {
         animate={{ y: hidden ? '-100%' : '0%', opacity: 1 }}
         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? 'bg-white/90 backdrop-blur-xl shadow-md border-b border-gray-100'
-            : 'bg-transparent'
+          scrolled 
+            ? 'backdrop-blur-md shadow-[0_16px_40px_rgba(0,0,0,0.5)] border-b border-white/15'
+            : 'bg-transparent border-transparent'
         }`}
-        style={{ height: 'var(--nav-height)' }}
+        style={{ 
+          height: 'var(--nav-height)', 
+          background: scrolled ? 'rgba(28, 28, 32, 0.82)' : 'transparent' 
+        }}
         role="banner"
       >
         <div
-          className="flex items-center justify-between px-6 md:px-12 lg:px-20 h-full"
+          className="relative flex items-center justify-between px-6 md:px-12 lg:px-20 h-full"
           style={{ maxWidth: 'var(--container-max)', margin: '0 auto' }}
         >
+          {/* ── Mobile Centered Branding ── */}
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 sm:hidden pointer-events-none flex items-center justify-center">
+            <img
+              src="/IIESTEXT1.webp"
+              alt="Innovative Interior & Exterior Solutions"
+              className="h-[24px] w-auto object-contain"
+            />
+          </div>
+
           {/* ── Logo ── */}
           <Link 
             to="/" 
@@ -92,20 +104,20 @@ export default function Navbar() {
             aria-label="IIES Home"
           >
             <motion.div
-              className="flex items-center gap-4"
+              className="flex items-center gap-3 sm:gap-4"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
               <img
                 src="/IIES.webp"
                 alt="IIES Logo"
-                className="w-[55px] h-[55px] object-contain"
+                className="w-[55px] h-[55px] object-contain shrink-0"
               />
-              <div className={`hidden sm:block transition-colors duration-300 ${scrolled ? 'text-gray-800' : 'text-white'}`}>
-                <p className="font-display text-[18px] font-bold leading-tight">Innovative Interior</p>
-                <p className="font-display text-[12.5px] font-medium leading-tight tracking-[0.15em] mt-0.5"
-                   style={{ color: 'var(--color-orange)' }}>& EXTERIOR SOLUTIONS</p>
-              </div>
+              <img
+                src="/IIESTEXT1.webp"
+                alt="Innovative Interior & Exterior Solutions"
+                className="hidden sm:block h-[30px] md:h-[40px] lg:h-[45px] w-auto object-contain"
+              />
             </motion.div>
           </Link>
 
@@ -121,9 +133,7 @@ export default function Navbar() {
                     if (window.lenis) window.lenis.scrollTo(0, { immediate: true })
                   }
                 }}
-                className={`relative text-[15px] font-semibold tracking-widest transition-colors duration-300 group ${
-                  scrolled ? 'text-gray-700' : 'text-white/90'
-                } ${isActive(link.href) ? '!text-orange-500' : 'hover:text-orange-500'}`}
+                className={`relative text-[15px] font-semibold tracking-widest transition-colors duration-300 group text-white/90 ${isActive(link.href) ? '!text-orange-500' : 'hover:text-orange-500'}`}
                 aria-current={isActive(link.href) ? 'page' : undefined}
               >
                 {link.label}
@@ -154,9 +164,7 @@ export default function Navbar() {
           {/* ── Mobile Hamburger ── */}
           <motion.button
             id="mobile-menu-btn"
-            className={`md:hidden flex flex-col gap-1.5 p-2 transition-colors ${
-              scrolled ? 'text-gray-800' : 'text-white'
-            }`}
+            className="md:hidden flex flex-col gap-1.5 p-2 transition-colors text-white"
             onClick={() => setMenuOpen(!menuOpen)}
             whileTap={{ scale: 0.9 }}
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
@@ -188,7 +196,8 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-white md:hidden"
+            className="fixed inset-0 z-40 flex flex-col items-center justify-center md:hidden backdrop-blur-md"
+            style={{ background: 'rgba(28, 28, 32, 0.82)' }}
             role="dialog"
             aria-modal="true"
             aria-label="Mobile navigation menu"
@@ -204,7 +213,7 @@ export default function Navbar() {
                   <Link
                     to={link.href}
                     className={`font-display text-4xl font-semibold transition-colors ${
-                      isActive(link.href) ? 'text-orange-500' : 'text-gray-800 hover:text-orange-500'
+                      isActive(link.href) ? 'text-orange-500' : 'text-white/90 hover:text-orange-500'
                     }`}
                     onClick={() => {
                       setMenuOpen(false)

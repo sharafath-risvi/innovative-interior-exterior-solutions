@@ -63,6 +63,14 @@ export default function ConsultationCTA() {
             <motion.div whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }} className="flex-1 sm:flex-none">
               <Link
                 to="/contact"
+                onClick={() => {
+                  window.scrollTo(0, 0)
+                  if (window.lenis) window.lenis.scrollTo(0, { immediate: true })
+                  setTimeout(() => {
+                    window.scrollTo(0, 0)
+                    if (window.lenis) window.lenis.scrollTo(0, { immediate: true })
+                  }, 50)
+                }}
                 id="services-consultation-cta"
                 className="inline-flex w-full items-center justify-center gap-1.5 sm:gap-3 px-1 sm:px-8 py-3.5 sm:py-4 rounded-full text-white font-semibold text-[10px] sm:text-sm whitespace-nowrap"
                 style={{
