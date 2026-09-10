@@ -55,10 +55,37 @@ export default function LeadPopup() {
     // sessionStorage.setItem('leadPopupShown', 'true');
   };
 
-  const handleSubmit = (e) => {
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Simulate form submission
-    handleClose();
+    setSubmitting(true);
+    try {
+      const payload = {
+        access_key: '9b3b2538-8ff5-4f85-921e-78852db8b704',
+        to: 'info@iiesolution.com',
+        subject: `New Lead from ${formData.name || 'Website Visitor'} (Popup)`,
+        name: formData.name,
+        phone: formData.phone,
+        email: formData.email,
+        service: formData.service,
+      };
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await response.json();
+      if (data.success) {
+        setSubmitted(true);
+        handleClose();
+      } else {
+        setSubmitting(false);
+      }
+    } catch {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -176,9 +203,10 @@ export default function LeadPopup() {
               </div>
               <button 
                 type="submit"
-                className="w-full mt-2 py-4 px-6 bg-[#111111] hover:bg-[#F7941D] text-white rounded-xl font-bold text-[14px] tracking-wide transition-all duration-300 shadow-xl shadow-black/10 hover:shadow-[#F7941D]/30 transform hover:-translate-y-0.5"
+                disabled={submitting}
+                className="w-full mt-2 py-4 px-6 bg-[#111111] hover:bg-[#F7941D] text-white rounded-xl font-bold text-[14px] tracking-wide transition-all duration-300 shadow-xl shadow-black/10 hover:shadow-[#F7941D]/30 transform hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:bg-[#111111] disabled:hover:translate-y-0"
               >
-                Request a Free Consultation
+                {submitting ? 'Sending...' : 'Request a Free Consultation'}
               </button>
             </form>
           </motion.div>
