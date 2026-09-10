@@ -343,10 +343,34 @@ function ContactForm() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setSubmitting(true)
-    // ── Future: connect to backend/EmailJS here ──
-    await new Promise(resolve => setTimeout(resolve, 1500))
-    setSubmitting(false)
-    setSubmitted(true)
+    try {
+      const payload = {
+        access_key: 'af28f7e3-08d6-4f17-ac2d-c3d551c31c9d',
+        to: 'info@iiesolution.com',
+        subject: `New Inquiry from ${formData.name || 'Website Visitor'}`,
+        name: formData.name,
+        phone: formData.phone,
+        email: formData.email,
+        service: formData.service,
+        location: formData.location,
+        message: formData.message,
+      }
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(payload),
+      })
+      const data = await response.json()
+      if (data.success) {
+        setSubmitted(true)
+      } else {
+        // API returned an error — reset so user can retry
+        setSubmitting(false)
+      }
+    } catch {
+      // Network error — reset so user can retry
+      setSubmitting(false)
+    }
   }
 
   const inputClass = `w-full px-8 py-5 rounded-2xl border border-white bg-white/50 text-gray-900 text-[15px] outline-none transition-all duration-300 focus:bg-white focus:border-orange-300 focus:ring-4 focus:ring-orange-100/50 hover:bg-white/80 placeholder:text-gray-400 font-body-iies shadow-[0_2px_10px_rgba(0,0,0,0.02)]`
@@ -445,7 +469,6 @@ function ContactForm() {
                 className="p-12 rounded-3xl text-center border border-orange-100"
                 style={{ background: 'var(--color-orange-pale)' }}
               >
-                <div className="text-6xl mb-5" aria-hidden="true">🎉</div>
                 <h3 className="font-display text-gray-900 text-2xl font-bold mb-3">Thank You!</h3>
                 <p className="text-gray-600 leading-relaxed">
                   Your inquiry has been received. Our team will reach out to you within 24 hours.
